@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DPE L8++ 2026 Engineering Masterclass | 40 Production Projects & Interactive Studio</title>
+  
+  <!-- Core SEO & Search Indexing Metadata -->
+  <meta name="description" content="Master cutting-edge 2026 CSS updates and advanced vanilla JavaScript browser systems with 40 production-grade projects engineered to Distinguished Principal Engineer (L8++) standards. Sub-16ms INP, WCAG 2.2 AAA accessibility, and Schema.org rich results.">
+  <meta name="keywords" content="CSS 2026, Core Web Vitals, INP optimization, Vanilla JavaScript Systems, Virtual DOM, Web Workers, CSS Subgrid, CSS Anchor Positioning, interpolate-size, light-dark, DPE L8++, Schema.org">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/master-curriculum/">
+  <meta name="theme-color" content="#121024">
+
+  <!-- Open Graph & Social Entity Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DPE L8++ 2026 Engineering Masterclass | 40 Production Projects">
+  <meta property="og:description" content="Master cutting-edge 2026 CSS standards and advanced vanilla JavaScript browser systems with 40 production-grade projects. Zero runtime bloat, sub-16ms INP, and rich structured data.">
+  <meta property="og:url" content="https://example.com/master-curriculum/">
+  <meta property="og:site_name" content="DPE L8++ Engineering Academy">
+  <meta property="og:locale" content="en_US">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DPE L8++ 2026 Engineering Masterclass & Interactive Studio">
+  <meta name="twitter:description" content="Master modern 2026 CSS and JS browser systems with 40 progressive projects, Monaco editor, and Core Web Vitals telemetry.">
+
+  <!-- Schema.org JSON-LD Structured Data (Course & ItemList Curriculum) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "DPE L8++ 2026 Engineering Masterclass",
+    "description": "Comprehensive 40-project curriculum teaching cutting-edge 2026 CSS standards, advanced vanilla JavaScript browser systems, INP Core Web Vitals optimization, and DPE Level 8++ enterprise architecture.",
+    "provider": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "courseCode": "DPE-L8-2026-ENG",
+    "educationalLevel": "Distinguished Principal Engineer (Level 8++)",
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "courseWorkload": "PT40H"
+    },
+    "about": [
+      { "@type": "Thing", "name": "Modern CSS Specifications 2026" },
+      { "@type": "Thing", "name": "Core Web Vitals & Sub-16ms INP" },
+      { "@type": "Thing", "name": "CSS Anchor Positioning & Subgrid" },
+      { "@type": "Thing", "name": "Vanilla JavaScript Browser Systems & Virtual DOM Engines" },
+      { "@type": "Thing", "name": "Web Workers & Actor Model Architecture" },
+      { "@type": "Thing", "name": "Micro-Frontend Kernel & Event Bus Architecture" }
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Monaco Editor Loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+
+  <style>
+    /* ==========================================================================
+       DPE L8++ MASTER PORTAL DESIGN SYSTEM
+       Architect: Distinguished Principal Engineer (L8++)
+       Standards: CSS Cascade Layers, OKLCH Color Space, CSS Grid, Monaco Host
+       ========================================================================== */
+    @layer reset, tokens, base, layout, components, monaco-host;
+
+    @layer reset {
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      button, input, select {
+        font: inherit;
+        color: inherit;
+        border: none;
+        background: none;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    @layer tokens {
+      :root {
+        --color-bg-base: oklch(0.1 0.02 260);
+        --color-bg-sidebar: oklch(0.13 0.025 260 / 0.95);
+        --color-bg-surface: oklch(0.16 0.03 260 / 0.8);
+        --color-bg-surface-elevated: oklch(0.19 0.035 260);
+        --color-border: oklch(0.28 0.04 260 / 0.6);
+        --color-border-focus: oklch(0.75 0.19 190);
+
+        --color-text-high: oklch(0.98 0.01 260);
+        --color-text-med: oklch(0.75 0.03 260);
+        --color-text-dim: oklch(0.52 0.02 260);
+
+        --color-cyan: oklch(0.75 0.19 190);
+        --color-purple: oklch(0.68 0.22 290);
+        --color-green: oklch(0.75 0.2 145);
+        --color-amber: oklch(0.8 0.18 80);
+
+        --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+    }
+
+    @layer base {
+      html, body {
+        height: 100%;
+        overflow: hidden;
+        background-color: var(--color-bg-base);
+        color: var(--color-text-high);
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+
+    @layer layout {
+      /* Main App Shell Layout */
+      .app-shell {
+        display: grid;
+        grid-template-rows: 56px 1fr;
+        height: 100vh;
+        width: 100vw;
+        overflow: hidden;
+      }
+
+      /* Master Top Header */
+      .app-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 1.5rem;
+        background: var(--color-bg-sidebar);
+        border-bottom: 1px solid var(--color-border);
+        backdrop-filter: blur(16px);
+        z-index: 50;
+      }
+
+      .app-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--color-cyan), var(--color-purple));
+        display: grid;
+        place-items: center;
+        color: oklch(0.1 0.02 260);
+        font-weight: 800;
+        font-size: 1.1rem;
+      }
+
+      .brand-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .brand-badge {
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        color: var(--color-cyan);
+        background: oklch(from var(--color-cyan) l c h / 0.15);
+        padding: 0.15rem 0.5rem;
+        border-radius: 9999px;
+      }
+
+      .header-center {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-nav-stepper {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: oklch(0 0 0 / 0.4);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 0.2rem 0.4rem;
+      }
+
+      .nav-step-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        border-radius: 5px;
+        color: var(--color-text-med);
+        cursor: pointer;
+        transition: all 130ms ease;
+
+        &:hover:not(:disabled) {
+          background: oklch(1 0 0 / 0.08);
+          color: var(--color-cyan);
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+
+      .nav-step-counter {
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 700;
+        color: var(--color-cyan);
+        padding-inline: 0.5rem;
+        white-space: nowrap;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .btn-shortcuts {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        border: 1px solid var(--color-border);
+        border-radius: 7px;
+        color: var(--color-text-med);
+        background: oklch(0 0 0 / 0.25);
+        cursor: pointer;
+        transition: all 150ms ease;
+
+        &:hover {
+          color: var(--color-text-high);
+          border-color: var(--color-cyan);
+          background: oklch(1 0 0 / 0.05);
+        }
+
+        kbd {
+          font-family: var(--font-mono);
+          font-size: 0.7rem;
+          background: oklch(0 0 0 / 0.4);
+          border: 1px solid var(--color-border);
+          border-radius: 4px;
+          padding: 0.1rem 0.35rem;
+          color: var(--color-cyan);
+        }
+      }
+
+      .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        input {
+          background: oklch(0 0 0 / 0.3);
+          border: 1px solid var(--color-border);
+          border-radius: 8px;
+          padding: 0.35rem 0.75rem 0.35rem 2rem;
+          font-size: 0.825rem;
+          width: 220px;
+          color: var(--color-text-high);
+          transition: all 180ms ease;
+
+          &:focus {
+            outline: none;
+            border-color: var(--color-cyan);
+            width: 280px;
+            box-shadow: 0 0 15px oklch(from var(--color-cyan) l c h / 0.25);
+          }
+        }
+
+        .search-icon {
+          position: absolute;
+          left: 0.65rem;
+          color: var(--color-text-dim);
+          pointer-events: none;
+        }
+      }
+
+      /* Workspace Columns */
+      .app-workspace {
+        display: grid;
+        grid-template-columns: 320px 1.15fr 1fr;
+        height: calc(100vh - 56px);
+        overflow: hidden;
+      }
+
+      @media (max-width: 1200px) {
+        .app-workspace {
+          grid-template-columns: 280px 1.2fr 1fr;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .app-workspace {
+          grid-template-columns: 1fr;
+          overflow-y: auto;
+        }
+      }
+    }
+
+    @layer components {
+      /* Left Navigation Sidebar */
+      .sidebar {
+        background: var(--color-bg-sidebar);
+        border-right: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+      }
+
+      .curriculum-filter-tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.35rem;
+        padding: 0.75rem 0.85rem 0.6rem;
+        border-bottom: 1px solid var(--color-border);
+        background: oklch(0 0 0 / 0.15);
+      }
+
+      .filter-pill {
+        font-size: 0.68rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        padding: 0.4rem 0.2rem;
+        border-radius: 6px;
+        background: oklch(1 0 0 / 0.04);
+        border: 1px solid transparent;
+        color: var(--color-text-dim);
+        text-align: center;
+        cursor: pointer;
+        transition: all 140ms ease;
+        white-space: nowrap;
+
+        &:hover {
+          color: var(--color-text-high);
+          background: oklch(1 0 0 / 0.08);
+        }
+
+        &.active {
+          background: oklch(from var(--color-cyan) l c h / 0.15);
+          color: var(--color-cyan);
+          border-color: oklch(from var(--color-cyan) l c h / 0.35);
+        }
+      }
+
+      .sidebar-header {
+        padding: 0.85rem 1.25rem 0.4rem;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        color: var(--color-text-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .project-nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.5rem 0.75rem 2rem;
+        list-style: none;
+      }
+
+      .project-nav-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        padding: 0.65rem 0.85rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 150ms ease;
+        border: 1px solid transparent;
+
+        &:hover {
+          background: oklch(1 0 0 / 0.04);
+        }
+
+        &.active {
+          background: oklch(from var(--color-cyan) l c h / 0.12);
+          border-color: oklch(from var(--color-cyan) l c h / 0.35);
+
+          .nav-item-title {
+            color: var(--color-cyan);
+            font-weight: 700;
+          }
+        }
+      }
+
+      .nav-item-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-item-level {
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        color: var(--color-text-dim);
+      }
+
+      .nav-item-badge {
+        font-size: 0.65rem;
+        font-family: var(--font-mono);
+        padding: 0.1rem 0.4rem;
+        border-radius: 4px;
+        background: oklch(1 0 0 / 0.06);
+        color: var(--color-text-med);
+      }
+
+      .nav-item-title {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-text-high);
+        line-height: 1.35;
+      }
+
+      /* Middle Column: Narrative Tutorial Pane */
+      .narrative-pane {
+        background: var(--color-bg-base);
+        border-right: 1px solid var(--color-border);
+        overflow-y: auto;
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .narrative-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .level-pill {
+        display: inline-flex;
+        align-self: flex-start;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        background: oklch(from var(--color-cyan) l c h / 0.15);
+        color: var(--color-cyan);
+        border: 1px solid oklch(from var(--color-cyan) l c h / 0.3);
+      }
+
+      .project-headline {
+        font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.25;
+      }
+
+      .feature-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+
+      .feature-tag {
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        background: oklch(0 0 0 / 0.35);
+        border: 1px solid var(--color-border);
+        color: var(--color-purple);
+        padding: 0.2rem 0.6rem;
+        border-radius: 6px;
+      }
+
+      .narrative-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .section-heading {
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        color: var(--color-text-high);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        &::before {
+          content: "§";
+          color: var(--color-cyan);
+          font-family: var(--font-mono);
+        }
+      }
+
+      .section-body {
+        color: var(--color-text-med);
+        font-size: 0.95rem;
+        line-height: 1.7;
+        text-wrap: pretty;
+
+        p { margin-bottom: 0.85rem; }
+        
+        code {
+          font-family: var(--font-mono);
+          font-size: 0.85em;
+          color: var(--color-cyan);
+          background: oklch(0 0 0 / 0.35);
+          padding: 0.15em 0.4em;
+          border-radius: 4px;
+        }
+
+        strong {
+          color: var(--color-text-high);
+        }
+      }
+
+      /* Step By Step Cards */
+      .steps-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .step-card {
+        background: var(--color-bg-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: border-color 180ms ease;
+
+        &:hover {
+          border-color: oklch(0.45 0.08 260);
+        }
+      }
+
+      .step-card-header {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--color-cyan);
+        font-family: var(--font-mono);
+      }
+
+      .step-card-body {
+        font-size: 0.9rem;
+        color: var(--color-text-med);
+        line-height: 1.6;
+
+        code {
+          font-family: var(--font-mono);
+          color: var(--color-amber);
+          background: oklch(0 0 0 / 0.4);
+          padding: 0.1em 0.35em;
+          border-radius: 4px;
+        }
+
+        pre {
+          background: oklch(0.09 0.02 260);
+          border: 1px solid var(--color-border);
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          overflow-x: auto;
+          font-family: var(--font-mono);
+          font-size: 0.8rem;
+          line-height: 1.5;
+          margin-top: 0.65rem;
+          margin-bottom: 0.5rem;
+          color: var(--color-cyan);
+        }
+
+        pre code {
+          background: transparent;
+          padding: 0;
+          color: inherit;
+          font-size: inherit;
+        }
+      }
+
+      /* Action Bar: Launch Standalone */
+      .standalone-link-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: oklch(0.14 0.03 260);
+        border: 1px dashed oklch(from var(--color-cyan) l c h / 0.4);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+      }
+
+      .btn-launch-external {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--color-cyan);
+        color: oklch(0.1 0.02 260);
+        font-weight: 700;
+        padding: 0.55rem 1rem;
+        border-radius: 8px;
+        font-size: 0.825rem;
+        transition: all 180ms ease;
+
+        &:hover {
+          box-shadow: 0 0 16px var(--color-cyan);
+          transform: translateY(-1px);
+        }
+      }
+
+      /* Right Column: Code Studio & Live Preview */
+      .studio-pane {
+        background: oklch(0.08 0.02 260);
+        display: grid;
+        grid-template-rows: 46px 1fr;
+        overflow: hidden;
+      }
+
+      .studio-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 1rem;
+        background: oklch(0.12 0.02 260);
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .studio-tabs {
+        display: flex;
+        gap: 0.25rem;
+      }
+
+      .tab-btn {
+        padding: 0.4rem 0.85rem;
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        border-radius: 6px;
+        color: var(--color-text-dim);
+        cursor: pointer;
+        transition: all 150ms ease;
+        display: inline-flex;
+        align-items: center;
+
+        &:hover {
+          color: var(--color-text-high);
+          background: oklch(1 0 0 / 0.05);
+        }
+
+        &.active {
+          background: oklch(1 0 0 / 0.1);
+          color: var(--color-cyan);
+        }
+      }
+
+      .tab-sub-badge {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 0.4rem;
+        font-size: 0.65rem;
+        padding: 0.05rem 0.35rem;
+        border-radius: 4px;
+        background: oklch(from var(--color-cyan) l c h / 0.15);
+        color: var(--color-cyan);
+        font-weight: 700;
+
+        &.pure-css {
+          background: oklch(1 0 0 / 0.06);
+          color: var(--color-text-dim);
+        }
+      }
+
+      /* Shortcuts Modal Dialog */
+      #shortcuts-dialog {
+        margin: auto;
+        padding: 0;
+        background: var(--color-bg-surface-elevated);
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        box-shadow: 0 24px 64px oklch(0 0 0 / 0.7);
+        color: var(--color-text-high);
+        width: min(520px, 92vw);
+        outline: none;
+
+        &::backdrop {
+          background: oklch(0 0 0 / 0.7);
+          backdrop-filter: blur(8px);
+        }
+      }
+
+      .dialog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem 1.5rem;
+        border-bottom: 1px solid var(--color-border);
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+      }
+
+      .dialog-close-btn {
+        font-size: 1.35rem;
+        line-height: 1;
+        cursor: pointer;
+        color: var(--color-text-dim);
+        padding: 0.2rem 0.5rem;
+        border-radius: 6px;
+        transition: all 120ms ease;
+
+        &:hover {
+          color: var(--color-text-high);
+          background: oklch(1 0 0 / 0.1);
+        }
+      }
+
+      .dialog-body {
+        padding: 1.25rem 1.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+      }
+
+      .shortcut-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.35rem 0;
+        border-bottom: 1px solid oklch(1 0 0 / 0.05);
+        font-size: 0.85rem;
+        color: var(--color-text-med);
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+
+      .shortcut-keys {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      kbd {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 600;
+        background: oklch(0 0 0 / 0.45);
+        border: 1px solid var(--color-border);
+        border-radius: 4px;
+        padding: 0.15rem 0.45rem;
+        box-shadow: 0 2px 0 oklch(0 0 0 / 0.4);
+        color: var(--color-cyan);
+      }
+
+      .studio-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-copy {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        font-weight: 600;
+        background: oklch(1 0 0 / 0.08);
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        color: var(--color-text-med);
+        cursor: pointer;
+        transition: all 150ms ease;
+
+        &:hover {
+          background: oklch(1 0 0 / 0.15);
+          color: var(--color-text-high);
+        }
+
+        &.copied {
+          background: oklch(from var(--color-green) l c h / 0.2);
+          border-color: var(--color-green);
+          color: var(--color-green);
+        }
+      }
+
+      /* Editor & Preview Containers */
+      .studio-viewport {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      #monaco-container {
+        width: 100%;
+        height: 100%;
+      }
+
+      #preview-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: #fff;
+        display: none;
+      }
+
+      /* Fallback Code Container (if Monaco is loading/offline) */
+      #fallback-code-container {
+        display: none;
+        width: 100%;
+        height: 100%;
+        padding: 1.5rem;
+        overflow: auto;
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        line-height: 1.55;
+        color: #e2e8f0;
+        background: #0d1117;
+        white-space: pre;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="app-header" role="banner">
+      <div class="app-brand">
+        <div class="brand-icon" aria-hidden="true">λ</div>
+        <div>
+          <h1 class="brand-title">DPE L8++ Engineering Masterclass</h1>
+        </div>
+        <span class="brand-badge">40 Levels • Full Oct 2026 Standards</span>
+      </div>
+
+      <div class="header-center">
+        <div class="project-nav-stepper" role="group" aria-label="Project Quick Navigation">
+          <button type="button" class="nav-step-btn" id="btn-prev-project" aria-label="Previous project (Shortcut: [ )">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+            <span>Prev [</span>
+          </button>
+          <span class="nav-step-counter" id="header-counter">Project 01 of 40</span>
+          <button type="button" class="nav-step-btn" id="btn-next-project" aria-label="Next project (Shortcut: ] )">
+            <span>Next ]</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="search-box">
+          <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="project-search" placeholder="Search 40 projects (Press /)" autocomplete="off" aria-label="Search curriculum projects and concepts">
+        </div>
+        <button type="button" class="btn-shortcuts" id="btn-open-shortcuts" aria-label="View keyboard shortcuts (Shortcut: ?)">
+          <kbd>?</kbd>
+          <span>Shortcuts</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- 3-Column Workspace -->
+    <div class="app-workspace">
+      <!-- 1. Left Sidebar Navigation -->
+      <aside class="sidebar" role="navigation" aria-label="Projects Curriculum">
+        <div class="curriculum-filter-tabs" role="tablist" aria-label="Curriculum Series Filter">
+          <button type="button" class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All (40)</button>
+          <button type="button" class="filter-pill" data-filter="series1" role="tab" aria-selected="false">CSS (01-20)</button>
+          <button type="button" class="filter-pill" data-filter="series2" role="tab" aria-selected="false">JS Systems (21-40)</button>
+        </div>
+        <div class="sidebar-header">Curriculum Progression (40 Levels)</div>
+        <ul class="project-nav-list" id="nav-list">
+          <!-- Dynamically populated via JS -->
+        </ul>
+      </aside>
+
+      <!-- 2. Middle Column: Deep Narrative Tutorial -->
+      <section class="narrative-pane" id="narrative-pane" role="region" aria-label="Project Guide and Architecture">
+        <div class="narrative-header">
+          <span class="level-pill" id="curr-level">Level 01 • DPE L8++</span>
+          <h2 class="project-headline" id="curr-title">Project Title</h2>
+          <div class="feature-tags-list" id="curr-features">
+            <!-- Feature Tags -->
+          </div>
+        </div>
+
+        <div class="narrative-section">
+          <h3 class="section-heading">Architectural Overview & Engineering Rationale</h3>
+          <div class="section-body" id="curr-architecture">
+            <!-- Architecture description -->
+          </div>
+        </div>
+
+        <div class="narrative-section">
+          <h3 class="section-heading" id="heading-deepdive">2026 CSS Standard Mechanics Deep Dive</h3>
+          <div class="section-body" id="curr-deepdive">
+            <!-- Deep dive details -->
+          </div>
+        </div>
+
+        <div class="narrative-section">
+          <h3 class="section-heading">Google SEO & Core Web Vitals (INP) Architecture</h3>
+          <div class="section-body" id="curr-seo">
+            <!-- SEO architecture details -->
+          </div>
+        </div>
+
+        <div class="narrative-section">
+          <h3 class="section-heading">Step-by-Step Recreation Blueprint</h3>
+          <div class="steps-stack" id="curr-steps">
+            <!-- Step cards -->
+          </div>
+        </div>
+
+        <div class="standalone-link-box">
+          <div>
+            <div style="font-weight: 700; font-size: 0.9rem;">Standalone Production Build</div>
+            <div style="font-size: 0.8rem; color: var(--color-text-dim);">Run this project directly in an isolated browser tab</div>
+          </div>
+          <a href="#" id="curr-standalone-link" target="_blank" class="btn-launch-external">
+            <span>Launch Standalone</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- 3. Right Column: Monaco Code Studio & Live Preview -->
+      <section class="studio-pane" role="region" aria-label="Interactive Code Studio">
+        <div class="studio-toolbar">
+          <div class="studio-tabs" role="tablist">
+            <button type="button" class="tab-btn active" id="tab-html" data-tab="html" role="tab" aria-selected="true">HTML</button>
+            <button type="button" class="tab-btn" id="tab-css" data-tab="css" role="tab" aria-selected="false">CSS</button>
+            <button type="button" class="tab-btn" id="tab-js" data-tab="js" role="tab" aria-selected="false">
+              <span>JS</span>
+              <span id="js-tab-badge" class="tab-sub-badge">Active JS</span>
+            </button>
+            <button type="button" class="tab-btn" id="tab-tests" data-tab="tests" role="tab" aria-selected="false">
+              <span>Tests</span>
+              <span class="tab-sub-badge" style="background: oklch(0.7 0.2 145 / 0.15); color: var(--color-green);">Vitest & PW</span>
+            </button>
+            <button type="button" class="tab-btn" id="tab-preview" data-tab="preview" role="tab" aria-selected="false">Live Preview</button>
+          </div>
+
+          <div class="studio-actions">
+            <button type="button" class="btn-copy" id="btn-copy-code" aria-label="Copy currently active editor code">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span id="copy-text">Copy Code</span>
+            </button>
+            <button type="button" class="btn-copy" id="btn-copy-all" aria-label="Copy self-contained single-file HTML/CSS build">
+              <span id="copy-all-text">Copy Combined</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="studio-viewport">
+          <div id="monaco-container"></div>
+          <pre id="fallback-code-container"></pre>
+          <iframe id="preview-iframe" title="Component Live Preview"></iframe>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Dialog HUD -->
+  <dialog id="shortcuts-dialog" aria-labelledby="shortcuts-heading">
+    <div class="dialog-header">
+      <h3 id="shortcuts-heading">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-cyan)" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="8" x2="6" y2="8"/><line x1="10" y1="8" x2="10" y2="8"/><line x1="14" y1="8" x2="14" y2="8"/><line x1="18" y1="8" x2="18" y2="8"/><line x1="6" y1="12" x2="6" y2="12"/><line x1="10" y1="12" x2="10" y2="12"/><line x1="14" y1="12" x2="14" y2="12"/><line x1="18" y1="12" x2="18" y2="12"/><line x1="7" y1="16" x2="17" y2="16"/></svg>
+        <span>Keyboard Navigation & Shortcuts</span>
+      </h3>
+      <button type="button" class="dialog-close-btn" id="btn-close-dialog" aria-label="Close shortcuts dialog">&times;</button>
+    </div>
+    <div class="dialog-body">
+      <div class="shortcut-row">
+        <span>Previous Project</span>
+        <div class="shortcut-keys"><kbd>[</kbd> or <kbd>k</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Next Project</span>
+        <div class="shortcut-keys"><kbd>]</kbd> or <kbd>j</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Switch to HTML Tab</span>
+        <div class="shortcut-keys"><kbd>Alt</kbd> + <kbd>1</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Switch to CSS Tab</span>
+        <div class="shortcut-keys"><kbd>Alt</kbd> + <kbd>2</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Switch to JS Tab</span>
+        <div class="shortcut-keys"><kbd>Alt</kbd> + <kbd>3</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Switch to Tests Tab (Vitest & PW)</span>
+        <div class="shortcut-keys"><kbd>Alt</kbd> + <kbd>4</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Switch to Live Preview</span>
+        <div class="shortcut-keys"><kbd>Alt</kbd> + <kbd>5</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Focus Project Search</span>
+        <div class="shortcut-keys"><kbd>/</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Open / Close Shortcuts HUD</span>
+        <div class="shortcut-keys"><kbd>?</kbd> or <kbd>Shift</kbd>+<kbd>/</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <span>Dismiss Dialog / Blur Search</span>
+        <div class="shortcut-keys"><kbd>Esc</kbd></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Include Projects Data -->
+  <script src="projects-data.js"></script>
+
+  <!-- Master Application Script -->
+  <script>
+    // Global Application State
+    let currentProjectIndex = 0;
+    let currentTab = 'html'; // 'html' | 'css' | 'js' | 'preview'
+    let currentSeriesFilter = 'all'; // 'all' | 'series1' | 'series2'
+    let monacoEditor = null;
+    let isMonacoReady = false;
+
+    // Core Elements
+    const navList = document.getElementById('nav-list');
+    const currLevel = document.getElementById('curr-level');
+    const currTitle = document.getElementById('curr-title');
+    const currFeatures = document.getElementById('curr-features');
+    const currArchitecture = document.getElementById('curr-architecture');
+    const currDeepdive = document.getElementById('curr-deepdive');
+    const currSeo = document.getElementById('curr-seo');
+    const currSteps = document.getElementById('curr-steps');
+    const currStandaloneLink = document.getElementById('curr-standalone-link');
+
+    // Header Navigation Elements
+    const btnPrevProject = document.getElementById('btn-prev-project');
+    const btnNextProject = document.getElementById('btn-next-project');
+    const headerCounter = document.getElementById('header-counter');
+    const btnOpenShortcuts = document.getElementById('btn-open-shortcuts');
+    const btnCloseDialog = document.getElementById('btn-close-dialog');
+    const shortcutsDialog = document.getElementById('shortcuts-dialog');
+
+    // Studio Elements
+    const tabHtml = document.getElementById('tab-html');
+    const tabCss = document.getElementById('tab-css');
+    const tabJs = document.getElementById('tab-js');
+    const tabTests = document.getElementById('tab-tests');
+    const jsTabBadge = document.getElementById('js-tab-badge');
+    const tabPreview = document.getElementById('tab-preview');
+    const monacoContainer = document.getElementById('monaco-container');
+    const fallbackContainer = document.getElementById('fallback-code-container');
+    const previewIframe = document.getElementById('preview-iframe');
+
+    // Action Elements
+    const btnCopyCode = document.getElementById('btn-copy-code');
+    const btnCopyAll = document.getElementById('btn-copy-all');
+    const copyText = document.getElementById('copy-text');
+    const copyAllText = document.getElementById('copy-all-text');
+    const searchInput = document.getElementById('project-search');
+
+    // 1. Initialize Monaco Editor
+    if (typeof require !== 'undefined') {
+      require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' }});
+      require(['vs/editor/editor.main'], function() {
+        monacoEditor = monaco.editor.create(monacoContainer, {
+          value: PROJECTS_DATA[0].html,
+          language: 'html',
+          theme: 'vs-dark',
+          automaticLayout: true,
+          fontFamily: "'JetBrains Mono', monospace",
+          fontSize: 13,
+          minimap: { enabled: false },
+          scrollBeyondLastLine: false,
+          renderWhitespace: 'selection',
+          padding: { top: 16 }
+        });
+
+        isMonacoReady = true;
+
+        // Sync changes made inside Monaco directly into live preview
+        monacoEditor.onDidChangeModelContent(() => {
+          if (currentTab === 'html') {
+            PROJECTS_DATA[currentProjectIndex].html = monacoEditor.getValue();
+          } else if (currentTab === 'css') {
+            PROJECTS_DATA[currentProjectIndex].css = monacoEditor.getValue();
+          } else if (currentTab === 'js') {
+            PROJECTS_DATA[currentProjectIndex].js = monacoEditor.getValue();
+          }
+          updateLivePreview();
+        });
+
+        renderProject(0);
+      });
+    } else {
+      // Fallback if CDN blocked
+      showFallbackView();
+      renderProject(0);
+    }
+
+    function showFallbackView() {
+      monacoContainer.style.display = 'none';
+      fallbackContainer.style.display = 'block';
+    }
+
+    // 2. Filter & Navigation Engine
+    function getFilteredProjects() {
+      const q = searchInput.value.toLowerCase().trim();
+      return PROJECTS_DATA.filter((p, index) => {
+        // Series filter
+        if (currentSeriesFilter === 'series1' && index >= 20) return false;
+        if (currentSeriesFilter === 'series2' && index < 20) return false;
+
+        // Query filter
+        if (!q) return true;
+        return (
+          p.title.toLowerCase().includes(q) ||
+          p.category.toLowerCase().includes(q) ||
+          p.features.some(f => f.toLowerCase().includes(q)) ||
+          p.level.toLowerCase().includes(q) ||
+          (p.seoArchitecture && p.seoArchitecture.toLowerCase().includes(q)) ||
+          (p.js && p.js.toLowerCase().includes(q))
+        );
+      });
+    }
+
+    function renderSidebar() {
+      const filtered = getFilteredProjects();
+      navList.innerHTML = '';
+      if (filtered.length === 0) {
+        navList.innerHTML = '<li style="padding: 1.5rem 1rem; color: var(--color-text-dim); font-size: 0.85rem; text-align: center;">No projects match filter criteria</li>';
+        return;
+      }
+      filtered.forEach((project) => {
+        const originalIndex = PROJECTS_DATA.findIndex(p => p.id === project.id);
+        const isSeries2 = originalIndex >= 20;
+        const li = document.createElement('li');
+        li.className = `project-nav-item ${originalIndex === currentProjectIndex ? 'active' : ''}`;
+        li.setAttribute('role', 'button');
+        li.setAttribute('tabindex', '0');
+        li.innerHTML = `
+          <div class="nav-item-meta">
+            <span class="nav-item-level">${project.level.split('•')[0].trim()}</span>
+            <span class="nav-item-badge" style="${isSeries2 ? 'color: var(--color-cyan); border-color: oklch(from var(--color-cyan) l c h / 0.4);' : ''}">${project.category}</span>
+          </div>
+          <span class="nav-item-title">${project.title}</span>
+        `;
+        li.addEventListener('click', () => {
+          selectProject(originalIndex);
+        });
+        li.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectProject(originalIndex);
+          }
+        });
+        navList.appendChild(li);
+      });
+    }
+
+    // Series Filter Pills
+    document.querySelectorAll('.filter-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-pill').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        currentSeriesFilter = btn.dataset.filter;
+        renderSidebar();
+      });
+    });
+
+    function formatMarkdown(text) {
+      if (!text) return '';
+      let out = text.replace(/```(\w+)?\r?\n([\s\S]*?)```/g, (match, lang, code) => {
+        const escaped = code
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        return `<pre><code>${escaped.trim()}</code></pre>`;
+      });
+      out = out.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      out = out.replace(/`([^`]+)`/g, '<code>$1</code>');
+      return out;
+    }
+
+    // 3. Render Active Project
+    function renderProject(index) {
+      currentProjectIndex = index;
+      const p = PROJECTS_DATA[index];
+
+      // Update Header Stepper & Controls
+      if (headerCounter) {
+        headerCounter.textContent = `Project ${String(index + 1).padStart(2, '0')} of 40`;
+      }
+      if (btnPrevProject) {
+        btnPrevProject.disabled = index === 0;
+      }
+      if (btnNextProject) {
+        btnNextProject.disabled = index === PROJECTS_DATA.length - 1;
+      }
+
+      // Update JS Tab Badge
+      if (jsTabBadge) {
+        if (p.js && p.js.trim().length > 0) {
+          jsTabBadge.textContent = 'Active JS';
+          jsTabBadge.className = 'tab-sub-badge';
+        } else {
+          jsTabBadge.textContent = 'Pure CSS';
+          jsTabBadge.className = 'tab-sub-badge pure-css';
+        }
+      }
+
+      // Update Narrative Pane
+      currLevel.textContent = p.level;
+      currTitle.textContent = p.title;
+
+      const headingDeepdive = document.getElementById('heading-deepdive');
+      if (headingDeepdive) {
+        headingDeepdive.textContent = index >= 20 ? 'Advanced JavaScript & Systems Mechanics Deep Dive' : '2026 CSS Standard Mechanics Deep Dive';
+      }
+
+      // Feature Tags
+      currFeatures.innerHTML = p.features.map(f => `<span class="feature-tag">${f}</span>`).join('');
+
+      // Architecture & Deepdive
+      currArchitecture.innerHTML = `<p>${formatMarkdown(p.architecture)}</p>`;
+      currDeepdive.innerHTML = p.deepDive.split('\n').map(line => `<p>${formatMarkdown(line)}</p>`).join('');
+
+      // Google SEO & Core Web Vitals (INP) Architecture
+      if (p.seoArchitecture) {
+        currSeo.innerHTML = p.seoArchitecture.split('\n').map(line => `<p>${formatMarkdown(line)}</p>`).join('');
+      } else {
+        currSeo.innerHTML = '<p>Universal Core Web Vitals and semantic HTML5 standards applied.</p>';
+      }
+
+      // Steps with Markdown Code Formatting
+      currSteps.innerHTML = p.steps.map(step => `
+        <div class="step-card">
+          <div class="step-card-header">${step.title}</div>
+          <div class="step-card-body">${formatMarkdown(step.content)}</div>
+        </div>
+      `).join('');
+
+      // Standalone link
+      currStandaloneLink.href = `projects/${p.folder}/index.html`;
+
+      // Update Sidebar active state
+      const items = navList.querySelectorAll('.project-nav-item');
+      items.forEach((item) => {
+        const itemTitle = item.querySelector('.nav-item-title');
+        const isActive = itemTitle && itemTitle.textContent.trim() === p.title.trim();
+        item.classList.toggle('active', isActive);
+        if (isActive) {
+          item.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+      });
+
+      // Update Editor Content & Live Preview
+      syncEditorContent();
+      updateLivePreview();
+    }
+
+    function selectProject(index) {
+      renderProject(index);
+      // Scroll narrative to top
+      document.getElementById('narrative-pane').scrollTop = 0;
+    }
+
+    // Header Stepper Click Handlers
+    if (btnPrevProject) {
+      btnPrevProject.addEventListener('click', () => {
+        if (currentProjectIndex > 0) {
+          selectProject(currentProjectIndex - 1);
+        }
+      });
+    }
+
+    if (btnNextProject) {
+      btnNextProject.addEventListener('click', () => {
+        if (currentProjectIndex < PROJECTS_DATA.length - 1) {
+          selectProject(currentProjectIndex + 1);
+        }
+      });
+    }
+
+    // 4. Editor Tab Switching & Layout Resilience
+    function setTab(tab) {
+      currentTab = tab;
+      [tabHtml, tabCss, tabJs, tabTests, tabPreview].forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      if (tab === 'html') {
+        tabHtml.classList.add('active');
+        tabHtml.setAttribute('aria-selected', 'true');
+        previewIframe.style.display = 'none';
+        if (isMonacoReady) {
+          monacoContainer.style.display = 'block';
+          fallbackContainer.style.display = 'none';
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'html');
+          monacoEditor.setValue(PROJECTS_DATA[currentProjectIndex].html);
+          setTimeout(() => monacoEditor.layout(), 25);
+        } else {
+          fallbackContainer.style.display = 'block';
+          fallbackContainer.textContent = PROJECTS_DATA[currentProjectIndex].html;
+        }
+      } else if (tab === 'css') {
+        tabCss.classList.add('active');
+        tabCss.setAttribute('aria-selected', 'true');
+        previewIframe.style.display = 'none';
+        if (isMonacoReady) {
+          monacoContainer.style.display = 'block';
+          fallbackContainer.style.display = 'none';
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'css');
+          monacoEditor.setValue(PROJECTS_DATA[currentProjectIndex].css);
+          setTimeout(() => monacoEditor.layout(), 25);
+        } else {
+          fallbackContainer.style.display = 'block';
+          fallbackContainer.textContent = PROJECTS_DATA[currentProjectIndex].css;
+        }
+      } else if (tab === 'js') {
+        tabJs.classList.add('active');
+        tabJs.setAttribute('aria-selected', 'true');
+        previewIframe.style.display = 'none';
+        const jsCode = PROJECTS_DATA[currentProjectIndex].js || '// Zero JavaScript runtime required for this pure declarative architecture.';
+        if (isMonacoReady) {
+          monacoContainer.style.display = 'block';
+          fallbackContainer.style.display = 'none';
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'javascript');
+          monacoEditor.setValue(jsCode);
+          setTimeout(() => monacoEditor.layout(), 25);
+        } else {
+          fallbackContainer.style.display = 'block';
+          fallbackContainer.textContent = jsCode;
+        }
+      } else if (tab === 'tests') {
+        tabTests.classList.add('active');
+        tabTests.setAttribute('aria-selected', 'true');
+        previewIframe.style.display = 'none';
+        const testCode = PROJECTS_DATA[currentProjectIndex].testCode || '// Automated Vitest & Playwright verification suite';
+        if (isMonacoReady) {
+          monacoContainer.style.display = 'block';
+          fallbackContainer.style.display = 'none';
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'javascript');
+          monacoEditor.setValue(testCode);
+          setTimeout(() => monacoEditor.layout(), 25);
+        } else {
+          fallbackContainer.style.display = 'block';
+          fallbackContainer.textContent = testCode;
+        }
+      } else if (tab === 'preview') {
+        tabPreview.classList.add('active');
+        tabPreview.setAttribute('aria-selected', 'true');
+        monacoContainer.style.display = 'none';
+        fallbackContainer.style.display = 'none';
+        previewIframe.style.display = 'block';
+        updateLivePreview();
+      }
+    }
+
+    tabHtml.addEventListener('click', () => setTab('html'));
+    tabCss.addEventListener('click', () => setTab('css'));
+    tabJs.addEventListener('click', () => setTab('js'));
+    tabTests.addEventListener('click', () => setTab('tests'));
+    tabPreview.addEventListener('click', () => setTab('preview'));
+
+    function syncEditorContent() {
+      const p = PROJECTS_DATA[currentProjectIndex];
+      if (currentTab === 'html') {
+        if (isMonacoReady) {
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'html');
+          monacoEditor.setValue(p.html);
+        } else {
+          fallbackContainer.textContent = p.html;
+        }
+      } else if (currentTab === 'css') {
+        if (isMonacoReady) {
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'css');
+          monacoEditor.setValue(p.css);
+        } else {
+          fallbackContainer.textContent = p.css;
+        }
+      } else if (currentTab === 'js') {
+        const jsCode = p.js || '// Zero JavaScript runtime required for this pure declarative architecture.';
+        if (isMonacoReady) {
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'javascript');
+          monacoEditor.setValue(jsCode);
+        } else {
+          fallbackContainer.textContent = jsCode;
+        }
+      } else if (currentTab === 'tests') {
+        const testCode = p.testCode || '// Automated Vitest & Playwright verification suite';
+        if (isMonacoReady) {
+          monaco.editor.setModelLanguage(monacoEditor.getModel(), 'javascript');
+          monacoEditor.setValue(testCode);
+        } else {
+          fallbackContainer.textContent = testCode;
+        }
+      }
+    }
+
+    // 5. Update Live Preview Iframe with Injected CSS and JS
+    function updateLivePreview() {
+      const p = PROJECTS_DATA[currentProjectIndex];
+      let doc = p.html;
+
+      // Inject Stylesheet
+      if (doc.includes('<link rel="stylesheet" href="styles.css">')) {
+        doc = doc.replace('<link rel="stylesheet" href="styles.css">', `<style>${p.css}<\/style>`);
+      } else {
+        doc = doc.replace('<\/head>', `<style>${p.css}<\/style><\/head>`);
+      }
+
+      // Inject Modular JS if present
+      if (p.js && p.js.trim().length > 0) {
+        if (doc.includes('<script src="app.js"><\/script>')) {
+          doc = doc.replace('<script src="app.js"><\/script>', `<script>${p.js}<\/script>`);
+        } else if (doc.includes('<\/body>')) {
+          doc = doc.replace('<\/body>', `<script>${p.js}<\/script><\/body>`);
+        }
+      }
+
+      previewIframe.srcdoc = doc;
+    }
+
+    // 6. Tactile Diagnostics & Clipboard Handlers
+    btnCopyCode.addEventListener('click', () => {
+      const p = PROJECTS_DATA[currentProjectIndex];
+      let code = p.html;
+      if (currentTab === 'css') code = p.css;
+      else if (currentTab === 'js') code = p.js || '// Zero JavaScript runtime required';
+      else if (currentTab === 'tests') code = p.testCode || '// Automated Vitest & Playwright verification suite';
+      
+      const lines = code.split('\n').length;
+      const bytes = new Blob([code]).size;
+      const kb = (bytes / 1024).toFixed(1);
+
+      navigator.clipboard.writeText(code).then(() => {
+        btnCopyCode.classList.add('copied');
+        copyText.textContent = `Copied ${lines} lines (${kb} KB)`;
+        setTimeout(() => {
+          btnCopyCode.classList.remove('copied');
+          copyText.textContent = 'Copy Code';
+        }, 2200);
+      });
+    });
+
+    btnCopyAll.addEventListener('click', () => {
+      const p = PROJECTS_DATA[currentProjectIndex];
+      let combined = `<!-- Combined Single-File Production Build: ${p.title} -->\n` +
+        p.html.replace('<link rel="stylesheet" href="styles.css">', `<style>\n${p.css}\n<\/style>`);
+      if (p.js && p.js.trim().length > 0) {
+        if (combined.includes('<script src="app.js"><\/script>')) {
+          combined = combined.replace('<script src="app.js"><\/script>', `<script>\n${p.js}\n<\/script>`);
+        } else if (combined.includes('<\/body>')) {
+          combined = combined.replace('<\/body>', `<script>\n${p.js}\n<\/script>\n<\/body>`);
+        }
+      }
+
+      const lines = combined.split('\n').length;
+      const bytes = new Blob([combined]).size;
+      const kb = (bytes / 1024).toFixed(1);
+
+      navigator.clipboard.writeText(combined).then(() => {
+        btnCopyAll.classList.add('copied');
+        copyAllText.textContent = `Bundle Copied (${kb} KB)`;
+        setTimeout(() => {
+          btnCopyAll.classList.remove('copied');
+          copyAllText.textContent = 'Copy Combined';
+        }, 2200);
+      });
+    });
+
+    // 7. Search Filtering across all 40 projects
+    searchInput.addEventListener('input', () => {
+      renderSidebar();
+    });
+
+    // 8. Keyboard Navigation & Shortcuts Engine
+    window.addEventListener('keydown', (e) => {
+      const activeEl = document.activeElement;
+      const isInput = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+
+      // Global Escape
+      if (e.key === 'Escape') {
+        if (shortcutsDialog && shortcutsDialog.open) {
+          shortcutsDialog.close();
+        } else if (isInput) {
+          activeEl.blur();
+        }
+        return;
+      }
+
+      // If user is typing in an input field, do not hijack other hotkeys
+      if (isInput) return;
+
+      // Project navigation
+      if (e.key === '[' || e.key === 'k') {
+        e.preventDefault();
+        if (currentProjectIndex > 0) {
+          selectProject(currentProjectIndex - 1);
+        }
+      } else if (e.key === ']' || e.key === 'j') {
+        e.preventDefault();
+        if (currentProjectIndex < PROJECTS_DATA.length - 1) {
+          selectProject(currentProjectIndex + 1);
+        }
+      }
+      // Tab switching: Alt+1 to Alt+5
+      else if (e.altKey && e.key === '1') {
+        e.preventDefault();
+        setTab('html');
+      } else if (e.altKey && e.key === '2') {
+        e.preventDefault();
+        setTab('css');
+      } else if (e.altKey && e.key === '3') {
+        e.preventDefault();
+        setTab('js');
+      } else if (e.altKey && e.key === '4') {
+        e.preventDefault();
+        setTab('tests');
+      } else if (e.altKey && e.key === '5') {
+        e.preventDefault();
+        setTab('preview');
+      }
+      // Search Focus: /
+      else if (e.key === '/') {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      }
+      // Shortcuts Modal: ? or Shift+/
+      else if (e.key === '?' || (e.shiftKey && e.key === '/')) {
+        e.preventDefault();
+        if (shortcutsDialog) {
+          if (shortcutsDialog.open) {
+            shortcutsDialog.close();
+          } else {
+            shortcutsDialog.showModal();
+          }
+        }
+      }
+    });
+
+    // Shortcuts Dialog Handlers
+    if (btnOpenShortcuts && shortcutsDialog) {
+      btnOpenShortcuts.addEventListener('click', () => {
+        shortcutsDialog.showModal();
+      });
+    }
+    if (btnCloseDialog && shortcutsDialog) {
+      btnCloseDialog.addEventListener('click', () => {
+        shortcutsDialog.close();
+      });
+    }
+    if (shortcutsDialog) {
+      shortcutsDialog.addEventListener('click', (e) => {
+        const rect = shortcutsDialog.getBoundingClientRect();
+        const isInDialog = (
+          rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+          rect.left <= e.clientX && e.clientX <= rect.left + rect.width
+        );
+        if (!isInDialog) {
+          shortcutsDialog.close();
+        }
+      });
+    }
+
+    // Initialize sidebar and default to Level 01
+    renderSidebar();
+    renderProject(0);
+  </script>
+</body>
+</html>

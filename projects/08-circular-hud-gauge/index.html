@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>08 - Circular HUD Telemetry Gauge | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Dynamic orbital tick positioning via CSS cos() and sin() math functions, combined with CSS Houdini @property for smooth conic gradient animations.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/08-circular-hud-gauge/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Trigonometric HUD Gauge & CSS Houdini @property",
+    "description": "Dynamic orbital tick positioning via CSS cos() and sin() math functions, combined with CSS Houdini @property for smooth conic gradient animations.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "CSS cos() & sin() Trigonometry"
+      },
+      {
+        "@type": "Thing",
+        "name": "@property Registered Properties"
+      },
+      {
+        "@type": "Thing",
+        "name": "Animated Conic-Gradients"
+      },
+      {
+        "@type": "Thing",
+        "name": "Telemetry Matrix Display"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero JS Graphic Bundles"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 08 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Trigonometric HUD Gauge & CSS Houdini <code>@property</code></h1>
+      <p class="page-desc">
+        Positioning orbital tick markers dynamically using pure CSS <code>cos()</code> and <code>sin()</code> math functions, coupled with CSS Houdini registered properties for smooth gradient interpolation.
+      </p>
+    </header>
+
+    <div class="hud-console">
+      <div class="hud-display">
+        <!-- Circular Dial -->
+        <div class="gauge-ring">
+          <!-- Dial ticks positioned with CSS cos() & sin() -->
+          <div class="dial-ticks" aria-hidden="true">
+            <span style="--i: 0" class="tick"></span>
+            <span style="--i: 1" class="tick"></span>
+            <span style="--i: 2" class="tick"></span>
+            <span style="--i: 3" class="tick"></span>
+            <span style="--i: 4" class="tick"></span>
+            <span style="--i: 5" class="tick"></span>
+            <span style="--i: 6" class="tick"></span>
+            <span style="--i: 7" class="tick"></span>
+            <span style="--i: 8" class="tick"></span>
+            <span style="--i: 9" class="tick"></span>
+            <span style="--i: 10" class="tick"></span>
+            <span style="--i: 11" class="tick"></span>
+          </div>
+
+          <!-- Central Core readout -->
+          <div class="gauge-center">
+            <span class="gauge-sublabel">Core Reactor</span>
+            <span class="gauge-number">87.4<small>%</small></span>
+            <span class="gauge-status">Optimal Flux</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telemetry Readouts -->
+      <div class="telemetry-panel">
+        <h2 class="panel-heading">Subsystem Metrics</h2>
+        <div class="metric-list">
+          <div class="metric-row">
+            <span class="metric-name">Angular Velocity</span>
+            <span class="metric-val">14,200 RPM</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Thermal Dissipation</span>
+            <span class="metric-val">342 W/cm²</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Lattice Resonance</span>
+            <span class="metric-val">99.87 GHz</span>
+          </div>
+          <div class="metric-row">
+            <span class="metric-name">Sub-warp Stability</span>
+            <span class="metric-val text-green">NOMINAL</span>
+          </div>
+        </div>
+        <div class="control-actions">
+          <button type="button" class="btn btn-calibrate" id="btn-pulse">Trigger Flux Pulse</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const btn = document.getElementById('btn-pulse');
+    const ring = document.querySelector('.gauge-ring');
+    btn.addEventListener('click', () => {
+      ring.classList.add('pulse-active');
+      setTimeout(() => ring.classList.remove('pulse-active'), 1200);
+    });
+  </script>
+</body>
+</html>

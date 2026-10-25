@@ -1,0 +1,328 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 36 - Biometric WebAuthn & Passkey Enclave
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Layers, OKLCH Tokens, Biometric Laser Animation
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  button, input {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.09 0.02 260);
+    --bg-card: oklch(0.14 0.03 260 / 0.85);
+    --border-card: oklch(0.26 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.72 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --brand-cyan: oklch(0.76 0.18 190);
+    --brand-emerald: oklch(0.75 0.2 145);
+    --brand-amber: oklch(0.8 0.18 80);
+    --brand-rose: oklch(0.68 0.22 25);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    background-image:
+      radial-gradient(circle at 50% 0%, oklch(from var(--brand-cyan) l c h / 0.12), transparent 60%);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .page-container {
+    width: min(100%, 1060px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-emerald) l c h / 0.15);
+    color: var(--brand-emerald);
+    border: 1px solid oklch(from var(--brand-emerald) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .page-desc code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: oklch(0.2 0.03 260 / 0.8);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--brand-cyan);
+  }
+}
+
+@layer components {
+  /* Grid */
+  .auth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 860px) {
+    .auth-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .auth-panel, .audit-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: 0 16px 36px oklch(0 0 0 / 0.4);
+  }
+
+  .panel-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .form-group label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .form-group label code {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-cyan);
+  }
+
+  .custom-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    background: oklch(0.18 0.03 260);
+    border: 1px solid var(--border-card);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* Biometric Scanner */
+  .sensor-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    background: oklch(0.1 0.02 260);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+  }
+
+  .biometric-scanner {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: oklch(0.16 0.03 260);
+    border: 2px solid oklch(0.3 0.04 260);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    color: var(--brand-cyan);
+  }
+
+  .scanner-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .scan-laser {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--brand-cyan);
+    box-shadow: 0 0 12px var(--brand-cyan);
+    opacity: 0;
+  }
+
+  .biometric-scanner.scanning .scan-laser {
+    opacity: 1;
+    animation: laser-scan 1.2s ease-in-out infinite alternate;
+  }
+
+  @keyframes laser-scan {
+    0% { top: 10%; }
+    100% { top: 85%; }
+  }
+
+  .sensor-hint {
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+  }
+
+  .button-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: var(--brand-cyan);
+    color: oklch(0.1 0.02 260);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 20px oklch(from var(--brand-cyan) l c h / 0.4);
+  }
+
+  .btn-secondary {
+    background: oklch(0.2 0.03 260);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: oklch(0.26 0.04 260);
+    border-color: var(--brand-emerald);
+  }
+
+  .btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* Audit Panel */
+  .audit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .status-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    background: oklch(0.2 0.03 260);
+    color: var(--text-muted);
+  }
+
+  .status-pill.authenticated {
+    background: oklch(from var(--brand-emerald) l c h / 0.2);
+    color: var(--brand-emerald);
+  }
+
+  .audit-body {
+    flex: 1;
+    min-height: 280px;
+    max-height: 360px;
+    overflow-y: auto;
+    background: oklch(0.09 0.02 260);
+    border: 1px solid oklch(0.2 0.03 260);
+    border-radius: 12px;
+    padding: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+  }
+
+  .audit-row {
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  .audit-row.info { color: var(--text-secondary); }
+  .audit-row.crypto { color: var(--brand-cyan); background: oklch(from var(--brand-cyan) l c h / 0.1); }
+  .audit-row.success { color: var(--brand-emerald); background: oklch(from var(--brand-emerald) l c h / 0.1); }
+}

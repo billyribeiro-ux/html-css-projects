@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>27 - Web Audio Synthesizer & Canvas Spectrum | DPE L8++</title>
+  <meta name="description" content="Hardware-accelerated frequency spectrum analyzer and real-time audio synthesizer built with Web Audio API and high-performance Canvas2D.">
+  <link rel="canonical" href="https://example.com/projects/27-webaudio-canvas-spectrum/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Web Audio Synthesizer & Canvas Spectrum",
+    "description": "Real-time hardware-accelerated frequency spectrum analyzer and interactive waveform synthesizer built with zero third-party audio libraries.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Web Audio API AudioContext"
+      },
+      {
+        "@type": "Thing",
+        "name": "AnalyserNode FFT Analysis"
+      },
+      {
+        "@type": "Thing",
+        "name": "120fps Canvas2D Loop"
+      },
+      {
+        "@type": "Thing",
+        "name": "Waveform Oscillator Synthesis"
+      },
+      {
+        "@type": "Thing",
+        "name": "Dynamic Gain Control"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 27 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Web Audio API & Canvas2D</span>
+      </div>
+      <h1 class="page-title">Interactive Canvas Spectrum & Audio Synthesizer</h1>
+      <p class="page-desc">
+        Zero external audio libraries. Native browser <code>AudioContext</code> synthesizing waveforms in real time, analyzed via <code>AnalyserNode</code>, and rendered at 120fps on an optimized HTML5 Canvas.
+      </p>
+    </header>
+
+    <div class="synth-console">
+      <!-- 120fps Canvas Spectrum Visualizer -->
+      <div class="canvas-wrapper">
+        <canvas id="spectrum-canvas" width="800" height="240"></canvas>
+      </div>
+
+      <!-- Synthesizer Controls -->
+      <div class="synth-controls">
+        <div class="control-row">
+          <div class="btn-group" role="group" aria-label="Waveform type">
+            <button type="button" class="btn-wave active" data-wave="sine">Sine</button>
+            <button type="button" class="btn-wave" data-wave="triangle">Triangle</button>
+            <button type="button" class="btn-wave" data-wave="sawtooth">Sawtooth</button>
+            <button type="button" class="btn-wave" data-wave="square">Square</button>
+          </div>
+
+          <button type="button" class="btn btn-power" id="btn-power">
+            <span class="power-glyph">⏻</span>
+            <span id="power-text">Initialize Audio Engine</span>
+          </button>
+        </div>
+
+        <div class="sliders-grid">
+          <div class="slider-field">
+            <label for="freq-slider">
+              <span>Oscillator Frequency:</span>
+              <output id="freq-out">440 Hz (A4)</output>
+            </label>
+            <input type="range" id="freq-slider" min="110" max="880" value="440" class="custom-slider">
+          </div>
+
+          <div class="slider-field">
+            <label for="gain-slider">
+              <span>Master Gain (Volume):</span>
+              <output id="gain-out">20%</output>
+            </label>
+            <input type="range" id="gain-slider" min="0" max="100" value="20" class="custom-slider">
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

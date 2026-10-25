@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>37 - Zero-Dependency Markdown AST Parser & Safe Compiler | DPE L8++</title>
+  <meta name="description" content="Ultra-fast vanilla JavaScript Markdown AST tokenizer and safe HTML compiler with real-time abstract syntax tree inspector.">
+  <link rel="canonical" href="https://example.com/projects/37-vanilla-markdown-parser/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Zero-Dependency Markdown AST Parser",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 37 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Zero-Dependency AST Parser</span>
+        <span class="tech-tag">Sub-Millisecond Lexer</span>
+      </div>
+      <h1 class="page-title">Vanilla Markdown AST Engine</h1>
+      <p class="page-desc">
+        Zero external parsing libraries. Custom two-phase lexical tokenizer and safe HTML compiler with interactive Abstract Syntax Tree (AST) introspection.
+      </p>
+    </header>
+
+    <!-- Editor & Preview Split Workspace -->
+    <div class="workspace-card">
+      <div class="workspace-toolbar">
+        <div class="toolbar-stats">
+          <span>Parse Time: <strong id="stat-parse-time">0.12ms</strong></span>
+          <span>Tokens: <strong id="stat-token-count">0</strong></span>
+        </div>
+        <div class="toolbar-actions">
+          <button type="button" class="btn-toggle" id="btn-toggle-ast">Inspect AST JSON</button>
+        </div>
+      </div>
+
+      <div class="editor-split">
+        <!-- Markdown Input Pane -->
+        <div class="pane input-pane">
+          <div class="pane-header">Markdown Input</div>
+          <textarea id="markdown-input" spellcheck="false" aria-label="Markdown Source Text"># Architectural Spec: Mesh Gateway
+
+Welcome to the **DPE L8++** high-performance compiler.
+
+### Core Capabilities
+* **Zero Runtime Overhead**: No 50KB npm dependencies.
+* **Sub-Millisecond Execution**: Instantaneous keystroke tokenization.
+* **XSS Sanitization**: Auto-escapes malicious `&lt;script&gt;` payloads.
+
+> "Simplicity is prerequisite for reliability." — Edsger W. Dijkstra
+
+```javascript
+// Native DOMMatrix transform
+const matrix = new DOMMatrix();
+matrix.scaleSelf(1.5, 1.5);
+```
+
+Check the [View Transitions API](https://developer.mozilla.org) documentation for details.</textarea>
+        </div>
+
+        <!-- Rendered HTML Output Pane -->
+        <div class="pane output-pane">
+          <div class="pane-header">Live Rendered Document</div>
+          <article class="rendered-prose" id="rendered-output"></article>
+        </div>
+      </div>
+
+      <!-- AST Drawer -->
+      <div class="ast-drawer" id="ast-drawer" hidden>
+        <div class="ast-drawer-header">
+          <span>Abstract Syntax Tree (AST JSON Stream)</span>
+          <button type="button" class="btn-close-ast" id="btn-close-ast">&times;</button>
+        </div>
+        <pre class="ast-code" id="ast-json"></pre>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

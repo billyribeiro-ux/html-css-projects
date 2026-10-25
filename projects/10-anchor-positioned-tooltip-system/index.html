@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10 - Anchor Positioned Tooltips | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Complete eradication of floating-UI/Popper.js dependencies. Native CSS anchor positioning tethers tooltips to target elements with built-in collision avoidance.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/10-anchor-positioned-tooltip-system/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSS Anchor Positioning & position-area",
+    "description": "Complete eradication of floating-UI/Popper.js dependencies. Native CSS anchor positioning tethers tooltips to target elements with built-in collision avoidance.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "anchor-name & position-anchor"
+      },
+      {
+        "@type": "Thing",
+        "name": "position-area / inset-area"
+      },
+      {
+        "@type": "Thing",
+        "name": "position-try-fallbacks"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero-JS Floating UI"
+      },
+      {
+        "@type": "Thing",
+        "name": "INP Optimization"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 10 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">CSS Anchor Positioning & <code>position-area</code></h1>
+      <p class="page-desc">
+        Complete eradication of floating-UI/Popper.js dependencies. Utilizing 2026 native CSS <code>anchor-name</code>, <code>position-anchor</code>, and <code>position-try-fallbacks</code> for collision-resilient tethered overlays.
+      </p>
+    </header>
+
+    <!-- Cluster Hardware Topology Board -->
+    <div class="topology-board">
+      <div class="board-header">
+        <h2 class="board-title">Edge Compute Node #42-Alpha</h2>
+        <span class="board-status">Operational</span>
+      </div>
+
+      <div class="hardware-grid">
+        <!-- Anchor 1: Quantum TPU -->
+        <button type="button" class="hw-node anchor-tpu" id="node-tpu" popovertarget="tip-tpu">
+          <span class="hw-chip-icon">⚡</span>
+          <span class="hw-label">TPU Core v6</span>
+          <span class="hw-load">98.2%</span>
+        </button>
+
+        <!-- Anchor 2: HBM3 Memory -->
+        <button type="button" class="hw-node anchor-ram" id="node-ram" popovertarget="tip-ram">
+          <span class="hw-chip-icon">▦</span>
+          <span class="hw-label">HBM3 Mesh</span>
+          <span class="hw-load">42.1%</span>
+        </button>
+
+        <!-- Anchor 3: Optical Interconnect -->
+        <button type="button" class="hw-node anchor-optics" id="node-optics" popovertarget="tip-optics">
+          <span class="hw-chip-icon">⚯</span>
+          <span class="hw-label">Optical Fabric</span>
+          <span class="hw-load">12.8 Gbps</span>
+        </button>
+      </div>
+
+      <p class="interactive-hint">Click or hover any hardware chip above to view tethered anchor tooltips</p>
+    </div>
+
+    <!-- TETHERED ANCHOR TOOLTIPS (Top-Layer Popovers tethered via CSS Anchor Positioning) -->
+    <div id="tip-tpu" popover class="anchor-tooltip tooltip-tpu">
+      <div class="tooltip-arrow"></div>
+      <div class="tip-header">TPU Matrix Core #0</div>
+      <div class="tip-body">Sustaining 4,096 teraflops bfloat16 mixed precision compute. Thermal: 64°C.</div>
+    </div>
+
+    <div id="tip-ram" popover class="anchor-tooltip tooltip-ram">
+      <div class="tooltip-arrow"></div>
+      <div class="tip-header">HBM3 Stack (128GB)</div>
+      <div class="tip-body">Memory bus bandwidth saturation at 3.2 TB/s. Zero parity bit flip detected.</div>
+    </div>
+
+    <div id="tip-optics" popover class="anchor-tooltip tooltip-optics">
+      <div class="tooltip-arrow"></div>
+      <div class="tip-header">800G Silicon Photonic Transceiver</div>
+      <div class="tip-body">Laser wavelength alignment tuned to 1310nm. Bit error rate &lt; 1e-15.</div>
+    </div>
+  </main>
+</body>
+</html>

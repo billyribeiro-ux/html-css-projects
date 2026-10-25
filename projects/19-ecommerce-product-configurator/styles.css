@@ -1,0 +1,399 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 19 - Enterprise Cloud Configurator
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS :has() State-Machine Architecture, Subgrid Spec Alignment,
+              View Transitions, OKLCH Color Modulation, Zero JS Quoting
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, state-machine, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.1 0.02 260);
+    --bg-card: oklch(0.15 0.03 260);
+    --border-card: oklch(0.28 0.04 260);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-nvidia: oklch(0.78 0.22 140);
+    --brand-quantum: oklch(0.72 0.22 290);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 1020px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer layout {
+  .configurator-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+
+    @media (min-width: 820px) {
+      grid-template-columns: 340px 1fr;
+    }
+  }
+}
+
+@layer state-machine {
+  /* =========================================================================
+     2026 CSS MILESTONE: Pure CSS State Machine via Relational :has()
+     ========================================================================= */
+
+  /* State 1: NVIDIA H100 GPU Selected */
+  #configurator-app:has(#accel-h100:checked) {
+    .socket-accel {
+      background: oklch(from var(--brand-nvidia) l c h / 0.2);
+      border-color: var(--brand-nvidia);
+      box-shadow: 0 0 25px oklch(from var(--brand-nvidia) l c h / 0.4);
+    }
+    .accel-chip-label::after {
+      content: " - NVIDIA H100";
+      color: var(--brand-nvidia);
+    }
+    .quote-price::before {
+      content: "$3,690";
+    }
+    .quote-price {
+      font-size: 0; /* hides static fallback */
+    }
+  }
+
+  /* State 2: Quantum Photonic Selected */
+  #configurator-app:has(#accel-quantum:checked) {
+    .socket-accel {
+      background: oklch(from var(--brand-quantum) l c h / 0.25);
+      border-color: var(--brand-quantum);
+      box-shadow: 0 0 30px oklch(from var(--brand-quantum) l c h / 0.5);
+    }
+    .accel-chip-label::after {
+      content: " - 128Q PHOTONIC";
+      color: var(--brand-quantum);
+    }
+    .quote-price::before {
+      content: "$6,090";
+    }
+    .quote-price {
+      font-size: 0;
+    }
+  }
+}
+
+@layer components {
+  /* Blueprint Visualizer Card */
+  .blueprint-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    box-shadow: 0 12px 32px -4px oklch(0 0 0 / 0.4);
+  }
+
+  .blueprint-graphic {
+    background: oklch(0.08 0.02 260);
+    border: 1px solid oklch(0.25 0.03 260);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .server-chassis {
+    width: 100%;
+    max-width: 260px;
+    background: oklch(0.14 0.02 260);
+    border: 2px solid oklch(0.35 0.04 260);
+    border-radius: 8px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .chassis-drive-bays {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+
+    .bay {
+      height: 14px;
+      background: oklch(0.22 0.03 260);
+      border-radius: 2px;
+
+      &.active {
+        background: var(--brand-cyan);
+        box-shadow: 0 0 8px oklch(from var(--brand-cyan) l c h / 0.4);
+      }
+    }
+  }
+
+  .chassis-motherboard {
+    background: oklch(0.18 0.03 260);
+    border: 1px solid oklch(0.3 0.04 260);
+    border-radius: 6px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .socket-cpu {
+    padding: 0.5rem;
+    background: oklch(0.25 0.03 260);
+    border: 1px solid oklch(0.4 0.05 260);
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+  }
+
+  .socket-accel {
+    padding: 0.65rem;
+    background: oklch(0.22 0.03 260);
+    border: 1px dashed oklch(0.4 0.04 260);
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    transition: all 250ms ease;
+  }
+
+  .blueprint-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .caption-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .caption-chassis {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+  }
+
+  /* Configuration Form Options */
+  .config-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .option-group {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .group-title {
+    font-size: 0.9rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brand-cyan);
+  }
+
+  .radio-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .radio-card {
+    position: relative;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+
+      &:checked + .card-content {
+        background: oklch(0.2 0.04 260);
+        border-color: var(--brand-cyan);
+        box-shadow: 0 4px 16px -2px oklch(from var(--brand-cyan) l c h / 0.3);
+      }
+
+      &:focus-visible + .card-content {
+        outline: 2px solid var(--brand-cyan);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  .card-content {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    transition: all 180ms ease;
+
+    &:hover {
+      background: oklch(0.18 0.03 260);
+    }
+  }
+
+  .opt-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  .opt-spec {
+    grid-column: 1 / 2;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .opt-price {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-cyan);
+  }
+
+  /* Quote Footer */
+  .quote-summary {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+
+  .quote-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .quote-price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .quote-price {
+    font-size: 2rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-primary);
+  }
+
+  .quote-freq {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .btn-order {
+    padding: 0.85rem 1.75rem;
+    background: var(--brand-cyan);
+    color: oklch(0.1 0.02 260);
+    font-weight: 700;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 180ms ease;
+
+    &:hover {
+      background: oklch(from var(--brand-cyan) calc(l + 0.08) c h);
+      box-shadow: 0 0 20px var(--brand-cyan);
+    }
+  }
+}

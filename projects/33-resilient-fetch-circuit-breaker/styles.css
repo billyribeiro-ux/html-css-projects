@@ -1,0 +1,383 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 33 - Resilient Fetch Circuit Breaker
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Layers, OKLCH Tokens, State Machine Indicator
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  button, input {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.09 0.02 260);
+    --bg-card: oklch(0.14 0.03 260 / 0.85);
+    --border-card: oklch(0.26 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.72 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --brand-cyan: oklch(0.76 0.18 190);
+    --brand-emerald: oklch(0.75 0.2 145);
+    --brand-amber: oklch(0.8 0.18 80);
+    --brand-red: oklch(0.65 0.22 25);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    background-image:
+      radial-gradient(circle at 50% 0%, oklch(from var(--brand-emerald) l c h / 0.1), transparent 50%);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .page-container {
+    width: min(100%, 1060px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-emerald) l c h / 0.15);
+    color: var(--brand-emerald);
+    border: 1px solid oklch(from var(--brand-emerald) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .page-desc code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: oklch(0.2 0.03 260 / 0.8);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--brand-cyan);
+  }
+}
+
+@layer components {
+  /* Circuit Status Banner */
+  .breaker-status-card {
+    background: var(--bg-card);
+    border: 2px solid var(--border-card);
+    border-radius: 18px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    box-shadow: 0 16px 36px oklch(0 0 0 / 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .breaker-status-card.state-closed-border {
+    border-color: oklch(from var(--brand-emerald) l c h / 0.6);
+    box-shadow: 0 0 30px oklch(from var(--brand-emerald) l c h / 0.15);
+  }
+
+  .breaker-status-card.state-open-border {
+    border-color: oklch(from var(--brand-red) l c h / 0.6);
+    box-shadow: 0 0 30px oklch(from var(--brand-red) l c h / 0.2);
+  }
+
+  .breaker-status-card.state-half-border {
+    border-color: oklch(from var(--brand-amber) l c h / 0.6);
+    box-shadow: 0 0 30px oklch(from var(--brand-amber) l c h / 0.2);
+  }
+
+  .pulse-beacon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .pulse-beacon::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    animation: beacon-pulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  }
+
+  .state-closed { background: var(--brand-emerald); }
+  .state-closed::after { border: 2px solid var(--brand-emerald); }
+
+  .state-open { background: var(--brand-red); }
+  .state-open::after { border: 2px solid var(--brand-red); }
+
+  .state-half-open { background: var(--brand-amber); }
+  .state-half-open::after { border: 2px solid var(--brand-amber); }
+
+  @keyframes beacon-pulse {
+    0% { transform: scale(0.9); opacity: 1; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  .status-info-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .status-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .status-name {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .status-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+  }
+
+  .status-stats-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .stat-pill {
+    padding: 0.35rem 0.85rem;
+    border-radius: 8px;
+    background: oklch(0.18 0.03 260);
+    border: 1px solid var(--border-card);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+  }
+
+  .stat-pill span {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* Console Grid */
+  .console-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 800px) {
+    .console-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .panel-heading {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .sliders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .param-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .param-row label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .param-row output {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-cyan);
+    font-weight: 700;
+  }
+
+  .custom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: oklch(0.22 0.03 260);
+    border-radius: 3px;
+    outline: none;
+  }
+
+  .custom-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--brand-cyan);
+    cursor: pointer;
+  }
+
+  .action-buttons-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+
+  .btn-primary {
+    background: var(--brand-cyan);
+    color: oklch(0.1 0.02 260);
+  }
+
+  .btn-secondary {
+    background: oklch(0.2 0.03 260);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+  }
+
+  .btn-danger {
+    background: oklch(from var(--brand-red) l c h / 0.2);
+    color: var(--brand-red);
+    border: 1px solid oklch(from var(--brand-red) l c h / 0.4);
+  }
+
+  .btn-reset {
+    background: oklch(0.18 0.03 260);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-card);
+  }
+
+  /* Log Stream */
+  .log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-clear-log {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+
+  .btn-clear-log:hover {
+    color: var(--text-primary);
+  }
+
+  .log-stream {
+    flex: 1;
+    min-height: 280px;
+    max-height: 340px;
+    overflow-y: auto;
+    background: oklch(0.09 0.02 260);
+    border: 1px solid oklch(0.2 0.03 260);
+    border-radius: 10px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+  }
+
+  .log-entry {
+    padding: 0.35rem 0.5rem;
+    border-radius: 6px;
+    line-height: 1.4;
+  }
+
+  .log-info { color: var(--text-secondary); }
+  .log-success { color: var(--brand-emerald); background: oklch(from var(--brand-emerald) l c h / 0.1); }
+  .log-error { color: var(--brand-red); background: oklch(from var(--brand-red) l c h / 0.1); }
+  .log-blocked { color: var(--brand-amber); background: oklch(from var(--brand-amber) l c h / 0.1); }
+}

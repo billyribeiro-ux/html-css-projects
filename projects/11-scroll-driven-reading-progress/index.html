@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll-Driven Animations & Core Web Vitals (INP) | DPE L8++</title>
+  
+  <!-- Core SEO & Search Indexing -->
+  <meta name="description" content="Mastering 120fps compositor-driven scroll animations without JavaScript main-thread contention. Optimize Google Core Web Vitals and INP scores using CSS scroll timelines.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/11-scroll-driven-reading-progress/">
+  <meta name="theme-color" content="#17142b">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Scroll-Driven Animations & Core Web Vitals (INP) | DPE L8++">
+  <meta property="og:description" content="Eliminating main-thread scroll jank using CSS animation-timeline: scroll() for sub-millisecond interaction responsiveness.">
+  <meta property="og:url" content="https://example.com/projects/11-scroll-driven-reading-progress/">
+  <meta property="article:published_time" content="2026-10-21T09:00:00Z">
+  <meta property="article:author" content="Distinguished Principal Systems Architect">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Scroll-Driven Animations & Core Web Vitals (INP)">
+  <meta name="twitter:description" content="Technical guide to zero-JS 120fps scroll timelines.">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Scroll-Driven Animations: animation-timeline: scroll() and Core Web Vitals Optimization",
+    "description": "Technical analysis of compositor-driven scroll timelines eliminating JavaScript main thread lag and optimizing Google Interaction to Next Paint (INP) thresholds.",
+    "datePublished": "2026-10-21T09:00:00Z",
+    "dateModified": "2026-10-22T14:00:00Z",
+    "author": {
+      "@type": "Person",
+      "name": "DPE L8++ Principal Systems Architect",
+      "jobTitle": "Distinguished Principal Web Systems Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Systems Institute",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://example.com/logo.png"
+      }
+    },
+    "about": [
+      { "@type": "Thing", "name": "Core Web Vitals" },
+      { "@type": "Thing", "name": "Interaction to Next Paint (INP)" },
+      { "@type": "Thing", "name": "CSS Scroll-Driven Animations" }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Pure CSS Scroll-Driven Top Progress Bar -->
+  <div class="scroll-tracker" aria-hidden="true"></div>
+
+  <!-- Dynamic Sticky Header with Scroll-Linked Compacting -->
+  <header class="sticky-nav" role="banner">
+    <div class="nav-container">
+      <div class="brand-group">
+        <span class="brand-logo" aria-hidden="true">λ</span>
+        <span class="brand-name">Principal Systems Log</span>
+      </div>
+      <div class="nav-meta">
+        <span class="reading-badge">Scroll-Linked Animation</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="article-layout" itemscope itemtype="https://schema.org/TechArticle">
+    <header class="article-header">
+      <span class="badge">Level 11 • Distinguished Principal Engineer L8++</span>
+      <h1 class="article-title" itemprop="headline">Scroll-Driven Animations: <code>animation-timeline: scroll()</code></h1>
+      <p class="article-desc" itemprop="description">
+        Eliminating main-thread scroll jank. By binding CSS keyframe animations directly to the browser compositor's scroll timeline, reading indicators and dynamic sticky navigations execute at a native 120fps with zero JavaScript.
+      </p>
+    </header>
+
+    <div class="article-body">
+      <section class="content-block">
+        <h2>I. The Problem with JavaScript Scroll Listeners & INP</h2>
+        <p>
+          For over two decades, implementing sticky header shrink effects or reading progress bars required attaching event listeners to <code>window.addEventListener('scroll')</code>. Even with <code>requestAnimationFrame</code> or passive event flags, continuous DOM reads (<code>scrollTop</code>, <code>getBoundingClientRect()</code>) routinely cause layout thrashing, elevate the browser's <strong>Interaction to Next Paint (INP)</strong> metric above Google's 200ms threshold, and drop frames during rapid touchpad or momentum scrolling.
+        </p>
+      </section>
+
+      <section class="content-block">
+        <h2>II. Compositor-Driven Scroll Timelines</h2>
+        <p>
+          CSS Scroll-Driven Animations transfer the calculation from the browser's JavaScript main thread directly to the compositor thread. By specifying <code>animation-timeline: scroll()</code>, the animation progress is normalized between 0% and 100% corresponding to the scrollable scroll-port.
+        </p>
+        <div class="callout-box">
+          <h3>Architectural & SEO Takeaway</h3>
+          <p>The compositor can advance the transform and opacity of the header and progress bar during smooth kinetic scrolling even if the JavaScript event loop is temporarily blocked by heavy background data parsing, ensuring flawless Core Web Vitals scores.</p>
+        </div>
+      </section>
+
+      <section class="content-block">
+        <h2>III. Practical Applications in Enterprise Systems</h2>
+        <p>
+          From high-frequency financial dashboards monitoring trading logs to technical API reference portals, scroll-driven timelines allow developers to link table-of-contents highlights, sticky floating action bars, and subtle shadow elevations seamlessly to document progression.
+        </p>
+        <p>
+          Scroll down further to watch the top glowing gradient bar reach 100% while the top header smoothly tightens its padding and elevates its backdrop filter.
+        </p>
+      </section>
+
+      <section class="content-block">
+        <h2>IV. Resilience & Prefers-Reduced-Motion</h2>
+        <p>
+          As with all DPE L8++ standards, accessibility is non-negotiable. For users with vestibular motion sensitivities, <code>@media (prefers-reduced-motion: reduce)</code> gracefully maintains static readability without disorienting layout changes.
+        </p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

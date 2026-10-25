@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14 - Scoped Component Deck via @scope | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="True native CSS encapsulation. Using @scope (.scoped-deck) to (.unscoped-slot) to enforce strict boundary limits without Shadow DOM or CSS Modules.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/14-scoped-component-card-deck/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "CSS Scoping & Donut Encapsulation via @scope",
+    "description": "True native CSS encapsulation. Using @scope (.scoped-deck) to (.unscoped-slot) to enforce strict boundary limits without Shadow DOM or CSS Modules.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "@scope root to limit (Donut Scoping)"
+      },
+      {
+        "@type": "Thing",
+        "name": ":scope Pseudo-class"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero Style Bleed"
+      },
+      {
+        "@type": "Thing",
+        "name": "Native Shadow-DOM Alternative"
+      },
+      {
+        "@type": "Thing",
+        "name": "Clean DOM Tree"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 14 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">CSS Scoping & Donut Encapsulation via <code>@scope</code></h1>
+      <p class="page-desc">
+        True native CSS component encapsulation. Using <code>@scope (.scoped-deck) to (.unscoped-slot)</code> to enforce strict boundary barriers without Shadow DOM, BEM, or CSS Modules overhead.
+      </p>
+    </header>
+
+    <div class="deck-wrapper">
+      <!-- Outer Component Root -->
+      <article class="scoped-deck theme-cyber">
+        <header class="deck-header">
+          <span class="deck-tag">Outer Scoped Host</span>
+          <h2 class="title">Cybernetic Neural Link Interface</h2>
+          <p class="desc">Styles in this container are bound strictly by <code>@scope</code>.</p>
+        </header>
+
+        <!-- Donut Boundary Slot: Scoped styles STOP here! -->
+        <div class="unscoped-slot">
+          <div class="nested-child-card">
+            <span class="slot-tag">Nested Donut Slot</span>
+            <h3 class="title">Nested Micro-Service Component</h3>
+            <p class="desc">
+              Notice how this nested element has the exact same class names (<code>.title</code>, <code>.desc</code>), yet it completely ignores the outer card's cyan styling because <code>to (.unscoped-slot)</code> creates an impenetrable style boundary!
+            </p>
+          </div>
+        </div>
+
+        <footer class="deck-footer">
+          <button type="button" class="btn">Outer Action Control</button>
+        </footer>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

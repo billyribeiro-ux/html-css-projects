@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24 - Offline-First IndexedDB Reactive Store | DPE L8++</title>
+  <meta name="description" content="Production offline-first reactive state store utilizing native browser IndexedDB, transactional integrity, and EventTarget dispatchers.">
+  <link rel="canonical" href="https://example.com/projects/24-indexeddb-reactive-store/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Reactive IndexedDB v3 State Store",
+    "description": "Enterprise offline-first client database replacing synchronous, size-limited LocalStorage with asynchronous IndexedDB wrapped in a reactive EventTarget bus.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "IndexedDB v3 ObjectStore"
+      },
+      {
+        "@type": "Thing",
+        "name": "EventTarget Reactive Bus"
+      },
+      {
+        "@type": "Thing",
+        "name": "Transactional ACID Writes"
+      },
+      {
+        "@type": "Thing",
+        "name": "Cursor Queries"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero LocalStorage Bottlenecks"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 24 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">IndexedDB & EventTarget</span>
+      </div>
+      <h1 class="page-title">Offline-First IndexedDB Reactive State Engine</h1>
+      <p class="page-desc">
+        Zero external storage libraries. Built on native browser <code>IndexedDB</code> with transactional guarantees, index querying, and reactive <code>EventTarget</code> subscribers for seamless offline durability.
+      </p>
+    </header>
+
+    <div class="store-layout">
+      <!-- Input Form -->
+      <section class="form-card">
+        <h2 class="card-heading">Log Incident Telemetry</h2>
+        <form id="incident-form" class="incident-form">
+          <div class="form-field">
+            <label for="inc-service">Target Subsystem:</label>
+            <input type="text" id="inc-service" placeholder="e.g. k8s-ingress-proxy" required>
+          </div>
+
+          <div class="form-field">
+            <label for="inc-severity">Severity Rating:</label>
+            <select id="inc-severity" class="custom-select">
+              <option value="CRITICAL">P0 - Critical Outage</option>
+              <option value="MAJOR" selected>P1 - Major Degradation</option>
+              <option value="MINOR">P2 - Minor Anomaly</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="inc-notes">Incident Summary:</label>
+            <textarea id="inc-notes" rows="2" placeholder="Brief diagnostic notes..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-save" id="btn-save-record">
+            <span>Commit to IndexedDB</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Records Display & Filter Table -->
+      <section class="records-card">
+        <div class="records-header">
+          <div class="records-title-group">
+            <h2 class="card-heading">Persisted Records</h2>
+            <span class="record-count" id="record-count">0 Records</span>
+          </div>
+          <button type="button" class="btn-clear" id="btn-purge-db">Purge Database</button>
+        </div>
+
+        <div class="records-table-container">
+          <div class="records-list" id="records-list">
+            <!-- Dynamically populated from IndexedDB -->
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

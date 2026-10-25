@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>34 - Infinite Pan & Zoom Spatial Canvas with DOMMatrix | DPE L8++</title>
+  <meta name="description" content="Infinite 2D spatial canvas powered by native DOMMatrix affine transforms, cursor-focal zoom, pointer capture, and real-time minimap.">
+  <link rel="canonical" href="https://example.com/projects/34-infinite-canvas-pan-zoom/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DOMMatrix Infinite Spatial Canvas Engine",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 34 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Native DOMMatrix Transforms</span>
+        <span class="tech-tag">Infinite Spatial Coordinates</span>
+      </div>
+      <h1 class="page-title">Infinite 2D Pan & Zoom Spatial Canvas</h1>
+      <p class="page-desc">
+        Zero external graphing canvas libraries. Hardware-accelerated 2D affine transformations via <code>DOMMatrix</code>, cursor focal-point zooming, pointer capture, and live minimap radar.
+      </p>
+    </header>
+
+    <!-- Canvas Workspace Viewport -->
+    <div class="viewport-card">
+      <!-- Toolbar Overlay -->
+      <div class="canvas-hud-toolbar">
+        <div class="hud-coords">
+          <span>X: <strong id="val-x">0</strong></span>
+          <span>Y: <strong id="val-y">0</strong></span>
+          <span>Scale: <strong id="val-zoom">100%</strong></span>
+        </div>
+        <div class="hud-buttons">
+          <button type="button" class="btn-hud" id="btn-zoom-in" title="Zoom In">+</button>
+          <button type="button" class="btn-hud" id="btn-zoom-out" title="Zoom Out">−</button>
+          <button type="button" class="btn-hud" id="btn-reset-view" title="Reset to Origin">Reset (100%)</button>
+        </div>
+      </div>
+
+      <!-- Infinite Canvas Stage -->
+      <div class="infinite-viewport" id="viewport" tabindex="0" role="region" aria-label="Infinite Pan and Zoom Workspace">
+        <div class="world-container" id="world-container">
+          <!-- Spatial Network Topology Nodes -->
+          <div class="spatial-node" style="left: -200px; top: -120px;" data-title="Edge Ingress">
+            <span class="node-icon">🌐</span>
+            <div class="node-meta">
+              <strong>Edge Gateway</strong>
+              <small>us-east-edge</small>
+            </div>
+          </div>
+
+          <div class="spatial-node" style="left: 150px; top: -100px;" data-title="Load Balancer">
+            <span class="node-icon">⚖️</span>
+            <div class="node-meta">
+              <strong>Mesh Proxy</strong>
+              <small>envoy.internal</small>
+            </div>
+          </div>
+
+          <div class="spatial-node" style="left: 0px; top: 120px;" data-title="Compute Core">
+            <span class="node-icon">⚡</span>
+            <div class="node-meta">
+              <strong>Core Cluster</strong>
+              <small>k8s-master-01</small>
+            </div>
+          </div>
+
+          <div class="spatial-node" style="left: 320px; top: 180px;" data-title="Storage Engine">
+            <span class="node-icon">💾</span>
+            <div class="node-meta">
+              <strong>Raft KV Store</strong>
+              <small>replicated.db</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radar Minimap Overlay -->
+      <div class="minimap-overlay" aria-hidden="true">
+        <div class="minimap-arena" id="minimap-arena">
+          <div class="minimap-viewport-box" id="minimap-viewport-box"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

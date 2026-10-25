@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 - Dual Theme System with light-dark() | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Eliminates duplicate CSS theme selectors and bloated overrides using standard light-dark() CSS coupled with color-scheme inheritance.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/03-color-theme-switcher/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Native Dual Theme System via light-dark()",
+    "description": "Eliminates duplicate CSS theme selectors and bloated overrides using standard light-dark() CSS coupled with color-scheme inheritance.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "light-dark() Color Function"
+      },
+      {
+        "@type": "Thing",
+        "name": "color-scheme Property"
+      },
+      {
+        "@type": "Thing",
+        "name": "High-Contrast @media Adaptations"
+      },
+      {
+        "@type": "Thing",
+        "name": "Sparkline Telemetry"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero FOUC Layout Stability"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 03 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Native Dual Theme System via <code>light-dark()</code></h1>
+      <p class="page-desc">
+        Eliminating duplicate CSS selectors and bloated theme bundles using standard 2026 CSS <code>light-dark()</code> coupled with automatic <code>color-scheme</code> inheritance.
+      </p>
+
+      <!-- Theme Controls -->
+      <fieldset class="theme-picker" aria-label="Theme Selection">
+        <legend class="sr-only">Select Color Scheme</legend>
+        
+        <label class="theme-option">
+          <input type="radio" name="theme-choice" value="system" checked>
+          <span class="theme-label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            System Auto
+          </span>
+        </label>
+
+        <label class="theme-option">
+          <input type="radio" name="theme-choice" value="light">
+          <span class="theme-label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            Light Scheme
+          </span>
+        </label>
+
+        <label class="theme-option">
+          <input type="radio" name="theme-choice" value="dark">
+          <span class="theme-label">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Dark Scheme
+          </span>
+        </label>
+      </fieldset>
+    </header>
+
+    <!-- Interactive Metric Dashboard Card -->
+    <div class="dashboard-grid">
+      <article class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">GPU Throughput</span>
+          <span class="stat-badge">+28.4%</span>
+        </div>
+        <div class="stat-body">
+          <span class="stat-value">94.8 <small>TFLOPS</small></span>
+          <p class="stat-note">Sub-millisecond matrix execution active</p>
+        </div>
+        <div class="stat-sparkline" aria-hidden="true">
+          <svg viewBox="0 0 100 24" class="sparkline-svg">
+            <path d="M0 20 Q 25 15, 50 10 T 100 4" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-header">
+          <span class="stat-title">Active Mesh Nodes</span>
+          <span class="stat-badge stat-badge--cyan">Stable</span>
+        </div>
+        <div class="stat-body">
+          <span class="stat-value">1,420</span>
+          <p class="stat-note">All replicas synced across 12 zones</p>
+        </div>
+        <div class="stat-sparkline" aria-hidden="true">
+          <svg viewBox="0 0 100 24" class="sparkline-svg">
+            <path d="M0 18 Q 30 22, 60 8 T 100 6" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script>
+    // Lightweight controller for the pure CSS color-scheme switcher
+    const inputs = document.querySelectorAll('input[name="theme-choice"]');
+    inputs.forEach(input => {
+      input.addEventListener('change', () => {
+        document.documentElement.setAttribute('data-theme', input.value);
+      });
+    });
+  </script>
+</body>
+</html>

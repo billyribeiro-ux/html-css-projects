@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30 - GoF Command Pattern Undo/Redo Engine | DPE L8++</title>
+  <meta name="description" content="Transactional Command Pattern undo/redo engine with visual timeline inspector, time-travel history navigation, and zero state mutation.">
+  <link rel="canonical" href="https://example.com/projects/30-command-pattern-undo-redo/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Transactional GoF Command Pattern Time-Travel Engine",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 30 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">GoF Command Pattern</span>
+        <span class="tech-tag">Time-Travel State Engine</span>
+      </div>
+      <h1 class="page-title">Command Pattern Undo/Redo Canvas</h1>
+      <p class="page-desc">
+        Pure architectural discipline. Every user action is encapsulated into an immutable transactional <code>Command</code> with reversible inverses. Supports multi-level undo, redo, and visual branch time-travel.
+      </p>
+    </header>
+
+    <!-- Canvas & Inspector Grid -->
+    <div class="workspace-grid">
+      <!-- Main Stage -->
+      <section class="stage-panel" aria-label="Interactive Canvas">
+        <div class="toolbar">
+          <div class="tool-group">
+            <button type="button" class="btn btn-action" id="btn-add-rect">+ Rectangle</button>
+            <button type="button" class="btn btn-action" id="btn-add-circle">+ Circle</button>
+            <button type="button" class="btn btn-action" id="btn-randomize">⚡ Color Cycle</button>
+            <button type="button" class="btn btn-danger" id="btn-clear-canvas">Clear Canvas</button>
+          </div>
+
+          <div class="tool-group history-controls">
+            <button type="button" class="btn btn-history" id="btn-undo" disabled title="Undo (Cmd/Ctrl + Z)">
+              ⮪ Undo
+            </button>
+            <button type="button" class="btn btn-history" id="btn-redo" disabled title="Redo (Cmd/Ctrl + Shift + Z)">
+              Redo ⮫
+            </button>
+          </div>
+        </div>
+
+        <div class="canvas-stage" id="canvas-stage" tabindex="0" role="region" aria-label="Visual Canvas">
+          <div class="stage-grid-bg"></div>
+          <!-- Shapes are mounted here -->
+        </div>
+      </section>
+
+      <!-- History Timeline Sidebar -->
+      <aside class="timeline-panel" aria-label="Transaction Audit Log">
+        <header class="timeline-header">
+          <h2 class="panel-title">Audit Ledger & Time Travel</h2>
+          <span class="badge-counter" id="history-counter">0 Actions</span>
+        </header>
+
+        <p class="timeline-hint">Click any previous snapshot to jump backward in time.</p>
+
+        <ol class="history-list" id="history-list" role="list"></ol>
+      </aside>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

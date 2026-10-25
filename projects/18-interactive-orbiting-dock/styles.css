@@ -1,0 +1,241 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 18 - Orbiting Satellite Dock & Trigonometry
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Houdini @property, CSS cos() & sin(), Relational :has() Dock Magnification,
+              GPU Hardware Accelerated Transforms, Zero JS Physics
+   ========================================================================== */
+
+@property --orbit-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@layer reset, tokens, base, orbital, magnify-dock, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.09 0.02 260);
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-purple: oklch(0.68 0.22 290);
+    --brand-gold: oklch(0.82 0.18 80);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+    overflow-x: hidden;
+  }
+
+  .page-container {
+    width: min(100%, 840px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer orbital {
+  /* =========================================================================
+     2026 CSS MILESTONE: Trigonometric Orbital Simulation via cos() & sin()
+     ========================================================================= */
+  .orbit-arena {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    border: 1px dashed oklch(from var(--brand-cyan) l c h / 0.25);
+    display: grid;
+    place-items: center;
+    animation: orbit-rotation 16s linear infinite;
+  }
+
+  @keyframes orbit-rotation {
+    from {
+      --orbit-angle: 0deg;
+    }
+    to {
+      --orbit-angle: 360deg;
+    }
+  }
+
+  .planet-core {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--brand-gold), oklch(0.3 0.15 40));
+    display: grid;
+    place-items: center;
+    font-size: 2rem;
+    box-shadow: 0 0 35px oklch(from var(--brand-gold) l c h / 0.4);
+    animation: counter-rotate 16s linear infinite reverse;
+  }
+
+  @keyframes counter-rotate {
+    to { transform: rotate(360deg); }
+  }
+
+  .satellite {
+    --orbit-radius: 140px;
+    --cur-angle: calc(var(--orbit-angle) + var(--sat-offset));
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: oklch(0.18 0.04 260);
+    border: 2px solid var(--brand-cyan);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 0 15px var(--brand-cyan);
+
+    /* Pure CSS Trigonometry computes orbital X and Y at each frame */
+    translate: calc(cos(var(--cur-angle)) * var(--orbit-radius)) calc(sin(var(--cur-angle)) * var(--orbit-radius));
+  }
+
+  .sat-chip {
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--brand-cyan);
+  }
+}
+
+@layer magnify-dock {
+  /* =========================================================================
+     2026 CSS MILESTONE: Pure CSS Bidirectional Magnify Dock via :has()
+     ========================================================================= */
+  .magnify-dock {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    background: oklch(0.16 0.03 260 / 0.85);
+    border: 1px solid oklch(0.32 0.05 260 / 0.7);
+    border-radius: 24px;
+    box-shadow: 0 16px 40px -4px oklch(0 0 0 / 0.6);
+    backdrop-filter: blur(20px);
+  }
+
+  .dock-item {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: oklch(0.22 0.03 260);
+    border: 1px solid oklch(0.35 0.04 260);
+    display: grid;
+    place-items: center;
+    font-size: 1.35rem;
+    transform-origin: 50% 100%;
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), background-color 150ms ease;
+
+    /* Direct Hover */
+    &:hover {
+      transform: scale(1.4) translateY(-10px);
+      background: oklch(0.28 0.04 260);
+      border-color: var(--brand-cyan);
+      box-shadow: 0 10px 25px oklch(from var(--brand-cyan) l c h / 0.3);
+
+      .dock-tooltip {
+        opacity: 1;
+        transform: translate(-50%, -8px);
+      }
+    }
+  }
+
+  /* Right Neighbor Magnification */
+  .dock-item:hover + .dock-item {
+    transform: scale(1.18) translateY(-4px);
+  }
+
+  /* Left Neighbor Magnification using :has()! */
+  .magnify-dock:has(.dock-item:hover) .dock-item:has(+ .dock-item:hover) {
+    transform: scale(1.18) translateY(-4px);
+  }
+
+  .dock-tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background: oklch(0.1 0.02 260 / 0.95);
+    border: 1px solid oklch(0.3 0.04 260);
+    color: var(--text-primary);
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: all 180ms ease;
+  }
+}

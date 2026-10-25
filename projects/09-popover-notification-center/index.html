@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09 - Popover Notification Center | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Zero-z-index orchestration using the browser Top Layer Popover API, light-dismiss, discrete transition behaviors, and @starting-style entry animations.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/09-popover-notification-center/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Native Popover API & @starting-style",
+    "description": "Zero-z-index orchestration using the browser Top Layer Popover API, light-dismiss, discrete transition behaviors, and @starting-style entry animations.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "HTML5 Popover API"
+      },
+      {
+        "@type": "Thing",
+        "name": ":popover-open Pseudo-class"
+      },
+      {
+        "@type": "Thing",
+        "name": "@starting-style Entry Transitions"
+      },
+      {
+        "@type": "Thing",
+        "name": "transition-behavior: allow-discrete"
+      },
+      {
+        "@type": "Thing",
+        "name": "Semantic Top Layer"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 09 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Native Popover API & <code>@starting-style</code></h1>
+      <p class="page-desc">
+        Zero-z-index orchestration using the Top Layer Native Popover API, light-dismiss, discrete transition behaviors, and <code>@starting-style</code> entry animations.
+      </p>
+    </header>
+
+    <div class="demo-canvas">
+      <!-- Trigger Button for Popover -->
+      <button 
+        type="button" 
+        class="notification-trigger" 
+        popovertarget="notification-center" 
+        popovertargetaction="toggle"
+        aria-label="Toggle Operations Center Notifications"
+      >
+        <span class="trigger-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="unread-dot" aria-hidden="true"></span>
+        </span>
+        <span class="trigger-text">Operational Feeds</span>
+        <span class="trigger-count">3 New</span>
+      </button>
+
+      <!-- The Native Popover Element -->
+      <div id="notification-center" popover="auto" class="notification-popover">
+        <header class="popover-header">
+          <div class="header-info">
+            <h2 class="popover-title">Mission Telemetry</h2>
+            <span class="status-tag">Live Feed</span>
+          </div>
+          <button type="button" class="close-btn" popovertarget="notification-center" popovertargetaction="hide" aria-label="Close Popover">
+            ✕
+          </button>
+        </header>
+
+        <div class="notification-list">
+          <article class="feed-item feed-item--critical">
+            <div class="feed-status-dot"></div>
+            <div class="feed-details">
+              <div class="feed-meta">
+                <span class="feed-source">Kernel Watchdog</span>
+                <time class="feed-time">1m ago</time>
+              </div>
+              <h3 class="feed-heading">Memory Pressure Throttling Evacuation</h3>
+              <p class="feed-desc">Automated eviction routine reallocated 4 pods to secondary failover nodes.</p>
+            </div>
+          </article>
+
+          <article class="feed-item feed-item--success">
+            <div class="feed-status-dot"></div>
+            <div class="feed-details">
+              <div class="feed-meta">
+                <span class="feed-source">Deployment Controller</span>
+                <time class="feed-time">14m ago</time>
+              </div>
+              <h3 class="feed-heading">Global Mesh Canary Promotion Complete</h3>
+              <p class="feed-desc">Release v2026.10-patch successfully verified across 48 worldwide clusters.</p>
+            </div>
+          </article>
+
+          <article class="feed-item">
+            <div class="feed-status-dot"></div>
+            <div class="feed-details">
+              <div class="feed-meta">
+                <span class="feed-source">Security Enclave</span>
+                <time class="feed-time">42m ago</time>
+              </div>
+              <h3 class="feed-heading">Rotated Kyber Post-Quantum Root Certs</h3>
+              <p class="feed-desc">Zero disruption handshake renewal confirmed for external API gateways.</p>
+            </div>
+          </article>
+        </div>
+
+        <footer class="popover-footer">
+          <button type="button" class="btn-ack">Acknowledge All Telemetry</button>
+        </footer>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

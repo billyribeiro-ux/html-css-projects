@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>39 - Device Gyroscope & Pointer 3D Tilt Physics | DPE L8++</title>
+  <meta name="description" content="Hardware-accelerated 3D parallax spatial card controller leveraging DeviceOrientation gyroscope telemetry and pointer physics.">
+  <link rel="canonical" href="https://example.com/projects/39-device-gyroscope-3d-tilt/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Hardware Gyroscope 3D Parallax Tilt Controller",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 39 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">DeviceOrientation API</span>
+        <span class="tech-tag">3D Parallax Physics</span>
+      </div>
+      <h1 class="page-title">Hardware Gyroscope 3D Spatial Tilt</h1>
+      <p class="page-desc">
+        Zero external Three.js or WebGL bloat. Direct mathematical perspective projections with specular lighting, multi-plane Z-index parallax, and mobile gyroscope fallback.
+      </p>
+    </header>
+
+    <!-- 3D Stage Arena -->
+    <div class="stage-arena" id="stage-arena">
+      <!-- 3D Perspective Card -->
+      <article class="parallax-card" id="parallax-card">
+        <!-- Specular Glare Overlay -->
+        <div class="specular-glare" id="specular-glare"></div>
+
+        <div class="card-content">
+          <div class="card-layer layer-top">
+            <span class="card-type-tag">QUANTUM ENCLAVE</span>
+            <div class="chip-graphic">
+              <div class="chip-inner"></div>
+            </div>
+          </div>
+
+          <div class="card-layer layer-mid">
+            <div class="card-number">•••• •••• •••• 8842</div>
+            <div class="card-id-row">
+              <span class="id-label">OPERATOR</span>
+              <strong class="id-val">BILLY RIBEIRO</strong>
+            </div>
+          </div>
+
+          <div class="card-layer layer-bottom">
+            <div class="meta-field">
+              <span>SECURITY LEVEL</span>
+              <strong>DPE LEVEL 8++</strong>
+            </div>
+            <div class="meta-field text-right">
+              <span>ISSUED BY</span>
+              <strong>GOOGLE DEEPMIND</strong>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Gyroscope Telemetry HUD -->
+    <section class="telemetry-hud" aria-label="Orientation Telemetry">
+      <div class="metric-card">
+        <span class="metric-label">Gamma (Roll / Yaw)</span>
+        <span class="metric-value" id="val-gamma">0.0°</span>
+        <span class="metric-sub">horizontal tilt axis</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Beta (Pitch)</span>
+        <span class="metric-value" id="val-beta">0.0°</span>
+        <span class="metric-sub">vertical tilt axis</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Alpha (Heading)</span>
+        <span class="metric-value" id="val-alpha">0.0°</span>
+        <span class="metric-sub">compass azimuth</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Motion Sensor State</span>
+        <button type="button" class="btn-perm" id="btn-request-perm">Pointer Mode (Click for Gyro)</button>
+        <span class="metric-sub" id="sensor-sub">Mouse / Pointer Active</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

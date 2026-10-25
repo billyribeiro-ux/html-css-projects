@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05 - Auto-Expanding Smart Form | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Intrinsic textarea auto-expansion without JavaScript plugins, paired with modern :user-valid validation and parent form state orchestration via :has().">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/05-auto-expanding-form/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Auto-Expanding Form with field-sizing: content",
+    "description": "Intrinsic textarea auto-expansion without JavaScript plugins, paired with modern :user-valid validation and parent form state orchestration via :has().",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "field-sizing: content"
+      },
+      {
+        "@type": "Thing",
+        "name": ":user-valid / :user-invalid"
+      },
+      {
+        "@type": "Thing",
+        "name": ":has() Form State Machine"
+      },
+      {
+        "@type": "Thing",
+        "name": "Non-eager Validation"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero Layout Shift (CLS)"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 05 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Auto-Expanding Form with <code>field-sizing: content</code></h1>
+      <p class="page-desc">
+        Zero-JS intrinsic textarea auto-expansion via CSS <code>field-sizing: content</code>, combined with <code>:user-valid</code> and relational <code>:has()</code> parent validation states.
+      </p>
+    </header>
+
+    <div class="form-wrapper">
+      <form class="smart-form" id="incident-form" novalidate>
+        <!-- Form Header Status Bar (Driven by :has()) -->
+        <div class="form-status-bar" aria-live="polite">
+          <span class="status-indicator"></span>
+          <span class="status-text">Complete all required fields to dispatch incident</span>
+        </div>
+
+        <div class="field-row">
+          <!-- Field: Project / Service Name -->
+          <div class="form-field">
+            <label for="service-name" class="field-label">Production Cluster ID</label>
+            <div class="input-container">
+              <input 
+                type="text" 
+                id="service-name" 
+                name="service-name" 
+                placeholder="e.g. cluster-us-east-4"
+                pattern="^[a-z0-9\-]{4,30}$" 
+                required
+              >
+              <span class="validation-icon" aria-hidden="true"></span>
+            </div>
+            <span class="field-hint">Alphanumeric lowercase and hyphens (4-30 chars).</span>
+          </div>
+
+          <!-- Field: Lead Engineer Email -->
+          <div class="form-field">
+            <label for="lead-email" class="field-label">Incident Commander Email</label>
+            <div class="input-container">
+              <input 
+                type="email" 
+                id="lead-email" 
+                name="lead-email" 
+                placeholder="commander@enterprise.org" 
+                required
+              >
+              <span class="validation-icon" aria-hidden="true"></span>
+            </div>
+            <span class="field-hint">Must be an authorized corporate email.</span>
+          </div>
+        </div>
+
+        <!-- Field: Auto-Expanding Textarea -->
+        <div class="form-field">
+          <label for="incident-brief" class="field-label">Incident Telemetry Log & Analysis</label>
+          <div class="input-container">
+            <textarea 
+              id="incident-brief" 
+              name="incident-brief" 
+              rows="2" 
+              placeholder="Paste stack traces or type post-mortem notes here... Notice how this box smoothly expands automatically as you type without JavaScript!" 
+              required
+              minlength="15"
+            ></textarea>
+            <span class="validation-icon" aria-hidden="true"></span>
+          </div>
+          <span class="field-hint">Powered natively by <code>field-sizing: content</code>.</span>
+        </div>
+
+        <div class="form-actions">
+          <button type="reset" class="btn btn-secondary">Clear Inputs</button>
+          <button type="submit" class="btn btn-primary submit-action">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Dispatch Incident Log</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+</body>
+</html>

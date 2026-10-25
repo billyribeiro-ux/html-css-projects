@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>26 - BroadcastChannel Multi-Tab Synchronization | DPE L8++</title>
+  <meta name="description" content="Cross-tab real-time state synchronization using native BroadcastChannel API with leader election and state convergence.">
+  <link rel="canonical" href="https://example.com/projects/26-broadcast-channel-multitab/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Multi-Tab BroadcastChannel Real-Time Bus",
+    "description": "Synchronizes application state and elects a single coordinator tab across multiple browser tabs and windows using zero-latency BroadcastChannel messaging.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "BroadcastChannel API"
+      },
+      {
+        "@type": "Thing",
+        "name": "Cross-Tab State Sync"
+      },
+      {
+        "@type": "Thing",
+        "name": "Distributed Mutex Leader Election"
+      },
+      {
+        "@type": "Thing",
+        "name": "Multi-Window Presence"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero Polling Overhead"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 26 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">BroadcastChannel API</span>
+      </div>
+      <h1 class="page-title">BroadcastChannel Multi-Tab Synchronization Bus</h1>
+      <p class="page-desc">
+        Zero-server cross-tab coordination. Open this page in two separate browser tabs; state alterations and lock releases immediately propagate via the native <code>BroadcastChannel</code> event bus.
+      </p>
+    </header>
+
+    <div class="sync-grid">
+      <div class="tab-identity-card">
+        <div class="card-header">
+          <span class="card-title">Current Tab Endpoint</span>
+          <span class="tab-chip" id="tab-id-chip">Tab-Init</span>
+        </div>
+        <div class="tab-stat-row">
+          <span>Active Peer Tabs:</span>
+          <span class="stat-highlight" id="peer-count">1 Connected</span>
+        </div>
+        <div class="tab-stat-row">
+          <span>Cluster State Lock:</span>
+          <span class="stat-highlight text-green" id="lock-holder">Available (Unlocked)</span>
+        </div>
+        <div class="tab-actions">
+          <button type="button" class="btn btn-lock" id="btn-acquire-lock">Acquire Exclusive Mutex</button>
+          <button type="button" class="btn btn-broadcast" id="btn-ping-peers">Broadcast Heartbeat Ping</button>
+        </div>
+      </div>
+
+      <div class="bus-monitor-card">
+        <div class="card-header">
+          <span class="card-title">BroadcastChannel Wire Sniffer</span>
+          <span class="status-indicator"></span>
+        </div>
+        <div class="bus-stream" id="bus-stream" role="log" aria-live="polite">
+          <!-- Live cross-tab packets displayed here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

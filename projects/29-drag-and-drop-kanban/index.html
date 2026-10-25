@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>29 - HTML5 Drag-and-Drop Accessible Kanban | DPE L8++</title>
+  <meta name="description" content="Production-ready native HTML5 Drag & Drop Kanban board with bidirectional keyboard reordering and WCAG 2.2 AAA accessibility.">
+  <link rel="canonical" href="https://example.com/projects/29-drag-and-drop-kanban/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Accessible HTML5 Drag & Drop Kanban Board",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "All"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 29 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">HTML5 Drag & Drop API</span>
+        <span class="tech-tag">WCAG 2.2 AAA Dual-Input</span>
+      </div>
+      <h1 class="page-title">Autonomous Drag & Drop Kanban Matrix</h1>
+      <p class="page-desc">
+        Zero external drag libraries. Pure native HTML5 <code>DataTransfer</code> combined with keyboard spatial navigation (<code>Space</code> to grab, <code>Arrow keys</code> to move, <code>Enter</code> to drop).
+      </p>
+    </header>
+
+    <!-- Interactive Top Bar -->
+    <div class="board-toolbar">
+      <div class="hud-status" id="hud-status" role="status" aria-live="polite">
+        Ready • Drag cards or press <kbd>Space</kbd> on a focused card to move via keyboard.
+      </div>
+      <button type="button" class="btn btn-add" id="btn-add-card">
+        <span>+</span> Add Task Card
+      </button>
+    </div>
+
+    <!-- Kanban Board Columns -->
+    <div class="kanban-grid" role="region" aria-label="Kanban Boards">
+      <!-- Column 1: Backlog -->
+      <section class="kanban-col" data-col="backlog" aria-label="Backlog Column">
+        <header class="col-header">
+          <div class="col-title-group">
+            <span class="col-dot dot-backlog"></span>
+            <h2 class="col-title">Backlog</h2>
+          </div>
+          <span class="col-counter" id="count-backlog">0</span>
+        </header>
+        <div class="drop-zone" id="zone-backlog" role="list" aria-dropeffect="move"></div>
+      </section>
+
+      <!-- Column 2: In Flight -->
+      <section class="kanban-col" data-col="in-flight" aria-label="In Flight Column">
+        <header class="col-header">
+          <div class="col-title-group">
+            <span class="col-dot dot-in-flight"></span>
+            <h2 class="col-title">In Flight</h2>
+          </div>
+          <span class="col-counter" id="count-in-flight">0</span>
+        </header>
+        <div class="drop-zone" id="zone-in-flight" role="list" aria-dropeffect="move"></div>
+      </section>
+
+      <!-- Column 3: Shipped -->
+      <section class="kanban-col" data-col="shipped" aria-label="Shipped Column">
+        <header class="col-header">
+          <div class="col-title-group">
+            <span class="col-dot dot-shipped"></span>
+            <h2 class="col-title">Shipped (Production)</h2>
+          </div>
+          <span class="col-counter" id="count-shipped">0</span>
+        </header>
+        <div class="drop-zone" id="zone-shipped" role="list" aria-dropeffect="move"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

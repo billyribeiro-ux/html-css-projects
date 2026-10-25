@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>36 - Biometric WebAuthn & Passkey Security Enclave | DPE L8++</title>
+  <meta name="description" content="Cryptographic WebAuthn / FIDO2 Passkey credential creation and assertion simulator with hardware enclave challenge-response telemetry.">
+  <link rel="canonical" href="https://example.com/projects/36-biometric-auth-simulator/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "FIDO2 / WebAuthn Passkey Hardware Enclave Simulator",
+    "applicationCategory": "SecurityApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 36 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">WebAuthn / FIDO2</span>
+        <span class="tech-tag">Passkey Cryptography</span>
+      </div>
+      <h1 class="page-title">Biometric WebAuthn & Passkey Enclave</h1>
+      <p class="page-desc">
+        Zero plaintext passwords. Native <code>navigator.credentials</code> FIDO2 standard simulating public-key attestation, elliptic curve challenge signing, and hardware security enclave tokens.
+      </p>
+    </header>
+
+    <!-- Passkey Enclave Console -->
+    <div class="auth-grid">
+      <!-- Interactive Terminal -->
+      <section class="auth-panel" aria-label="Passkey Registration & Authentication">
+        <h2 class="panel-title">Passkey Authenticator Simulator</h2>
+
+        <div class="form-group">
+          <label for="input-username">Operator Identity (RP ID: <code>dpe.infra.local</code>)</label>
+          <input type="text" id="input-username" value="alex.vanguard@dpe.local" class="custom-input">
+        </div>
+
+        <!-- Biometric Fingerprint Sensor Visual -->
+        <div class="sensor-container">
+          <div class="biometric-scanner" id="biometric-scanner">
+            <svg class="scanner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 2a10 10 0 0 0-7.07 17.07M12 6a6 6 0 0 0-4.24 10.24M12 10a2 2 0 0 0-1.41 3.41"/>
+              <path d="M16.24 7.76A6 6 0 0 1 18 12c0 1.66-.67 3.16-1.76 4.24M13.41 10.59A2 2 0 0 1 14 12c0 .55-.22 1.05-.59 1.41"/>
+              <path d="M19.07 4.93A10 10 0 0 1 22 12c0 2.76-1.12 5.26-2.93 7.07"/>
+            </svg>
+            <div class="scan-laser" id="scan-laser"></div>
+          </div>
+          <span class="sensor-hint" id="sensor-hint">Hardware Enclave Ready • TouchID / Security Key</span>
+        </div>
+
+        <div class="button-row">
+          <button type="button" class="btn btn-primary" id="btn-register-passkey">
+            <span>🔐</span> Register New Passkey
+          </button>
+          <button type="button" class="btn btn-secondary" id="btn-verify-passkey" disabled>
+            <span>⚡</span> Authenticate with Passkey
+          </button>
+        </div>
+      </section>
+
+      <!-- Security Ledger & Attestation Data -->
+      <section class="audit-panel" aria-label="Cryptographic Audit Ledger">
+        <header class="audit-header">
+          <h2 class="panel-title">FIDO2 Cryptographic Enclave Ledger</h2>
+          <span class="status-pill" id="enclave-status">LOCKED</span>
+        </header>
+        <div class="audit-body" id="audit-body" role="log" aria-live="polite">
+          <div class="audit-row info">Enclave ready. Generate a public key credential to inspect attestation.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>35 - Web Speech Recognition & Synthesis Voice HUD | DPE L8++</title>
+  <meta name="description" content="Hands-free voice command system powered by native Web Speech API (SpeechRecognition and SpeechSynthesis) with zero cloud speech dependencies.">
+  <link rel="canonical" href="https://example.com/projects/35-speech-command-interface/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Web Speech Recognition Voice Command HUD",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 35 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Web Speech Recognition</span>
+        <span class="tech-tag">SpeechSynthesis Voice HUD</span>
+      </div>
+      <h1 class="page-title">Autonomous Speech Command Interface</h1>
+      <p class="page-desc">
+        Zero external cloud speech API costs. 100% browser-native <code>SpeechRecognition</code> and <code>SpeechSynthesis</code> voice feedback with real-time intent parsing.
+      </p>
+    </header>
+
+    <!-- Voice Control Console -->
+    <div class="voice-console">
+      <!-- Microphone Activation Zone -->
+      <div class="mic-zone">
+        <button type="button" class="btn-mic" id="btn-mic" aria-label="Toggle Voice Listening">
+          <svg class="mic-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+            <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+          <div class="mic-waves" id="mic-waves">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </button>
+
+        <div class="mic-status-group">
+          <span class="mic-status-label" id="mic-status-label">Microphone Idle • Click to Listen</span>
+          <p class="interim-text" id="interim-text">Say a command, e.g. "Run diagnostics" or "Report status"</p>
+        </div>
+      </div>
+
+      <!-- Quick Command Simulator Pills -->
+      <div class="quick-commands">
+        <span class="quick-title">Or test synthetic commands:</span>
+        <div class="command-pills">
+          <button type="button" class="cmd-pill" data-cmd="run diagnostics">"Run diagnostics"</button>
+          <button type="button" class="cmd-pill" data-cmd="system status">"System status"</button>
+          <button type="button" class="cmd-pill" data-cmd="set theme emerald">"Set theme emerald"</button>
+          <button type="button" class="cmd-pill" data-cmd="set theme cyan">"Set theme cyan"</button>
+          <button type="button" class="cmd-pill" data-cmd="clear log">"Clear log"</button>
+        </div>
+      </div>
+
+      <!-- Command Output Ledger -->
+      <section class="command-ledger">
+        <header class="ledger-header">
+          <span class="ledger-title">Voice Intent Execution Ledger</span>
+          <span class="confidence-badge" id="confidence-badge">Confidence: --</span>
+        </header>
+        <div class="ledger-body" id="ledger-body" role="log" aria-live="polite">
+          <div class="ledger-item info">Voice command parser initialized. Voice synthesis audio channel ready.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build Outputs
+dist/
+build/
+
+# Test & Coverage Outputs
+coverage/
+playwright-report/
+test-results/
+blob-report/
+
+# OS and Editor Artifacts
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local

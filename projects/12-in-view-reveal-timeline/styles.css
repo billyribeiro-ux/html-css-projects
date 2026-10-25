@@ -1,0 +1,222 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 12 - In-View Reveal Timeline
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS animation-timeline: view(), animation-range: entry cover,
+              OKLCH Color Space, Hardware Composited Transforms, Zero JS
+   ========================================================================== */
+
+@layer reset, tokens, base, timeline-view, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.11 0.02 260);
+    --bg-card: oklch(0.15 0.03 260);
+    --border-card: oklch(0.28 0.04 260);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-purple: oklch(0.68 0.22 290);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 180vh; /* Deliberate height to experience the entry view timelines */
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 4rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 780px);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer timeline-view {
+  /* =========================================================================
+     2026 CSS MILESTONE: In-View Reveal via animation-timeline: view()
+     ========================================================================= */
+  .timeline-node {
+    /* Pure CSS View Timeline: Triggers when the element intersects the viewport */
+    animation: reveal-milestone linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 35%;
+  }
+
+  @keyframes reveal-milestone {
+    from {
+      opacity: 0;
+      transform: translateY(48px) scale(0.92);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0);
+    }
+  }
+}
+
+@layer components {
+  .timeline-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    padding-left: 3rem;
+
+    @media (min-width: 640px) {
+      padding-left: 4rem;
+    }
+  }
+
+  .timeline-spine {
+    position: absolute;
+    left: 17px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--brand-cyan), var(--brand-purple));
+    box-shadow: 0 0 12px oklch(from var(--brand-cyan) l c h / 0.4);
+
+    @media (min-width: 640px) {
+      left: 21px;
+    }
+  }
+
+  .timeline-node {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .node-marker {
+    position: absolute;
+    left: -3rem;
+    top: 1.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-page);
+    border: 2px solid var(--brand-cyan);
+    color: var(--brand-cyan);
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    box-shadow: 0 0 16px oklch(from var(--brand-cyan) l c h / 0.35);
+    z-index: 2;
+
+    @media (min-width: 640px) {
+      left: -4rem;
+      width: 44px;
+      height: 44px;
+      font-size: 0.85rem;
+    }
+  }
+
+  .node-card {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    box-shadow: 0 12px 30px -4px oklch(0 0 0 / 0.4);
+    transition: border-color 200ms ease;
+
+    &:hover {
+      border-color: var(--brand-cyan);
+    }
+  }
+
+  .node-date {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-purple);
+    font-weight: 600;
+  }
+
+  .node-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  .node-desc {
+    font-size: 0.925rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-node {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}

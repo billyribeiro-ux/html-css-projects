@@ -1,0 +1,562 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 20 - Command Palette & OS Desktop Environment
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Anchor Positioning, Native <dialog> + @starting-style,
+              CSS Subgrid, Popover API, light-dark() System, 120fps Compositor
+   ========================================================================== */
+
+@layer reset, tokens, base, os-layout, anchor-menu, palette-modal, subgrid-table, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    color-scheme: dark;
+
+    /* Dynamic light-dark() system tokens */
+    --os-bg: light-dark(oklch(0.96 0.01 250), oklch(0.1 0.02 260));
+    --os-surface: light-dark(oklch(1 0 0 / 0.85), oklch(0.15 0.03 260 / 0.85));
+    --os-surface-solid: light-dark(oklch(0.98 0.01 250), oklch(0.16 0.03 260));
+    --os-border: light-dark(oklch(0.85 0.02 250), oklch(0.28 0.04 260 / 0.7));
+
+    --os-text-high: light-dark(oklch(0.12 0.02 250), oklch(0.98 0.01 260));
+    --os-text-med: light-dark(oklch(0.45 0.03 250), oklch(0.72 0.03 260));
+    --os-text-dim: light-dark(oklch(0.6 0.02 250), oklch(0.5 0.02 260));
+
+    --os-cyan: light-dark(oklch(0.55 0.18 190), oklch(0.75 0.19 190));
+    --os-green: light-dark(oklch(0.55 0.18 145), oklch(0.75 0.2 145));
+    --os-danger: light-dark(oklch(0.55 0.22 25), oklch(0.68 0.22 25));
+
+    --os-shadow: 0 16px 40px -4px oklch(0 0 0 / 0.5);
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--os-bg);
+    color: var(--os-text-high);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-image: 
+      radial-gradient(ellipse at 50% 10%, oklch(from var(--os-cyan) l c h / 0.08), transparent 60%),
+      radial-gradient(circle at 90% 90%, oklch(0.15 0.04 260 / 0.5), transparent 40%);
+  }
+}
+
+@layer os-layout {
+  /* Desktop Topbar */
+  .desktop-topbar {
+    height: 44px;
+    background: var(--os-surface);
+    border-bottom: 1px solid var(--os-border);
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 1.25rem;
+    z-index: 100;
+  }
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  /* Anchor Trigger for OS Menu */
+  .system-logo-btn {
+    anchor-name: --os-anchor;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--os-text-high);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background: oklch(1 0 0 / 0.08);
+    }
+  }
+
+  .logo-glyph {
+    color: var(--os-cyan);
+    font-size: 1.1rem;
+  }
+
+  .divider {
+    color: var(--os-text-dim);
+  }
+
+  .cluster-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--os-text-dim);
+  }
+
+  /* Command Palette Trigger */
+  .cmd-trigger-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: oklch(0 0 0 / 0.25);
+    border: 1px solid var(--os-border);
+    border-radius: 8px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8rem;
+    color: var(--os-text-med);
+    transition: all 180ms ease;
+
+    &:hover {
+      border-color: var(--os-cyan);
+      color: var(--os-text-high);
+    }
+  }
+
+  .kbd-shortcut {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: oklch(1 0 0 / 0.1);
+    padding: 0.1rem 0.35rem;
+    border-radius: 4px;
+    color: var(--os-text-dim);
+  }
+
+  /* Topbar Right Quick Controls */
+  .status-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: oklch(0 0 0 / 0.2);
+    border: 1px solid var(--os-border);
+    border-radius: 9999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--os-green);
+    box-shadow: 0 0 8px var(--os-green);
+  }
+
+  .latency-val {
+    color: var(--os-cyan);
+  }
+
+  .clock-display {
+    color: var(--os-text-med);
+  }
+
+  /* Main Desktop Workspace Area */
+  .desktop-workspace {
+    flex-grow: 1;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+
+  /* Window Chrome */
+  .os-window {
+    width: min(100%, 860px);
+    background: var(--os-surface);
+    border: 1px solid var(--os-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--os-shadow);
+    backdrop-filter: blur(24px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .window-titlebar {
+    height: 42px;
+    background: oklch(0 0 0 / 0.25);
+    border-bottom: 1px solid var(--os-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 1rem;
+  }
+
+  .window-controls {
+    display: flex;
+    gap: 6px;
+
+    .control-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+
+      &.close { background: oklch(0.65 0.22 25); }
+      &.minimize { background: oklch(0.75 0.18 80); }
+      &.maximize { background: oklch(0.72 0.2 145); }
+    }
+  }
+
+  .window-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--os-text-med);
+  }
+
+  .window-badge {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--os-cyan);
+    background: oklch(from var(--os-cyan) l c h / 0.15);
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .window-body {
+    padding: 1.5rem;
+  }
+}
+
+@layer subgrid-table {
+  /* =========================================================================
+     2026 CSS MILESTONE: Subgrid Distributed Process Table
+     ========================================================================= */
+  .process-subgrid-table {
+    display: grid;
+    grid-template-columns: 120px 1.4fr 1.1fr 90px 90px;
+    gap: 0.85rem;
+    font-size: 0.85rem;
+  }
+
+  .table-header {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--os-border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--os-text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .table-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+    padding: 0.65rem 0.5rem;
+    border-radius: 8px;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background: oklch(1 0 0 / 0.04);
+    }
+  }
+
+  .cell-mono {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--os-text-dim);
+  }
+
+  .cell-bold {
+    font-weight: 600;
+  }
+
+  .status-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    text-align: center;
+
+    &.chip-green {
+      color: var(--os-green);
+      background: oklch(from var(--os-green) l c h / 0.15);
+    }
+
+    &.chip-cyan {
+      color: var(--os-cyan);
+      background: oklch(from var(--os-cyan) l c h / 0.15);
+    }
+  }
+}
+
+@layer anchor-menu {
+  /* =========================================================================
+     2026 CSS ANCHOR POSITIONED SYSTEM MENU
+     ========================================================================= */
+  .anchor-system-menu {
+    position: fixed;
+    position-anchor: --os-anchor;
+    position-area: bottom span-right;
+    margin-top: 6px;
+    margin-left: 12px;
+    background: var(--os-surface-solid);
+    border: 1px solid var(--os-border);
+    border-radius: 12px;
+    padding: 0.4rem;
+    box-shadow: var(--os-shadow);
+    min-width: 210px;
+
+    /* Discrete transition */
+    transition: display 180ms allow-discrete, overlay 180ms allow-discrete, opacity 180ms ease, transform 180ms ease;
+    opacity: 1;
+    transform: translateY(0);
+
+    &:not(:popover-open) {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  @starting-style {
+    .anchor-system-menu:popover-open {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.825rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background: oklch(1 0 0 / 0.08);
+    }
+
+    &.text-danger {
+      color: var(--os-danger);
+    }
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: var(--os-border);
+    margin-block: 0.3rem;
+  }
+
+  /* Quick Settings Popover */
+  .quick-settings-card {
+    position: fixed;
+    inset: unset;
+    top: 50px;
+    right: 1.25rem;
+    width: 280px;
+    background: var(--os-surface-solid);
+    border: 1px solid var(--os-border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: var(--os-shadow);
+    backdrop-filter: blur(20px);
+  }
+
+  .qs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .qs-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+
+  .qs-badge {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--os-cyan);
+  }
+
+  .qs-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .qs-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+}
+
+@layer palette-modal {
+  /* =========================================================================
+     2026 CSS COMMAND PALETTE (<dialog>)
+     ========================================================================= */
+  .palette-dialog {
+    position: fixed;
+    inset: unset;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, 0) scale(1);
+    margin: 0;
+    width: min(92vw, 580px);
+    background: transparent;
+    border: none;
+    padding: 0;
+    opacity: 1;
+
+    transition: 
+      display 250ms allow-discrete,
+      overlay 250ms allow-discrete,
+      opacity 250ms ease,
+      transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    &::backdrop {
+      background: oklch(0 0 0 / 0.6);
+      backdrop-filter: blur(8px);
+      opacity: 1;
+      transition: display 250ms allow-discrete, overlay 250ms allow-discrete, opacity 250ms ease;
+    }
+
+    &:not([open]) {
+      opacity: 0;
+      transform: translate(-50%, -16px) scale(0.97);
+
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  @starting-style {
+    .palette-dialog[open] {
+      opacity: 0;
+      transform: translate(-50%, -16px) scale(0.97);
+
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  .palette-surface {
+    background: var(--os-surface-solid);
+    border: 1px solid var(--os-border);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px -8px oklch(0 0 0 / 0.8);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .palette-input-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1.15rem 1.25rem;
+    border-bottom: 1px solid var(--os-border);
+
+    input {
+      flex-grow: 1;
+      background: none;
+      border: none;
+      color: var(--os-text-high);
+      font-size: 1rem;
+      outline: none;
+
+      &::placeholder {
+        color: var(--os-text-dim);
+      }
+    }
+  }
+
+  .esc-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    background: oklch(1 0 0 / 0.08);
+    color: var(--os-text-dim);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+  }
+
+  .palette-commands-list {
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .command-group-title {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    color: var(--os-text-dim);
+    padding: 0.4rem 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .command-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    color: var(--os-text-med);
+    transition: all 120ms ease;
+
+    &:hover, &:focus {
+      background: var(--os-cyan);
+      color: oklch(0.1 0.02 260);
+      font-weight: 600;
+
+      .cmd-shortcut {
+        color: oklch(0.1 0.02 260);
+      }
+    }
+  }
+
+  .cmd-label {
+    flex-grow: 1;
+    text-align: left;
+  }
+
+  .cmd-shortcut {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--os-text-dim);
+  }
+}

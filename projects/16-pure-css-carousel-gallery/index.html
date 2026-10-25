@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>16 - Pure CSS Scroll Snap Carousel | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Zero-JS hardware-accelerated gallery powered by CSS Scroll Snap, smooth momentum scrolling, and anchor navigation dots.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/16-pure-css-carousel-gallery/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Pure CSS Momentum Carousel & Scroll Snap",
+    "description": "Zero-JS hardware-accelerated gallery powered by CSS Scroll Snap, smooth momentum scrolling, and anchor navigation dots.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "scroll-snap-type: x mandatory"
+      },
+      {
+        "@type": "Thing",
+        "name": "scroll-snap-align: center"
+      },
+      {
+        "@type": "Thing",
+        "name": "overscroll-behavior-x: contain"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero-JS Momentum Physics"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero CLS Slider"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 16 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Pure CSS Momentum Carousel & Scroll Snap</h1>
+      <p class="page-desc">
+        Zero-JS hardware-accelerated carousel. Powered by <code>scroll-snap-type: x mandatory</code>, <code>scroll-snap-align: center</code>, and horizontal <code>view(inline)</code> timeline indicators.
+      </p>
+    </header>
+
+    <div class="carousel-wrapper">
+      <!-- Carousel Track -->
+      <div class="carousel-track" tabindex="0" aria-label="Hyperscale Data Center Gallery">
+        <!-- Slide 1 -->
+        <article class="carousel-slide" id="slide-1">
+          <div class="slide-visual visual-1">
+            <span class="slide-index">01 / 04</span>
+            <div class="slide-badge">Silicon Photon Core</div>
+          </div>
+          <div class="slide-details">
+            <h2 class="slide-title">Optical Waveguide Interconnect</h2>
+            <p class="slide-desc">Direct laser wavelength routing with 3.2 Tbps continuous data fabric.</p>
+          </div>
+        </article>
+
+        <!-- Slide 2 -->
+        <article class="carousel-slide" id="slide-2">
+          <div class="slide-visual visual-2">
+            <span class="slide-index">02 / 04</span>
+            <div class="slide-badge">Cryogenic Array</div>
+          </div>
+          <div class="slide-details">
+            <h2 class="slide-title">Sub-Kelvin Dilution Refrigerator</h2>
+            <p class="slide-desc">Maintaining 15 millikelvin operating environment for topological qubits.</p>
+          </div>
+        </article>
+
+        <!-- Slide 3 -->
+        <article class="carousel-slide" id="slide-3">
+          <div class="slide-visual visual-3">
+            <span class="slide-index">03 / 04</span>
+            <div class="slide-badge">Liquid Immersion</div>
+          </div>
+          <div class="slide-details">
+            <h2 class="slide-title">Two-Phase Immersion Cooling Tank</h2>
+            <p class="slide-desc">Non-conductive fluorochemical fluid achieving 1.02 Power Usage Effectiveness.</p>
+          </div>
+        </article>
+
+        <!-- Slide 4 -->
+        <article class="carousel-slide" id="slide-4">
+          <div class="slide-visual visual-4">
+            <span class="slide-index">04 / 04</span>
+            <div class="slide-badge">Autonomous Grid</div>
+          </div>
+          <div class="slide-details">
+            <h2 class="slide-title">Solid-State Battery Energy Storage</h2>
+            <p class="slide-desc">Megawatt microgrid buffering solar input with sub-cycle failover switching.</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Quick Navigation Jump Anchor Links -->
+      <nav class="carousel-nav" aria-label="Carousel Pagination">
+        <a href="#slide-1" class="nav-dot" aria-label="Go to Slide 1"><span>1</span></a>
+        <a href="#slide-2" class="nav-dot" aria-label="Go to Slide 2"><span>2</span></a>
+        <a href="#slide-3" class="nav-dot" aria-label="Go to Slide 3"><span>3</span></a>
+        <a href="#slide-4" class="nav-dot" aria-label="Go to Slide 4"><span>4</span></a>
+      </nav>
+    </div>
+  </main>
+</body>
+</html>

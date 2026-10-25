@@ -1,0 +1,231 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 15 - Dynamic OKLCH Color Palette Lab
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Relative Color Syntax (oklch(from ...)), Color Wheel Harmonies,
+              color-mix(), Zero Math Libraries, Hardware Composited
+   ========================================================================== */
+
+@layer reset, tokens, base, palette-calc, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer tokens {
+  :root {
+    --seed-hue: 270;
+    --bg-page: oklch(0.11 0.02 260);
+    --bg-card: oklch(0.15 0.03 260);
+    --border-card: oklch(0.28 0.04 260);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+  }
+}
+
+@layer palette-calc {
+  /* =========================================================================
+     2026 CSS MILESTONE: Relative Color Syntax (RCS) Mathematical Derivation
+     ========================================================================= */
+  #palette-root {
+    --seed-color: oklch(0.65 0.22 var(--seed-hue));
+
+    /* Mathematical Color Wheel Rotations */
+    --color-comp: oklch(from var(--seed-color) l c calc(h + 180));
+    --color-ana-1: oklch(from var(--seed-color) l c calc(h + 30));
+    --color-ana-2: oklch(from var(--seed-color) l c calc(h - 30));
+    --color-tri-1: oklch(from var(--seed-color) l c calc(h + 120));
+    --color-tri-2: oklch(from var(--seed-color) l c calc(h + 240));
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 940px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--seed-color) l c h / 0.15);
+    color: var(--seed-color);
+    border: 1px solid oklch(from var(--seed-color) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 150ms ease;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--seed-color);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+      transition: color 150ms ease;
+    }
+  }
+
+  /* Slider Controller */
+  .seed-control-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: min(100%, 360px);
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+  }
+
+  .control-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .hue-val {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--seed-color);
+    font-weight: 700;
+  }
+
+  .hue-slider {
+    width: 100%;
+    appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, 
+      oklch(0.65 0.22 0), 
+      oklch(0.65 0.22 60), 
+      oklch(0.65 0.22 120), 
+      oklch(0.65 0.22 180), 
+      oklch(0.65 0.22 240), 
+      oklch(0.65 0.22 300), 
+      oklch(0.65 0.22 360)
+    );
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      cursor: ew-resize;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+  }
+}
+
+@layer components {
+  .swatches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .swatch-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 24px -4px oklch(0 0 0 / 0.4);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .swatch-color {
+    height: 120px;
+    transition: background-color 150ms ease, box-shadow 150ms ease;
+  }
+
+  .swatch-info {
+    padding: 1rem 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .swatch-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .swatch-code {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+  }
+
+  /* Swatch Background Bindings */
+  .swatch-base .swatch-color {
+    background-color: var(--seed-color);
+    box-shadow: inset 0 0 20px oklch(from var(--seed-color) calc(l - 0.2) c h);
+  }
+
+  .swatch-complementary .swatch-color {
+    background-color: var(--color-comp);
+  }
+
+  .swatch-analogous-1 .swatch-color {
+    background-color: var(--color-ana-1);
+  }
+
+  .swatch-analogous-2 .swatch-color {
+    background-color: var(--color-ana-2);
+  }
+
+  .swatch-triadic-1 .swatch-color {
+    background-color: var(--color-tri-1);
+  }
+
+  .swatch-triadic-2 .swatch-color {
+    background-color: var(--color-tri-2);
+  }
+}

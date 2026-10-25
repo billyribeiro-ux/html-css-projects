@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>22 - Real-time Core Web Vitals Observer | DPE L8++</title>
+  <meta name="description" content="Production performance monitoring engine leveraging native PerformanceObserver API for live Interaction to Next Paint (INP), LCP, and CLS telemetry.">
+  <link rel="canonical" href="https://example.com/projects/22-cwv-telemetry-observer/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Core Web Vitals Telemetry & INP Observer",
+    "description": "Real-time client-side performance monitoring harness observing Interaction to Next Paint (INP), Largest Contentful Paint (LCP), and Cumulative Layout Shift (CLS).",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "PerformanceObserver API"
+      },
+      {
+        "@type": "Thing",
+        "name": "Sub-16ms INP Observer"
+      },
+      {
+        "@type": "Thing",
+        "name": "LCP & CLS Stream"
+      },
+      {
+        "@type": "Thing",
+        "name": "Synthetic Stress Testing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Beacon Reporting"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 22 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">PerformanceObserver API</span>
+      </div>
+      <h1 class="page-title">Real-Time Core Web Vitals & INP Telemetry</h1>
+      <p class="page-desc">
+        Direct instrumentation using native browser <code>PerformanceObserver</code>. Real-world session logging measuring Interaction to Next Paint (INP), Largest Contentful Paint (LCP), and Cumulative Layout Shift (CLS).
+      </p>
+    </header>
+
+    <!-- Real-time HUD Dashboard -->
+    <div class="vitals-grid">
+      <!-- INP Gauge -->
+      <article class="vital-card" id="card-inp">
+        <div class="vital-top">
+          <span class="vital-name">Interaction to Next Paint</span>
+          <span class="vital-rating rating-good" id="badge-inp">GOOD</span>
+        </div>
+        <div class="vital-score-row">
+          <span class="vital-score" id="score-inp">12 <small>ms</small></span>
+          <span class="vital-threshold">Target &lt; 200 ms</span>
+        </div>
+        <div class="vital-meter">
+          <div class="meter-fill fill-good" id="bar-inp" style="width: 6%;"></div>
+        </div>
+        <p class="vital-note" id="note-inp">Listening for clicks, taps & keypresses...</p>
+      </article>
+
+      <!-- LCP Gauge -->
+      <article class="vital-card" id="card-lcp">
+        <div class="vital-top">
+          <span class="vital-name">Largest Contentful Paint</span>
+          <span class="vital-rating rating-good" id="badge-lcp">GOOD</span>
+        </div>
+        <div class="vital-score-row">
+          <span class="vital-score" id="score-lcp">0.42 <small>s</small></span>
+          <span class="vital-threshold">Target &lt; 2.5 s</span>
+        </div>
+        <div class="vital-meter">
+          <div class="meter-fill fill-good" id="bar-lcp" style="width: 17%;"></div>
+        </div>
+        <p class="vital-note" id="note-lcp">Evaluating primary content node paint...</p>
+      </article>
+
+      <!-- CLS Gauge -->
+      <article class="vital-card" id="card-cls">
+        <div class="vital-top">
+          <span class="vital-name">Cumulative Layout Shift</span>
+          <span class="vital-rating rating-good" id="badge-cls">GOOD</span>
+        </div>
+        <div class="vital-score-row">
+          <span class="vital-score" id="score-cls">0.000</span>
+          <span class="vital-threshold">Target &lt; 0.100</span>
+        </div>
+        <div class="vital-meter">
+          <div class="meter-fill fill-good" id="bar-cls" style="width: 0%;"></div>
+        </div>
+        <p class="vital-note" id="note-cls">Zero asynchronous reflows recorded.</p>
+      </article>
+    </div>
+
+    <!-- Interactive Load Stress Laboratory -->
+    <section class="stress-lab">
+      <h2 class="lab-title">Interaction Stress Benchmarking</h2>
+      <p class="lab-desc">Trigger varying main-thread workloads to watch live INP latency updates:</p>
+      <div class="lab-actions">
+        <button type="button" class="btn btn-fast" id="btn-fast-click">
+          <span class="btn-icon">⚡</span>
+          <span>Lightweight Fast Click (&lt;16ms)</span>
+        </button>
+        <button type="button" class="btn btn-stress" id="btn-stress-click">
+          <span class="btn-icon">⏱</span>
+          <span>Simulate Heavy Task (~180ms)</span>
+        </button>
+        <button type="button" class="btn btn-heavy" id="btn-heavy-click">
+          <span class="btn-icon">⚠</span>
+          <span>Simulate Blocking Thrash (~350ms)</span>
+        </button>
+        <button type="button" class="btn btn-reset" id="btn-clear-log">Clear Event Log</button>
+      </div>
+
+      <!-- Live Event Stream Log -->
+      <div class="event-stream-box">
+        <div class="stream-header">
+          <span>PerformanceObserver Event Stream</span>
+          <span class="stream-pulse" aria-hidden="true"></span>
+        </div>
+        <div class="stream-log" id="stream-log" role="log" aria-live="polite">
+          <!-- Live events streamed here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

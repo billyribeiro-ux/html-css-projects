@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>23 - Off-Main-Thread Web Worker Matrix | DPE L8++</title>
+  <meta name="description" content="Off-main-thread high-throughput cryptographic and prime matrix computation using Web Workers, ArrayBuffers, and zero main-thread UI freezing.">
+  <link rel="canonical" href="https://example.com/projects/23-web-worker-crypto-matrix/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Off-Main-Thread Web Worker Crypto Matrix",
+    "description": "Executes intensive cryptographic SHA-256 matrix calculations entirely off the main thread, maintaining locked 60fps animations and sub-1ms input latency.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Dedicated Web Worker"
+      },
+      {
+        "@type": "Thing",
+        "name": "Blob URL Worker Compilation"
+      },
+      {
+        "@type": "Thing",
+        "name": "SHA-256 Crypto Hashing"
+      },
+      {
+        "@type": "Thing",
+        "name": "60fps Frame Monitor"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero Main-Thread Jitter"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 23 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Dedicated Web Worker</span>
+      </div>
+      <h1 class="page-title">Off-Main-Thread Computation Engine</h1>
+      <p class="page-desc">
+        Protecting the UI thread from execution freezing. Watch the 60fps gyroscope spinner maintain butter-smooth rotation while background Web Workers calculate millions of prime matrix hashes in parallel.
+      </p>
+    </header>
+
+    <div class="engine-workspace">
+      <!-- 60fps UI Fluidity Proof Spinner -->
+      <div class="ui-fluidity-panel">
+        <div class="gyro-spinner" aria-hidden="true">
+          <div class="gyro-ring ring-x"></div>
+          <div class="gyro-ring ring-y"></div>
+          <div class="gyro-ring ring-z"></div>
+          <div class="gyro-core">60 FPS</div>
+        </div>
+        <div class="fluidity-caption">
+          <span class="fluidity-title">Main Thread Frame Monitor</span>
+          <span class="fluidity-status" id="fps-label">Locked 60fps (0 Dropped Frames)</span>
+        </div>
+      </div>
+
+      <!-- Worker Control & Telemetry Panel -->
+      <div class="worker-console">
+        <div class="console-header">
+          <span class="console-title">Worker Thread #1 (Dedicated Isolated Context)</span>
+          <span class="worker-status-chip" id="worker-status">IDLE</span>
+        </div>
+
+        <div class="console-controls">
+          <div class="input-group">
+            <label for="compute-depth">Matrix Calculation Depth:</label>
+            <select id="compute-depth" class="custom-select">
+              <option value="500000">500,000 Primes (Light Matrix)</option>
+              <option value="2000000" selected>2,000,000 Primes (Heavy Matrix)</option>
+              <option value="5000000">5,000,000 Primes (Extreme Matrix)</option>
+            </select>
+          </div>
+
+          <div class="action-buttons">
+            <button type="button" class="btn btn-worker" id="btn-run-worker">
+              <span class="btn-icon">⚡</span>
+              <span>Execute via Web Worker (Non-blocking)</span>
+            </button>
+            <button type="button" class="btn btn-freeze" id="btn-run-main">
+              <span class="btn-icon">🛑</span>
+              <span>Execute on Main Thread (Watch Spinner Freeze!)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="results-box">
+          <div class="results-meta">
+            <span>Worker Computation Results</span>
+            <span class="time-elapsed" id="time-elapsed">0.00 ms</span>
+          </div>
+          <pre class="results-output" id="results-output">// Ready to dispatch calculation job...</pre>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

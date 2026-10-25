@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>28 - 100,000-Row Virtual Scroller Data Grid | DPE L8++</title>
+  <meta name="description" content="Ultra-high-performance 100,000-row virtual data grid with DOM node recycling, sub-millisecond layout, and zero frame drops.">
+  <link rel="canonical" href="https://example.com/projects/28-virtual-scroller-grid/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Zero-Dependency 100,000-Row Virtual Scroller Data Grid",
+    "author": { "@type": "Person", "name": "Distinguished Principal Engineer L8++" }
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 28 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Virtual DOM-Free Recycling</span>
+        <span class="tech-tag">100,000 Records</span>
+      </div>
+      <h1 class="page-title">Virtual Scroller High-Throughput Grid</h1>
+      <p class="page-desc">
+        Renders <strong>100,000 live records</strong> smoothly at 60fps. Only <strong>~22 DOM nodes</strong> exist in memory at any given millisecond through mathematical viewport windowing and absolute translateY virtualization.
+      </p>
+    </header>
+
+    <!-- Telemetry HUD -->
+    <section class="telemetry-hud" aria-label="Virtualization Telemetry">
+      <div class="metric-card">
+        <span class="metric-label">Active DOM Rows</span>
+        <span class="metric-value" id="stat-active-nodes">22</span>
+        <span class="metric-sub">recycled in memory</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Total Virtual Records</span>
+        <span class="metric-value" id="stat-total-records">100,000</span>
+        <span class="metric-sub">synthetic dataset</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Virtual Height</span>
+        <span class="metric-value" id="stat-virtual-height">4,800,000 px</span>
+        <span class="metric-sub">phantom scroll canvas</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Render Latency</span>
+        <span class="metric-value highlight" id="stat-render-latency">&lt; 0.2ms</span>
+        <span class="metric-sub">per scroll event</span>
+      </div>
+    </section>
+
+    <!-- Grid Controls -->
+    <div class="grid-controls">
+      <div class="search-box">
+        <label for="grid-search" class="visually-hidden">Search records</label>
+        <input type="search" id="grid-search" placeholder="Filter by Node ID, Region or Service..." autocomplete="off">
+      </div>
+      <div class="control-actions">
+        <button type="button" class="btn btn-secondary" id="btn-jump-top">Top (Row 0)</button>
+        <button type="button" class="btn btn-secondary" id="btn-jump-mid">Mid (Row 50,000)</button>
+        <button type="button" class="btn btn-secondary" id="btn-jump-end">Bottom (Row 100,000)</button>
+      </div>
+    </div>
+
+    <!-- Virtual Scroller Container -->
+    <div class="scroller-wrapper">
+      <div class="grid-header-row" role="row">
+        <div class="col col-id">Row ID</div>
+        <div class="col col-node">Cluster Node</div>
+        <div class="col col-region">Datacenter Region</div>
+        <div class="col col-status">Status</div>
+        <div class="col col-load">CPU Load</div>
+        <div class="col col-latency">Latency</div>
+      </div>
+
+      <div class="viewport" id="viewport" tabindex="0" role="region" aria-label="100,000 Records Virtual Grid">
+        <!-- Phantom spacer forces native browser scrollbar to correct height -->
+        <div class="phantom-spacer" id="phantom-spacer"></div>
+        <!-- Recycled DOM elements container -->
+        <div class="items-slider" id="items-slider" role="rowgroup"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

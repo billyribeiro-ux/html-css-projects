@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>33 - Resilient Fetch Circuit Breaker & Chaos Simulator | DPE L8++</title>
+  <meta name="description" content="Production-grade client-side Circuit Breaker state machine with AbortController timeouts, exponential backoff, and chaos simulation.">
+  <link rel="canonical" href="https://example.com/projects/33-resilient-fetch-circuit-breaker/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Fault-Tolerant Circuit Breaker Fetch Engine",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 33 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Circuit Breaker Pattern</span>
+        <span class="tech-tag">AbortController Timeouts</span>
+      </div>
+      <h1 class="page-title">Resilient Fetch Circuit Breaker Engine</h1>
+      <p class="page-desc">
+        Zero cascade failures. Implements the classic <strong>CLOSED ➔ OPEN ➔ HALF-OPEN</strong> resilience state machine with <code>AbortController</code> timeouts, exponential backoff, and chaos fault injection.
+      </p>
+    </header>
+
+    <!-- Circuit Breaker Status Banner -->
+    <section class="breaker-status-card" id="breaker-card">
+      <div class="status-indicator-col">
+        <div class="pulse-beacon state-closed" id="state-beacon"></div>
+      </div>
+      <div class="status-info-col">
+        <span class="status-label">Current Circuit State:</span>
+        <div class="status-name" id="state-title">CIRCUIT CLOSED</div>
+        <p class="status-desc" id="state-description">Normal operating conditions. All outbound requests pass to upstream endpoints.</p>
+      </div>
+      <div class="status-stats-col">
+        <div class="stat-pill">Failures: <span id="stat-failures">0 / 3</span></div>
+        <div class="stat-pill">Recovery Cooldown: <span id="stat-cooldown">0s</span></div>
+      </div>
+    </section>
+
+    <!-- Chaos Injection & Controls -->
+    <div class="console-grid">
+      <!-- Chaos Controls -->
+      <section class="panel chaos-panel">
+        <h2 class="panel-heading">Chaos Fault Injection Parameters</h2>
+        <div class="sliders-list">
+          <div class="param-row">
+            <label for="chaos-failure-rate">
+              <span>Synthetic Failure Rate:</span>
+              <output id="out-failure-rate">0%</output>
+            </label>
+            <input type="range" id="chaos-failure-rate" min="0" max="100" value="0" class="custom-slider">
+          </div>
+
+          <div class="param-row">
+            <label for="chaos-latency">
+              <span>Upstream Simulated Latency:</span>
+              <output id="out-latency">150ms</output>
+            </label>
+            <input type="range" id="chaos-latency" min="50" max="3000" step="50" value="150" class="custom-slider">
+          </div>
+
+          <div class="param-row">
+            <label for="chaos-timeout">
+              <span>AbortController Timeout:</span>
+              <output id="out-timeout">1000ms</output>
+            </label>
+            <input type="range" id="chaos-timeout" min="300" max="2500" step="100" value="1000" class="custom-slider">
+          </div>
+        </div>
+
+        <div class="action-buttons-row">
+          <button type="button" class="btn btn-primary" id="btn-single-request">Send Single Probe</button>
+          <button type="button" class="btn btn-secondary" id="btn-burst-request">Burst Test (8 Reqs)</button>
+          <button type="button" class="btn btn-danger" id="btn-trip-circuit">Force Trip</button>
+          <button type="button" class="btn btn-reset" id="btn-reset-circuit">Reset Breaker</button>
+        </div>
+      </section>
+
+      <!-- Live Telemetry Stream -->
+      <section class="panel log-panel">
+        <div class="log-header">
+          <h2 class="panel-heading">Outbound Dispatch Ledger</h2>
+          <button type="button" class="btn-clear-log" id="btn-clear-log">Clear</button>
+        </div>
+        <div class="log-stream" id="log-stream" role="log" aria-live="polite">
+          <div class="log-entry log-info">System initialized. Circuit Breaker ready for transactions.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

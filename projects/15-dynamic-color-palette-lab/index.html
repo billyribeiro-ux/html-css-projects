@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>15 - Dynamic OKLCH Relative Color Lab | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Derive complementary, analogous, and triadic color harmonies mathematically in pure CSS from a single seed token using OKLCH Relative Color Syntax.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/15-dynamic-color-palette-lab/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "OKLCH Relative Color Syntax & Mathematical Harmonies",
+    "description": "Derive complementary, analogous, and triadic color harmonies mathematically in pure CSS from a single seed token using OKLCH Relative Color Syntax.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Relative Color Syntax oklch(from ...)"
+      },
+      {
+        "@type": "Thing",
+        "name": "Dynamic Hue Rotation in calc()"
+      },
+      {
+        "@type": "Thing",
+        "name": "Perceptual Uniformity"
+      },
+      {
+        "@type": "Thing",
+        "name": "Interactive CSS Property Tuning"
+      },
+      {
+        "@type": "Thing",
+        "name": "WCAG AAA Contrast"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container" id="palette-root">
+    <header class="page-header">
+      <span class="badge">Level 15 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">OKLCH Relative Color Syntax & Mathematical Harmonies</h1>
+      <p class="page-desc">
+        Harnessing <code>oklch(from var(--seed) l c calc(h + angle))</code>. Modulate the base hue slider below; all complementary, triadic, and lightness tints recompute entirely within the CSS pipeline.
+      </p>
+
+      <!-- Dynamic Seed Hue Controller -->
+      <div class="seed-control-panel">
+        <label for="hue-range" class="control-label">
+          <span>Seed Chroma Hue:</span>
+          <output id="hue-output" class="hue-val">270°</output>
+        </label>
+        <input type="range" id="hue-range" min="0" max="360" value="270" class="hue-slider">
+      </div>
+    </header>
+
+    <!-- Mathematical Harmony Swatches -->
+    <div class="swatches-grid">
+      <!-- Swatch 1: Base Seed -->
+      <div class="swatch-card swatch-base">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Base Seed</span>
+          <code class="swatch-code">var(--seed-color)</code>
+        </div>
+      </div>
+
+      <!-- Swatch 2: Complementary -->
+      <div class="swatch-card swatch-complementary">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Complementary</span>
+          <code class="swatch-code">calc(h + 180)</code>
+        </div>
+      </div>
+
+      <!-- Swatch 3: Analogous Positive -->
+      <div class="swatch-card swatch-analogous-1">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Analogous +30°</span>
+          <code class="swatch-code">calc(h + 30)</code>
+        </div>
+      </div>
+
+      <!-- Swatch 4: Analogous Negative -->
+      <div class="swatch-card swatch-analogous-2">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Analogous -30°</span>
+          <code class="swatch-code">calc(h - 30)</code>
+        </div>
+      </div>
+
+      <!-- Swatch 5: Triadic Primary -->
+      <div class="swatch-card swatch-triadic-1">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Triadic 120°</span>
+          <code class="swatch-code">calc(h + 120)</code>
+        </div>
+      </div>
+
+      <!-- Swatch 6: Triadic Secondary -->
+      <div class="swatch-card swatch-triadic-2">
+        <div class="swatch-color"></div>
+        <div class="swatch-info">
+          <span class="swatch-title">Triadic 240°</span>
+          <code class="swatch-code">calc(h + 240)</code>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const slider = document.getElementById('hue-range');
+    const output = document.getElementById('hue-output');
+    const root = document.getElementById('palette-root');
+
+    slider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      output.textContent = `${val}°`;
+      root.style.setProperty('--seed-hue', val);
+    });
+  </script>
+</body>
+</html>

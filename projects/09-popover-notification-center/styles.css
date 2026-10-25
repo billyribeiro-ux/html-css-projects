@@ -1,0 +1,365 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 09 - Popover Notification Center
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: HTML5 Popover API, :popover-open, @starting-style,
+              transition-behavior: allow-discrete, Top-Layer Isolation
+   ========================================================================== */
+
+@layer reset, tokens, base, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.12 0.02 260);
+    --bg-popover: oklch(0.16 0.03 260 / 0.95);
+    --border-popover: oklch(0.32 0.04 260 / 0.8);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --brand-primary: oklch(0.65 0.22 260);
+    --color-critical: oklch(0.65 0.22 25);
+    --color-success: oklch(0.72 0.2 145);
+
+    --radius-popover: 18px;
+    --spring-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 780px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-primary) l c h / 0.15);
+    color: var(--brand-primary);
+    border: 1px solid oklch(from var(--brand-primary) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+
+  .demo-canvas {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+  }
+}
+
+@layer components {
+  /* Trigger Button */
+  .notification-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.4rem;
+    background: oklch(0.18 0.03 260);
+    border: 1px solid var(--border-popover);
+    border-radius: 14px;
+    box-shadow: 0 4px 20px -2px oklch(0 0 0 / 0.4);
+    transition: all 180ms var(--spring-ease);
+
+    &:hover {
+      background: oklch(0.22 0.03 260);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -4px oklch(0 0 0 / 0.5);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--brand-primary);
+      outline-offset: 3px;
+    }
+  }
+
+  .trigger-icon-wrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .unread-dot {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-critical);
+    box-shadow: 0 0 8px var(--color-critical);
+  }
+
+  .trigger-text {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .trigger-count {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: oklch(from var(--brand-primary) l c h / 0.2);
+    color: var(--brand-primary);
+    padding: 0.2rem 0.55rem;
+    border-radius: 9999px;
+  }
+
+  /* =========================================================================
+     2026 CSS MILESTONE: Top-Layer Native Popover & @starting-style
+     ========================================================================= */
+  .notification-popover {
+    /* Popover Top Layer defaults */
+    position: fixed;
+    inset: unset;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    margin: 0;
+    width: min(92vw, 440px);
+    background: var(--bg-popover);
+    border: 1px solid var(--border-popover);
+    border-radius: var(--radius-popover);
+    padding: 0;
+    box-shadow: 0 24px 60px -8px oklch(0 0 0 / 0.7);
+    backdrop-filter: blur(24px);
+    opacity: 1;
+
+    /* Discrete transition syntax */
+    transition: 
+      display 300ms allow-discrete,
+      overlay 300ms allow-discrete,
+      opacity 300ms var(--spring-ease),
+      transform 300ms var(--spring-ease);
+
+    /* Backdrop styling */
+    &::backdrop {
+      background: oklch(0 0 0 / 0.55);
+      backdrop-filter: blur(6px);
+      opacity: 1;
+      transition: display 300ms allow-discrete, overlay 300ms allow-discrete, opacity 300ms ease;
+    }
+
+    /* Before opening & when closed */
+    &:not(:popover-open) {
+      opacity: 0;
+      transform: translate(-50%, -46%) scale(0.96);
+
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  /* @starting-style defines the entrance keyframe */
+  @starting-style {
+    .notification-popover:popover-open {
+      opacity: 0;
+      transform: translate(-50%, -46%) scale(0.96);
+
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  /* Popover Layout & Content */
+  .popover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid oklch(1 0 0 / 0.08);
+  }
+
+  .header-info {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+  }
+
+  .popover-title {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .status-tag {
+    font-size: 0.7rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--color-success);
+    background: oklch(from var(--color-success) l c h / 0.15);
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+  }
+
+  .close-btn {
+    font-size: 1rem;
+    color: var(--text-muted);
+    padding: 0.35rem;
+    border-radius: 6px;
+    line-height: 1;
+
+    &:hover {
+      color: var(--text-primary);
+      background: oklch(1 0 0 / 0.08);
+    }
+  }
+
+  .notification-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 380px;
+    overflow-y: auto;
+  }
+
+  .feed-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1.15rem 1.5rem;
+    border-bottom: 1px solid oklch(1 0 0 / 0.05);
+    transition: background-color 150ms ease;
+
+    &:hover {
+      background: oklch(1 0 0 / 0.03);
+    }
+  }
+
+  .feed-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 0.4rem;
+    flex-shrink: 0;
+    background: var(--text-muted);
+
+    .feed-item--critical & {
+      background: var(--color-critical);
+      box-shadow: 0 0 8px var(--color-critical);
+    }
+
+    .feed-item--success & {
+      background: var(--color-success);
+      box-shadow: 0 0 8px var(--color-success);
+    }
+  }
+
+  .feed-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .feed-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .feed-source {
+    color: var(--brand-primary);
+    font-weight: 600;
+  }
+
+  .feed-time {
+    color: var(--text-muted);
+  }
+
+  .feed-heading {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .feed-desc {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+  }
+
+  .popover-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid oklch(1 0 0 / 0.08);
+    background: oklch(0 0 0 / 0.2);
+  }
+
+  .btn-ack {
+    width: 100%;
+    padding: 0.65rem;
+    background: oklch(0.24 0.03 260);
+    border: 1px solid var(--border-popover);
+    border-radius: 10px;
+    font-size: 0.825rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 150ms ease;
+
+    &:hover {
+      background: oklch(0.28 0.03 260);
+      color: var(--text-primary);
+    }
+  }
+}

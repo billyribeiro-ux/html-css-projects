@@ -1,0 +1,328 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 39 - Device Gyroscope 3D Tilt Controller
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Layers, 3D Perspective Matrix, Specular Glare Blend
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.08 0.02 260);
+    --bg-card: oklch(0.14 0.03 260 / 0.85);
+    --border-card: oklch(0.26 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.72 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --brand-cyan: oklch(0.76 0.18 190);
+    --brand-emerald: oklch(0.75 0.2 145);
+    --brand-purple: oklch(0.68 0.22 290);
+    --brand-gold: oklch(0.82 0.18 85);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    background-image:
+      radial-gradient(circle at 50% 20%, oklch(from var(--brand-purple) l c h / 0.15), transparent 60%);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .page-container {
+    width: min(100%, 960px);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-purple) l c h / 0.15);
+    color: var(--brand-purple);
+    border: 1px solid oklch(from var(--brand-purple) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .page-desc code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: oklch(0.2 0.03 260 / 0.8);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--brand-cyan);
+  }
+}
+
+@layer components {
+  /* Stage Arena */
+  .stage-arena {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+    perspective: 1200px;
+    min-height: 380px;
+  }
+
+  /* 3D Parallax Card */
+  .parallax-card {
+    width: min(100%, 480px);
+    aspect-ratio: 1.586 / 1;
+    border-radius: 20px;
+    background: linear-gradient(135deg, oklch(0.18 0.05 280), oklch(0.11 0.03 260));
+    border: 1px solid oklch(0.35 0.06 280);
+    box-shadow:
+      0 30px 60px -12px oklch(0 0 0 / 0.7),
+      0 0 0 1px oklch(1 0 0 / 0.1) inset;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.1s linear, box-shadow 0.2s ease;
+    will-change: transform;
+    overflow: hidden;
+  }
+
+  .parallax-card:hover {
+    box-shadow:
+      0 40px 80px -15px oklch(0 0 0 / 0.85),
+      0 0 40px oklch(from var(--brand-cyan) l c h / 0.2);
+  }
+
+  /* Specular Glare */
+  .specular-glare {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.25) 0%, transparent 60%);
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+    transition: opacity 0.2s ease;
+  }
+
+  .card-content {
+    position: absolute;
+    inset: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transform-style: preserve-3d;
+  }
+
+  /* Layer Z Parallax Separation */
+  .layer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transform: translateZ(35px);
+  }
+
+  .card-type-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--brand-cyan);
+  }
+
+  .chip-graphic {
+    width: 44px;
+    height: 34px;
+    background: linear-gradient(135deg, var(--brand-gold), oklch(0.6 0.15 85));
+    border-radius: 6px;
+    position: relative;
+    border: 1px solid oklch(0.5 0.1 85);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+
+  .chip-inner {
+    position: absolute;
+    inset: 4px;
+    border: 1px dashed oklch(0.4 0.1 85);
+    border-radius: 3px;
+  }
+
+  .layer-mid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transform: translateZ(25px);
+  }
+
+  .card-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .card-id-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .id-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .id-val {
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+  }
+
+  .layer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    transform: translateZ(20px);
+  }
+
+  .meta-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .meta-field span {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .meta-field strong {
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--brand-emerald);
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  /* Telemetry HUD */
+  .telemetry-hud {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--brand-cyan);
+  }
+
+  .metric-sub {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+  }
+
+  .btn-perm {
+    padding: 0.35rem 0.65rem;
+    background: oklch(0.2 0.03 260);
+    border: 1px solid var(--border-card);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: left;
+    transition: all 0.2s ease;
+  }
+
+  .btn-perm:hover {
+    background: oklch(0.25 0.04 260);
+    border-color: var(--brand-cyan);
+  }
+}

@@ -1,0 +1,211 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 25 - Autonomous Web Components
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: Custom Elements v1, Shadow DOM, Slot Projection,
+              OKLCH Color Space, Host Styles
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, host-styles, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.1 0.02 260);
+    --bg-card: oklch(0.15 0.03 260 / 0.85);
+    --border-card: oklch(0.28 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-purple: oklch(0.68 0.22 290);
+    --brand-green: oklch(0.75 0.2 145);
+    --brand-amber: oklch(0.8 0.18 80);
+    --brand-red: oklch(0.65 0.22 25);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 960px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-purple) l c h / 0.15);
+    color: var(--brand-purple);
+    border: 1px solid oklch(from var(--brand-purple) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer layout {
+  .components-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@layer host-styles {
+  /* =========================================================================
+     SLOT PROJECTION & HOST WRAPPER STYLING
+     ========================================================================= */
+  dpe-telemetry-card {
+    display: block; /* Custom elements default to inline */
+  }
+
+  /* Slotted Content Typography */
+  [slot="icon"] {
+    font-size: 1.4rem;
+  }
+
+  [slot="description"] {
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  .controls-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 20px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .panel-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+  }
+
+  .panel-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    label { flex-shrink: 0; }
+  }
+
+  .custom-range {
+    flex-grow: 1;
+    accent-color: var(--brand-cyan);
+    height: 8px;
+    cursor: pointer;
+  }
+
+  .slider-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1rem;
+    color: var(--brand-cyan);
+    min-width: 50px;
+    text-align: right;
+  }
+
+  .event-feed-box {
+    background: oklch(0.08 0.02 260);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .feed-header {
+    display: block;
+    padding: 0.5rem 1rem;
+    background: oklch(0.12 0.02 260);
+    border-bottom: 1px solid var(--border-card);
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  .feed-log {
+    padding: 0.85rem 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--brand-cyan);
+    min-height: 50px;
+  }
+}

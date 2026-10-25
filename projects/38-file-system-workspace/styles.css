@@ -1,0 +1,224 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 38 - File System Access API Workspace
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Layers, OKLCH Tokens, IDE Studio Shell
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  button, textarea {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.09 0.02 260);
+    --bg-card: oklch(0.14 0.03 260 / 0.85);
+    --border-card: oklch(0.26 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.72 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --brand-cyan: oklch(0.76 0.18 190);
+    --brand-emerald: oklch(0.75 0.2 145);
+    --brand-amber: oklch(0.8 0.18 80);
+    --brand-purple: oklch(0.68 0.22 290);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    background-image:
+      radial-gradient(circle at 50% 0%, oklch(from var(--brand-purple) l c h / 0.12), transparent 60%);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 2.5rem 1.25rem;
+  }
+
+  .page-container {
+    width: min(100%, 1060px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-purple) l c h / 0.15);
+    color: var(--brand-purple);
+    border: 1px solid oklch(from var(--brand-purple) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.98rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  .page-desc code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: oklch(0.2 0.03 260 / 0.8);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--brand-cyan);
+  }
+}
+
+@layer components {
+  /* Studio Card */
+  .workspace-studio {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 16px 36px oklch(0 0 0 / 0.4);
+  }
+
+  .studio-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: oklch(0.11 0.02 260);
+    border-bottom: 1px solid var(--border-card);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .file-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .btn-action {
+    padding: 0.45rem 0.85rem;
+    background: oklch(0.2 0.03 260);
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  .btn-action:hover {
+    background: oklch(0.26 0.04 260);
+    border-color: var(--brand-cyan);
+    color: #fff;
+  }
+
+  .file-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+  }
+
+  .dirty-indicator {
+    color: var(--brand-amber);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .dirty-indicator.is-dirty {
+    opacity: 1;
+  }
+
+  .file-name {
+    color: var(--text-primary);
+    font-weight: 700;
+  }
+
+  /* Editor Container */
+  .editor-container {
+    height: 400px;
+    background: oklch(0.08 0.02 260);
+    position: relative;
+  }
+
+  #file-editor {
+    width: 100%;
+    height: 100%;
+    padding: 1.25rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    resize: none;
+    outline: none;
+  }
+
+  /* Footer */
+  .studio-footer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.6rem 1.25rem;
+    background: oklch(0.1 0.02 260);
+    border-top: 1px solid var(--border-card);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .meta-item strong {
+    color: var(--text-secondary);
+  }
+}

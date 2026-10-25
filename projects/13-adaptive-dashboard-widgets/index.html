@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>13 - Container Query Adaptive Widgets | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="True component modularity independent of the global viewport. Widgets adapt between compact, standard, and wide layouts based purely on parent container width.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/13-adaptive-dashboard-widgets/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Adaptive Widgets via CSS Container Queries",
+    "description": "True component modularity independent of the global viewport. Widgets adapt between compact, standard, and wide layouts based purely on parent container width.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "container-type: inline-size"
+      },
+      {
+        "@type": "Thing",
+        "name": "@container (min-width: ...)"
+      },
+      {
+        "@type": "Thing",
+        "name": "Container Query Units (cqw)"
+      },
+      {
+        "@type": "Thing",
+        "name": "Intrinsic Component Adaptability"
+      },
+      {
+        "@type": "Thing",
+        "name": "Mobile-First SEO"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 13 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Adaptive Widgets via CSS Container Queries</h1>
+      <p class="page-desc">
+        True modularity independent of the global viewport. Drag the bottom-right resize handle below to watch the widget intrinsically reconfigure between compact, standard, and wide telemetry layouts.
+      </p>
+    </header>
+
+    <!-- Resizable Test Harness Sandbox -->
+    <div class="resize-harness">
+      <div class="harness-header">
+        <span class="harness-tag">Drag right corner ↘ to resize container</span>
+      </div>
+
+      <!-- The Container Query Parent Context -->
+      <div class="widget-container-context">
+        <article class="adaptive-widget">
+          <div class="widget-header">
+            <div class="widget-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="widget-title-group">
+              <h2 class="widget-title">Kubernetes Ingress Gateway</h2>
+              <span class="widget-subtitle">us-west-prod-cluster</span>
+            </div>
+            <span class="widget-status-badge">Healthy</span>
+          </div>
+
+          <div class="widget-metrics">
+            <div class="metric-item">
+              <span class="metric-label">Latency p99</span>
+              <span class="metric-value">1.42 <small>ms</small></span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">RPS Throughput</span>
+              <span class="metric-value">284 <small>k/s</small></span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Error Rate</span>
+              <span class="metric-value text-green">0.001<small>%</small></span>
+            </div>
+          </div>
+
+          <div class="widget-extended-info">
+            <div class="sparkline-bar" aria-hidden="true">
+              <div class="bar-fill" style="width: 84%"></div>
+            </div>
+            <div class="extended-meta">
+              <span>Replica auto-scaling: 14/20 pods</span>
+              <span>Updated: Real-time</span>
+            </div>
+          </div>
+
+          <div class="widget-actions">
+            <button type="button" class="btn btn-inspect">Telemetry Log</button>
+            <button type="button" class="btn btn-action">Scale Fleet</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

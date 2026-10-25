@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>32 - Collaborative Multi-Agent Cursor Bus | DPE L8++</title>
+  <meta name="description" content="Sub-millisecond real-time collaborative cursor engine with binary ArrayBuffer packet serialization and 60fps linear interpolation (lerp).">
+  <link rel="canonical" href="https://example.com/projects/32-collaborative-cursor-bus/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Binary Real-time Collaborative Cursor Bus",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 32 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">Binary ArrayBuffer Protocol</span>
+        <span class="tech-tag">60fps Interpolation (LERP)</span>
+      </div>
+      <h1 class="page-title">Real-Time Collaborative Cursor Bus</h1>
+      <p class="page-desc">
+        Zero JSON serialization bloat. Cursors stream positions via <strong>12-byte packed binary ArrayBuffers</strong>, rendered with spring physics and linear interpolation for buttery smooth multi-user presence.
+      </p>
+    </header>
+
+    <!-- Telemetry HUD -->
+    <section class="telemetry-hud" aria-label="Streaming Bus Telemetry">
+      <div class="metric-card">
+        <span class="metric-label">Active Peers</span>
+        <span class="metric-value" id="stat-peer-count">5 Peers</span>
+        <span class="metric-sub">4 bots + 1 local user</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Wire Packet Size</span>
+        <span class="metric-value highlight" id="stat-packet-size">12 Bytes</span>
+        <span class="metric-sub">vs ~140 bytes JSON (91% reduction)</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Bus Throughput</span>
+        <span class="metric-value" id="stat-throughput">300 pkts/s</span>
+        <span class="metric-sub">zero GC allocation</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Interpolation Rate</span>
+        <span class="metric-value" id="stat-fps">60 FPS</span>
+        <span class="metric-sub">sub-pixel delta smoothing</span>
+      </div>
+    </section>
+
+    <!-- Interactive Canvas Stage -->
+    <div class="canvas-panel">
+      <div class="panel-header">
+        <span class="panel-tag">Shared Collaborative Canvas</span>
+        <div class="panel-actions">
+          <button type="button" class="btn btn-secondary" id="btn-toggle-bots">Pause Bots</button>
+          <button type="button" class="btn btn-primary" id="btn-ping-broadcast">Broadcast Pulse</button>
+        </div>
+      </div>
+
+      <div class="canvas-arena" id="canvas-arena" tabindex="0" role="region" aria-label="Collaborative Cursor Arena">
+        <div class="arena-grid-lines"></div>
+        <div class="cursor-layer" id="cursor-layer"></div>
+        <!-- Local & Remote Cursors render here -->
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 07 - Smart Tag Filter Bar via :has()
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS :has() Relational Selector, @starting-style, OKLCH,
+              Zero JavaScript Presentation Filtering, WCAG 2.2 Compliant
+   ========================================================================== */
+
+@layer reset, tokens, base, filter-logic, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.12 0.02 260);
+    --bg-card: oklch(0.16 0.02 260);
+    --border-card: oklch(0.28 0.03 260 / 0.6);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.55 0.03 260);
+
+    /* Category Thematic Palettes */
+    --cat-ai: oklch(0.68 0.22 290);
+    --cat-mesh: oklch(0.72 0.18 190);
+    --cat-quantum: oklch(0.75 0.2 145);
+
+    --brand-primary: oklch(0.65 0.22 260);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 960px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-primary) l c h / 0.15);
+    color: var(--brand-primary);
+    border: 1px solid oklch(from var(--brand-primary) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer filter-logic {
+  /* =========================================================================
+     2026 CSS MILESTONE: Zero-JS Filtering via Relational :has()
+     ========================================================================= */
+  .filter-system:has(#filter-ai:checked) .data-card:not([data-category="ai"]) {
+    display: none;
+  }
+
+  .filter-system:has(#filter-mesh:checked) .data-card:not([data-category="mesh"]) {
+    display: none;
+  }
+
+  .filter-system:has(#filter-quantum:checked) .data-card:not([data-category="quantum"]) {
+    display: none;
+  }
+}
+
+@layer components {
+  .filter-system {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    border: none;
+    justify-content: center;
+  }
+
+  .filter-chip {
+    cursor: pointer;
+    position: relative;
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+
+      &:focus-visible + .chip-label {
+        outline: 2px solid var(--brand-primary);
+        outline-offset: 3px;
+      }
+
+      &:checked + .chip-label {
+        background: var(--brand-primary);
+        color: oklch(0.98 0.01 260);
+        border-color: transparent;
+        box-shadow: 0 4px 16px -2px oklch(from var(--brand-primary) l c h / 0.45);
+      }
+    }
+
+    .chip-label {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.5rem 1.15rem;
+      border-radius: 9999px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 180ms ease;
+
+      &:hover {
+        background: oklch(0.2 0.03 260);
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .data-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -4px oklch(0 0 0 / 0.4);
+      border-color: oklch(0.4 0.05 260);
+    }
+  }
+
+  .card-badge {
+    align-self: flex-start;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.725rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+
+    &.badge--ai {
+      background: oklch(from var(--cat-ai) l c h / 0.15);
+      color: var(--cat-ai);
+      border: 1px solid oklch(from var(--cat-ai) l c h / 0.3);
+    }
+
+    &.badge--mesh {
+      background: oklch(from var(--cat-mesh) l c h / 0.15);
+      color: var(--cat-mesh);
+      border: 1px solid oklch(from var(--cat-mesh) l c h / 0.3);
+    }
+
+    &.badge--quantum {
+      background: oklch(from var(--cat-quantum) l c h / 0.15);
+      color: var(--cat-quantum);
+      border: 1px solid oklch(from var(--cat-quantum) l c h / 0.3);
+    }
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+  }
+
+  .card-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.75rem;
+    border-top: 1px solid oklch(1 0 0 / 0.06);
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+  }
+}

@@ -1,0 +1,309 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 08 - Trigonometric HUD Telemetry Gauge
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Houdini @property, CSS sin() & cos() Trigonometry,
+              OKLCH Color Space, Conic-Gradient Sweep, 60fps GPU Animation
+   ========================================================================== */
+
+@property --progress {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+@layer reset, tokens, base, hud;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.1 0.02 260);
+    --bg-card: oklch(0.14 0.03 260 / 0.85);
+    --border-card: oklch(0.28 0.05 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --hud-cyan: oklch(0.78 0.19 190);
+    --hud-purple: oklch(0.68 0.22 290);
+    --hud-green: oklch(0.78 0.2 145);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 880px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--hud-cyan) l c h / 0.15);
+    color: var(--hud-cyan);
+    border: 1px solid oklch(from var(--hud-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--hud-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer hud {
+  .hud-console {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 24px;
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 16px 40px -4px oklch(0 0 0 / 0.5), inset 0 0 40px oklch(from var(--hud-cyan) l c h / 0.05);
+
+    @media (min-width: 720px) {
+      grid-template-columns: auto 1fr;
+    }
+  }
+
+  .hud-display {
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+  }
+
+  /* =========================================================================
+     CSS HOUDINI @property & CONIC-GRADIENT PROGRESS GAUGE
+     ========================================================================= */
+  .gauge-ring {
+    --progress: 87.4%;
+    position: relative;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: conic-gradient(
+      var(--hud-cyan) 0%,
+      var(--hud-purple) var(--progress),
+      oklch(0.2 0.03 260) var(--progress) 100%
+    );
+    box-shadow: 0 0 30px oklch(from var(--hud-cyan) l c h / 0.25);
+    animation: gauge-init 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    &.pulse-active {
+      animation: gauge-pulse 1.2s ease-out;
+    }
+  }
+
+  @keyframes gauge-init {
+    from {
+      --progress: 0%;
+    }
+    to {
+      --progress: 87.4%;
+    }
+  }
+
+  @keyframes gauge-pulse {
+    0% { transform: scale(1); box-shadow: 0 0 30px oklch(from var(--hud-cyan) l c h / 0.25); }
+    50% { transform: scale(1.05); box-shadow: 0 0 60px oklch(from var(--hud-cyan) l c h / 0.6); }
+    100% { transform: scale(1); box-shadow: 0 0 30px oklch(from var(--hud-cyan) l c h / 0.25); }
+  }
+
+  /* =========================================================================
+     2026 CSS TRIGONOMETRIC POSITIONING: cos() & sin()
+     ========================================================================= */
+  .dial-ticks {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: grid;
+    place-items: center;
+  }
+
+  .tick {
+    --angle: calc(var(--i) * 30deg);
+    --radius: 145px;
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: oklch(from var(--hud-cyan) l c h / 0.5);
+    border-radius: 1px;
+    /* Pure CSS Trigonometry calculates orbital X & Y coordinates */
+    translate: calc(cos(var(--angle)) * var(--radius)) calc(sin(var(--angle)) * var(--radius));
+    rotate: calc(var(--angle) + 90deg);
+  }
+
+  .gauge-center {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: oklch(0.12 0.02 260);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    box-shadow: inset 0 0 20px oklch(0 0 0 / 0.8);
+    z-index: 2;
+  }
+
+  .gauge-sublabel {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .gauge-number {
+    font-size: 2.75rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    line-height: 1;
+
+    small {
+      font-size: 1.25rem;
+      color: var(--hud-cyan);
+    }
+  }
+
+  .gauge-status {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--hud-green);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    &::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 8px currentColor;
+    }
+  }
+
+  /* Telemetry Panel */
+  .telemetry-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .panel-heading {
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+  }
+
+  .metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid oklch(1 0 0 / 0.06);
+    font-size: 0.9rem;
+  }
+
+  .metric-name {
+    color: var(--text-secondary);
+  }
+
+  .metric-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    color: var(--text-primary);
+
+    &.text-green {
+      color: var(--hud-green);
+    }
+  }
+
+  .btn-calibrate {
+    padding: 0.85rem 1.4rem;
+    border-radius: 12px;
+    background: oklch(from var(--hud-cyan) l c h / 0.15);
+    color: var(--hud-cyan);
+    border: 1px solid oklch(from var(--hud-cyan) l c h / 0.3);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 180ms ease;
+
+    &:hover {
+      background: oklch(from var(--hud-cyan) l c h / 0.25);
+      box-shadow: 0 0 20px oklch(from var(--hud-cyan) l c h / 0.35);
+    }
+  }
+}

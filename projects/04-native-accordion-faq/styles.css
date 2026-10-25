@@ -1,0 +1,205 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 04 - Native Exclusive Accordion with interpolate-size
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: interpolate-size: allow-keywords, ::details-content, @starting-style,
+              transition-behavior: allow-discrete, Native <details name="...">
+   ========================================================================== */
+
+@layer reset, tokens, base, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer tokens {
+  :root {
+    /* 2026 CSS Milestone Feature: Enables animating height: auto */
+    interpolate-size: allow-keywords;
+
+    --bg-page: oklch(0.12 0.02 260);
+    --bg-card: oklch(0.16 0.02 260 / 0.7);
+    --bg-card-open: oklch(0.19 0.03 260);
+    --border-card: oklch(0.28 0.03 260 / 0.6);
+    --border-card-active: oklch(0.65 0.22 260 / 0.5);
+
+    --text-high: oklch(0.98 0.01 260);
+    --text-medium: oklch(0.72 0.03 260);
+    --text-muted: oklch(0.55 0.03 260);
+
+    --brand-accent: oklch(0.65 0.22 260);
+    --brand-glow: oklch(0.65 0.22 260 / 0.2);
+
+    --radius-box: 14px;
+    --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-high);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+
+  .page-container {
+    width: min(100%, 760px);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-accent) l c h / 0.15);
+    color: var(--brand-accent);
+    border: 1px solid oklch(from var(--brand-accent) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-medium);
+    max-width: 62ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer components {
+  .accordion-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .accordion-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: var(--radius-box);
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: 
+      background-color 250ms var(--ease-fluid),
+      border-color 250ms var(--ease-fluid),
+      box-shadow 250ms var(--ease-fluid);
+
+    &[open] {
+      background: var(--bg-card-open);
+      border-color: var(--border-card-active);
+      box-shadow: 0 8px 24px -4px oklch(0 0 0 / 0.4), 0 0 20px var(--brand-glow);
+
+      .trigger-icon {
+        transform: rotate(180deg);
+        color: var(--brand-accent);
+      }
+
+      .trigger-label {
+        color: var(--text-high);
+      }
+    }
+  }
+
+  .accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none; /* Hide default triangle marker */
+    user-select: none;
+    transition: background-color 150ms ease;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &:hover {
+      background: oklch(1 0 0 / 0.03);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--brand-accent);
+      outline-offset: -2px;
+    }
+  }
+
+  .trigger-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-medium);
+    transition: color 200ms ease;
+    line-height: 1.4;
+  }
+
+  .trigger-icon {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    transition: transform 300ms var(--ease-fluid), color 200ms ease;
+  }
+
+  /* 2026 Native Accordion Height Animation via ::details-content & interpolate-size */
+  .accordion-item::details-content {
+    transition: height 350ms var(--ease-fluid), content-visibility 350ms allow-discrete, opacity 300ms ease;
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+  }
+
+  .accordion-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+
+  /* Fallback container transition for older implementations */
+  .accordion-content {
+    border-top: 1px solid oklch(1 0 0 / 0.06);
+  }
+
+  .content-inner {
+    padding: 1.25rem 1.5rem;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    line-height: 1.7;
+
+    p {
+      text-wrap: pretty;
+    }
+  }
+}

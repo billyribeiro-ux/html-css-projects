@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07 - Smart Tag Filter Bar via :has() | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Filter multi-category UI card grids in pure CSS without a single line of JavaScript by leveraging relational :has() and sibling radio inputs.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/07-smart-tag-filter-bar/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Zero-JS Dynamic Filter Matrix via :has()",
+    "description": "Filter multi-category UI card grids in pure CSS without a single line of JavaScript by leveraging relational :has() and sibling radio inputs.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Relational :has() Filtering"
+      },
+      {
+        "@type": "Thing",
+        "name": "Pure CSS Radio Chips"
+      },
+      {
+        "@type": "Thing",
+        "name": "Zero JS Client-side Filter"
+      },
+      {
+        "@type": "Thing",
+        "name": "OKLCH Thematic Badges"
+      },
+      {
+        "@type": "Thing",
+        "name": "Instantaneous Filter INP"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 07 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Zero-JS Dynamic Filter Matrix via <code>:has()</code></h1>
+      <p class="page-desc">
+        Harnessing CSS relational <code>:has()</code> selectors to filter complex UI card grids with native radio inputs, zero client-side scripts, and hardware-accelerated transitions.
+      </p>
+    </header>
+
+    <div class="filter-system">
+      <!-- Filter Controls (Hidden Radios + Styled Chips) -->
+      <fieldset class="filter-bar" aria-label="Filter research categories">
+        <legend class="sr-only">Filter by Department</legend>
+
+        <label class="filter-chip">
+          <input type="radio" name="dept-filter" id="filter-all" value="all" checked>
+          <span class="chip-label">All Systems</span>
+        </label>
+
+        <label class="filter-chip">
+          <input type="radio" name="dept-filter" id="filter-ai" value="ai">
+          <span class="chip-label">Autonomous AI</span>
+        </label>
+
+        <label class="filter-chip">
+          <input type="radio" name="dept-filter" id="filter-mesh" value="mesh">
+          <span class="chip-label">Distributed Mesh</span>
+        </label>
+
+        <label class="filter-chip">
+          <input type="radio" name="dept-filter" id="filter-quantum" value="quantum">
+          <span class="chip-label">Quantum Security</span>
+        </label>
+      </fieldset>
+
+      <!-- Results Grid -->
+      <div class="cards-grid">
+        <!-- Item 1 -->
+        <article class="data-card" data-category="ai">
+          <div class="card-badge badge--ai">Autonomous AI</div>
+          <h2 class="card-title">Neural Transformer Speculative Decoding Engine</h2>
+          <p class="card-desc">Reduces multi-token inference latency by 4.2x using speculative drafted verification.</p>
+          <div class="card-meta"><span>Latency: 8.4ms</span><span>vLLM Native</span></div>
+        </article>
+
+        <!-- Item 2 -->
+        <article class="data-card" data-category="mesh">
+          <div class="card-badge badge--mesh">Distributed Mesh</div>
+          <h2 class="card-title">Raft Consensus with eBPF Kernel Acceleration</h2>
+          <p class="card-desc">Zero-copy kernel packet filtering for leader heartbeats across 10,000 edge nodes.</p>
+          <div class="card-meta"><span>Jitter: 0.12ms</span><span>BGP Anycast</span></div>
+        </article>
+
+        <!-- Item 3 -->
+        <article class="data-card" data-category="quantum">
+          <div class="card-badge badge--quantum">Quantum Security</div>
+          <h2 class="card-title">Post-Quantum Lattice-Based Key Exchange (Kyber-1024)</h2>
+          <p class="card-desc">Hardware-accelerated cryptographic primitives safeguarding TLS 1.4 handshakes.</p>
+          <div class="card-meta"><span>NIST Level 5</span><span>FIPS 203 Compliant</span></div>
+        </article>
+
+        <!-- Item 4 -->
+        <article class="data-card" data-category="ai">
+          <div class="card-badge badge--ai">Autonomous AI</div>
+          <h2 class="card-title">Synthetic Multi-Agent Tool Synthesis Loop</h2>
+          <p class="card-desc">Continuous reinforcement learning runtime generating dynamic RPC client bindings.</p>
+          <div class="card-meta"><span>Eval: 99.4%</span><span>Toolbench 2026</span></div>
+        </article>
+
+        <!-- Item 5 -->
+        <article class="data-card" data-category="mesh">
+          <div class="card-badge badge--mesh">Distributed Mesh</div>
+          <h2 class="card-title">Geo-Distributed CRDT State Convergence Engine</h2>
+          <p class="card-desc">Conflict-free replicated data types maintaining sub-second eventual consistency.</p>
+          <div class="card-meta"><span>Sync: 45ms</span><span>120 Geo-Zones</span></div>
+        </article>
+
+        <!-- Item 6 -->
+        <article class="data-card" data-category="quantum">
+          <div class="card-badge badge--quantum">Quantum Security</div>
+          <h2 class="card-title">Zero-Knowledge Rollup State Verifier Circuits</h2>
+          <p class="card-desc">STARK-based proof verification executing in 1.8 milliseconds on standard commodity CPU.</p>
+          <div class="card-meta"><span>Gas: 42k</span><span>Succinct Proofs</span></div>
+        </article>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrincipalOS Desktop Environment & Command Palette | DPE L8++ Pinnacle</title>
+  
+  <!-- Core SEO & Search Indexing -->
+  <meta name="description" content="Next-generation browser operating system interface featuring CSS anchor-positioned menus, native Cmd+K dialog command palette, subgrid process monitoring, and popover controls.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/20-command-palette-os-desktop/">
+  <meta name="theme-color" content="#121528">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PrincipalOS Desktop Environment & Command Palette | DPE L8++">
+  <meta property="og:description" content="Next-generation browser OS built entirely with modern 2026 CSS primitives.">
+  <meta property="og:url" content="https://example.com/projects/20-command-palette-os-desktop/">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PrincipalOS Desktop Environment & Command Palette">
+  <meta name="twitter:description" content="Native dialogs, CSS anchor positioning, subgrid tables, and popovers.">
+
+  <!-- Schema.org WebApplication Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PrincipalOS Desktop Environment",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "All modern browsers supporting CSS 2026 standards",
+    "description": "Browser-based distributed systems operating console with native modal command execution, anchor menus, and subgrid process management.",
+    "browserRequirements": "Requires HTML5 Dialog, Popover API, CSS Subgrid, and CSS Anchor Positioning",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer (L8++)"
+    },
+    "featureList": [
+      "Native <dialog> Command Palette with Cmd+K shortcut",
+      "CSS Anchor-Positioned Contextual System Menu",
+      "Subgrid Distributed Process Table",
+      "Native HTML Popover API Quick Settings",
+      "Dynamic Dual-Theme Engine via light-dark()"
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Top System Bar -->
+  <header class="desktop-topbar" role="banner">
+    <div class="topbar-left">
+      <button type="button" class="system-logo-btn" id="os-menu-anchor" popovertarget="os-system-menu" aria-label="Open PrincipalOS System Menu">
+        <span class="logo-glyph" aria-hidden="true">◈</span>
+        <span class="os-name">PrincipalOS v2026.10</span>
+      </button>
+      <span class="divider" aria-hidden="true">/</span>
+      <span class="cluster-id">Cluster #0-Production</span>
+    </div>
+
+    <div class="topbar-center">
+      <button type="button" class="cmd-trigger-btn" id="btn-open-palette" aria-label="Open Command Palette (Keyboard shortcut: Cmd+K or Ctrl+K)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span>Search commands, metrics & clusters...</span>
+        <kbd class="kbd-shortcut">⌘K</kbd>
+      </button>
+    </div>
+
+    <div class="topbar-right">
+      <button type="button" class="status-pill" popovertarget="quick-settings-popover" aria-label="Open Quick Settings and System Latency Metrics">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="latency-val">0.42 ms</span>
+        <span class="clock-display" id="os-clock">13:30 UTC</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Desktop Workspace Area -->
+  <main class="desktop-workspace" role="main">
+    <!-- Active Window: Process & Cluster Monitor -->
+    <div class="os-window" role="region" aria-label="Process Monitor Window">
+      <div class="window-titlebar">
+        <div class="window-controls" aria-hidden="true">
+          <span class="control-dot close"></span>
+          <span class="control-dot minimize"></span>
+          <span class="control-dot maximize"></span>
+        </div>
+        <div class="window-title">Active Mesh Processes & Silicon Telemetry</div>
+        <div class="window-actions">
+          <span class="window-badge">Subgrid Level 8++</span>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <!-- Subgrid Process Table -->
+        <div class="process-subgrid-table" role="table" aria-label="Distributed Process Table">
+          <div class="table-header" role="row">
+            <span role="columnheader">PID / Node</span>
+            <span role="columnheader">Micro-Service</span>
+            <span role="columnheader">Compute Silicon</span>
+            <span role="columnheader">RAM Mesh</span>
+            <span role="columnheader">Status</span>
+          </div>
+
+          <div class="table-row" role="row">
+            <span class="cell-mono" role="cell">#8041-Alpha</span>
+            <span class="cell-bold" role="cell">Kyber Key Exchange</span>
+            <span role="cell">TPU v6 Core 0</span>
+            <span class="cell-mono" role="cell">1.4 GB</span>
+            <span class="status-chip chip-green" role="cell">Optimal</span>
+          </div>
+
+          <div class="table-row" role="row">
+            <span class="cell-mono" role="cell">#8042-Beta</span>
+            <span class="cell-bold" role="cell">Speculative Decoder</span>
+            <span role="cell">8x H100 SXM5</span>
+            <span class="cell-mono" role="cell">480.2 GB</span>
+            <span class="status-chip chip-cyan" role="cell">Inference</span>
+          </div>
+
+          <div class="table-row" role="row">
+            <span class="cell-mono" role="cell">#8043-Gamma</span>
+            <span class="cell-bold" role="cell">eBPF Packet Router</span>
+            <span role="cell">AMD EPYC 9654</span>
+            <span class="cell-mono" role="cell">64.0 MB</span>
+            <span class="status-chip chip-green" role="cell">Optimal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NATIVE CSS ANCHOR-POSITIONED CONTEXT MENU -->
+  <div id="os-system-menu" popover class="anchor-system-menu" aria-label="Operating System Main Menu">
+    <div class="menu-item"><span class="menu-icon">⚡</span><span>About PrincipalOS L8++</span></div>
+    <div class="menu-item"><span class="menu-icon">⚙</span><span>Cluster Kernel Config</span></div>
+    <div class="menu-item"><span class="menu-icon">🛡</span><span>Post-Quantum Key Ring</span></div>
+    <div class="menu-divider"></div>
+    <div class="menu-item text-danger"><span class="menu-icon">✕</span><span>Graceful Pod Evacuation</span></div>
+  </div>
+
+  <!-- NATIVE POPOVER: QUICK SETTINGS -->
+  <div id="quick-settings-popover" popover class="quick-settings-card" aria-label="System Quick Settings">
+    <div class="qs-header">
+      <span class="qs-title">Operational Surface</span>
+      <span class="qs-badge">DPE L8++</span>
+    </div>
+    <div class="qs-controls">
+      <label class="qs-toggle-row">
+        <span>Hardware Light Scheme</span>
+        <input type="checkbox" id="theme-toggle" aria-label="Toggle Light Theme">
+      </label>
+      <label class="qs-toggle-row">
+        <span>Turbulence Evacuation</span>
+        <input type="checkbox" checked aria-label="Toggle Turbulence Evacuation">
+      </label>
+    </div>
+  </div>
+
+  <!-- NATIVE DIALOG COMMAND PALETTE (CMD+K) -->
+  <dialog id="cmd-dialog" class="palette-dialog" aria-labelledby="palette-label">
+    <div class="palette-surface">
+      <div class="palette-input-bar">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="palette-search" placeholder="Execute command or jump to subsystem..." autocomplete="off" aria-label="Search and execute command">
+        <kbd class="esc-badge" aria-label="Press Escape to close">ESC</kbd>
+      </div>
+
+      <div class="palette-commands-list" role="listbox">
+        <div class="command-group-title" id="palette-label">Subsystem Actions</div>
+
+        <button type="button" class="command-row" role="option">
+          <span class="cmd-icon" aria-hidden="true">🚀</span>
+          <span class="cmd-label">Deploy Blue-Green Mesh Release</span>
+          <span class="cmd-shortcut">⌘D</span>
+        </button>
+
+        <button type="button" class="command-row" role="option">
+          <span class="cmd-icon" aria-hidden="true">📊</span>
+          <span class="cmd-label">Inspect Telemetry & Jitter Spectrum</span>
+          <span class="cmd-shortcut">⌘J</span>
+        </button>
+
+        <button type="button" class="command-row" role="option">
+          <span class="cmd-icon" aria-hidden="true">🔄</span>
+          <span class="cmd-label">Rotate Kyber-1024 Cryptographic Keys</span>
+          <span class="cmd-shortcut">⌘R</span>
+        </button>
+
+        <button type="button" class="command-row" role="option">
+          <span class="cmd-icon" aria-hidden="true">⚡</span>
+          <span class="cmd-label">Trigger Kernel Garbage Collection</span>
+          <span class="cmd-shortcut">⌘G</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    const dialog = document.getElementById('cmd-dialog');
+    const openBtn = document.getElementById('btn-open-palette');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    // Cmd+K shortcut listener
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        dialog.open ? dialog.close() : dialog.showModal();
+      }
+    });
+
+    openBtn.addEventListener('click', () => dialog.showModal());
+
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    // Theme Toggle
+    themeToggle.addEventListener('change', (e) => {
+      document.documentElement.setAttribute('data-theme', e.target.checked ? 'light' : 'dark');
+    });
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getUTCHours()).padStart(2, '0');
+      const m = String(now.getUTCMinutes()).padStart(2, '0');
+      const s = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('os-clock').textContent = `${h}:${m}:${s} UTC`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>21 - Autonomous View Transitions Explorer | DPE L8++</title>
+  <meta name="description" content="Master the native View Transitions API with shared element morphing, zero-library seamless layout choreography, and fallback resiliency.">
+  <link rel="canonical" href="https://example.com/projects/21-view-transitions-explorer/">
+  <meta name="theme-color" content="#121024">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "View Transitions API Spatial Navigation",
+    "description": "Achieves native-app-quality page and state transitions in single-page and multi-page flows with zero external layout animation libraries.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "document.startViewTransition()"
+      },
+      {
+        "@type": "Thing",
+        "name": "Shared Element Morphing"
+      },
+      {
+        "@type": "Thing",
+        "name": "view-transition-name"
+      },
+      {
+        "@type": "Thing",
+        "name": "Discrete Transitions"
+      },
+      {
+        "@type": "Thing",
+        "name": "@starting-style"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 21 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">View Transitions API</span>
+      </div>
+      <h1 class="page-title">Autonomous View Transitions Data Explorer</h1>
+      <p class="page-desc">
+        Fluid shared-element morphing using native <code>document.startViewTransition()</code>. Toggle between grid and list layouts, or click any card to inspect full telemetry in an expanded morph view.
+      </p>
+
+      <div class="view-controls">
+        <span class="control-label">Layout Architecture:</span>
+        <div class="btn-group">
+          <button type="button" class="ctrl-btn active" id="btn-grid" aria-pressed="true">Grid Matrix</button>
+          <button type="button" class="ctrl-btn" id="btn-list" aria-pressed="false">Dense List</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dynamic Card Container -->
+    <div class="explorer-grid" id="explorer-container">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Morph Detail Overlay (Activated via View Transition) -->
+    <div class="detail-modal" id="detail-modal" hidden>
+      <div class="detail-surface" id="detail-surface">
+        <button type="button" class="btn-close-detail" id="btn-close-detail" aria-label="Close detailed telemetry">✕</button>
+        <div class="detail-hero" id="detail-hero"></div>
+        <div class="detail-content">
+          <span class="detail-category" id="detail-category"></span>
+          <h2 class="detail-title" id="detail-title"></h2>
+          <p class="detail-description" id="detail-desc"></p>
+          <div class="detail-metrics" id="detail-metrics"></div>
+          <div class="detail-actions">
+            <button type="button" class="btn-primary" id="btn-deploy-node">Deploy Node Replica</button>
+            <button type="button" class="btn-secondary" id="btn-back">Return to Explorer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

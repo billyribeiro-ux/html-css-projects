@@ -1,0 +1,291 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 06 - CSS Subgrid Responsive Pricing Matrix
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Subgrid (grid-template-rows: subgrid), Container Queries,
+              OKLCH Color Space, WCAG 2.2 Contrast, Zero Height Hacks
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.12 0.02 260);
+    --bg-card: oklch(0.16 0.02 260 / 0.8);
+    --bg-featured: oklch(0.18 0.03 260);
+
+    --border-card: oklch(0.28 0.03 260 / 0.6);
+    --border-featured: oklch(0.65 0.22 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.55 0.03 260);
+
+    --brand-primary: oklch(0.65 0.22 260);
+    --brand-glow: oklch(0.65 0.22 260 / 0.25);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 1160px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-primary) l c h / 0.15);
+    color: var(--brand-primary);
+    border: 1px solid oklch(from var(--brand-primary) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer layout {
+  /* =========================================================================
+     2026 CSS MILESTONE: Subgrid Alignment System
+     ========================================================================= */
+  .pricing-matrix {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 860px) {
+      grid-template-columns: repeat(3, 1fr);
+      /* Define 4 rows: Header, Price, Features, Action */
+      grid-template-rows: auto auto 1fr auto;
+      align-items: stretch;
+    }
+  }
+
+  .pricing-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    backdrop-filter: blur(12px);
+    transition: transform 250ms ease, box-shadow 250ms ease;
+
+    @media (min-width: 860px) {
+      /* Subgrid magic: Spans 4 parent rows and inherits their track sizing */
+      display: grid;
+      grid-row: span 4;
+      grid-template-rows: subgrid;
+      gap: 1.5rem;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px -4px oklch(0 0 0 / 0.5);
+    }
+
+    &.pricing-card--featured {
+      background: var(--bg-featured);
+      border-color: var(--border-featured);
+      box-shadow: 0 0 35px var(--brand-glow);
+      position: relative;
+
+      @media (min-width: 860px) {
+        transform: scale(1.03);
+
+        &:hover {
+          transform: scale(1.03) translateY(-4px);
+        }
+      }
+    }
+  }
+}
+
+@layer components {
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .featured-badge-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .featured-pill {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    background: var(--brand-primary);
+    color: oklch(0.98 0.01 260);
+  }
+
+  .tier-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--brand-primary);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tier-headline {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.35;
+    text-wrap: balance;
+  }
+
+  .price-block {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    padding-block: 0.5rem;
+    border-bottom: 1px solid oklch(1 0 0 / 0.08);
+
+    .currency {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .amount {
+      font-size: 3.25rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    .billing-cycle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      line-height: 1.4;
+
+      &::before {
+        content: "✓";
+        color: oklch(0.72 0.2 150);
+        font-weight: 800;
+      }
+    }
+  }
+
+  .card-action {
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.925rem;
+    cursor: pointer;
+    border: none;
+    transition: all 180ms ease;
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  .btn-secondary {
+    background: oklch(0.24 0.03 260);
+    color: var(--text-primary);
+    border: 1px solid var(--border-card);
+
+    &:hover {
+      background: oklch(0.28 0.03 260);
+    }
+  }
+
+  .btn-primary {
+    background: var(--brand-primary);
+    color: oklch(0.98 0.01 260);
+
+    &:hover {
+      background: oklch(from var(--brand-primary) calc(l + 0.06) c h);
+      box-shadow: 0 4px 18px oklch(from var(--brand-primary) l c h / 0.4);
+    }
+  }
+}

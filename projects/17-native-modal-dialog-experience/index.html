@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>17 - Native Modal Dialog Experience | DPE L8++</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Zero React portal or external dialog library needed. Utilizing the HTML5 <dialog> element, native ::backdrop, <form method="dialog"> dismissal, and 2026 discrete transitions.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <link rel="canonical" href="https://example.com/projects/17-native-modal-dialog-experience/">
+  <!-- Schema.org JSON-LD Structured Data (Google Oct 2026 SEO Specifications) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Native Accessible Modal with @starting-style",
+    "description": "Zero React portal or external dialog library needed. Utilizing the HTML5 <dialog> element, native ::backdrop, <form method=\"dialog\"> dismissal, and 2026 discrete transitions.",
+    "author": {
+      "@type": "Person",
+      "name": "Distinguished Principal Engineer L8++",
+      "jobTitle": "Distinguished Principal Engineer"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "DPE L8++ Engineering Academy",
+      "url": "https://example.com"
+    },
+    "datePublished": "2026-10-22T08:00:00Z",
+    "dateModified": "2026-10-25T12:00:00Z",
+    "proficiencyLevel": "Advanced / DPE L8++",
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "HTML5 <dialog> & :modal"
+      },
+      {
+        "@type": "Thing",
+        "name": "@starting-style & Discrete Transitions"
+      },
+      {
+        "@type": "Thing",
+        "name": "Built-in Focus Trapping & ESC Key"
+      },
+      {
+        "@type": "Thing",
+        "name": "Custom Animated ::backdrop"
+      },
+      {
+        "@type": "Thing",
+        "name": "A11y Page Experience"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <span class="badge">Level 17 • Distinguished Principal Engineer L8++</span>
+      <h1 class="page-title">Native Accessible Modal with <code>@starting-style</code></h1>
+      <p class="page-desc">
+        Zero React portal or external dialog library needed. Utilizing the HTML5 <code>&lt;dialog&gt;</code> element, native <code>::backdrop</code>, <code>&lt;form method="dialog"&gt;</code> dismissal, and 2026 discrete transitions.
+      </p>
+    </header>
+
+    <div class="interactive-stage">
+      <button type="button" class="btn btn-launch" id="btn-open-dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+        <span>Open Production Deployment Modal</span>
+      </button>
+    </div>
+
+    <!-- THE NATIVE DIALOG ELEMENT -->
+    <dialog id="deploy-dialog" class="system-modal" aria-labelledby="modal-title" aria-describedby="modal-desc">
+      <div class="modal-surface">
+        <header class="modal-header">
+          <div class="header-icon-wrap">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div class="header-text">
+            <h2 id="modal-title" class="modal-title">Promote Canary to Production</h2>
+            <p id="modal-desc" class="modal-subtext">Verification complete for Release v2026.10-L8</p>
+          </div>
+          <!-- Pure HTML dialog close form -->
+          <form method="dialog">
+            <button type="submit" class="modal-close-btn" aria-label="Dismiss Modal">✕</button>
+          </form>
+        </header>
+
+        <div class="modal-body">
+          <div class="warning-callout">
+            <span class="warning-icon">⚠</span>
+            <span>This action triggers atomic blue-green traffic switching across 48 worldwide clusters.</span>
+          </div>
+
+          <div class="release-summary">
+            <div class="summary-row">
+              <span class="label">Canary Duration:</span>
+              <span class="val">72 hours (0 regression)</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">Target Fleet:</span>
+              <span class="val">14,200 edge compute nodes</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">Rollback Strategy:</span>
+              <span class="val text-cyan">Instantaneous DNS/eBPF failover</span>
+            </div>
+          </div>
+        </div>
+
+        <footer class="modal-footer">
+          <form method="dialog" class="footer-actions">
+            <button type="submit" value="cancel" class="btn btn-secondary">Abort Release</button>
+            <button type="submit" value="confirm" class="btn btn-primary">Confirm & Deploy</button>
+          </form>
+        </footer>
+      </div>
+    </dialog>
+  </main>
+
+  <script>
+    const dialog = document.getElementById('deploy-dialog');
+    const openBtn = document.getElementById('btn-open-dialog');
+
+    openBtn.addEventListener('click', () => {
+      dialog.showModal();
+    });
+
+    // Close when clicking outside modal surface
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) {
+        dialog.close();
+      }
+    });
+  </script>
+</body>
+</html>

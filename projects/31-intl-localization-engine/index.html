@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>31 - ECMAScript Intl Localization & Polyglot Engine | DPE L8++</title>
+  <meta name="description" content="Production-grade zero-dependency internationalization engine leveraging ECMAScript Intl standards: NumberFormat, DateTimeFormat, RelativeTimeFormat, and ListFormat.">
+  <link rel="canonical" href="https://example.com/projects/31-intl-localization-engine/">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Polyglot ECMAScript Intl Localization Engine",
+    "applicationCategory": "DeveloperApplication"
+  }
+  </script>
+</head>
+<body>
+  <main class="page-container">
+    <header class="page-header">
+      <div class="badge-row">
+        <span class="badge">Level 31 • Distinguished Principal Engineer L8++</span>
+        <span class="tech-tag">ECMAScript Intl API Suite</span>
+        <span class="tech-tag">Zero-i18n-Bloat</span>
+      </div>
+      <h1 class="page-title">Polyglot Intl Localization Engine</h1>
+      <p class="page-desc">
+        Zero external i18n libraries. Full browser-native internationalization harnessing <code>Intl.NumberFormat</code>, <code>Intl.DateTimeFormat</code>, <code>Intl.RelativeTimeFormat</code>, <code>Intl.ListFormat</code>, and <code>Intl.Segmenter</code>.
+      </p>
+    </header>
+
+    <!-- Global Locale Selector Console -->
+    <section class="config-console" aria-label="Localization Settings">
+      <div class="selector-field">
+        <label for="select-locale">Target Locale</label>
+        <select id="select-locale" class="custom-select">
+          <option value="en-US">English (United States) - en-US</option>
+          <option value="ja-JP">Japanese (Japan) - ja-JP</option>
+          <option value="de-DE">German (Germany) - de-DE</option>
+          <option value="fr-FR">French (France) - fr-FR</option>
+          <option value="pt-BR">Portuguese (Brazil) - pt-BR</option>
+          <option value="ar-SA">Arabic (Saudi Arabia) - ar-SA</option>
+          <option value="zh-CN">Chinese (Simplified) - zh-CN</option>
+        </select>
+      </div>
+
+      <div class="selector-field">
+        <label for="select-currency">Reporting Currency</label>
+        <select id="select-currency" class="custom-select">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="JPY">JPY (¥)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="BRL">BRL (R$)</option>
+        </select>
+      </div>
+
+      <div class="selector-field">
+        <label for="select-calendar">Calendar System</label>
+        <select id="select-calendar" class="custom-select">
+          <option value="gregory">Gregorian</option>
+          <option value="japanese">Japanese Imperial</option>
+          <option value="islamic-umalqura">Islamic (Umm al-Qura)</option>
+          <option value="buddhist">Buddhist</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Formatted Telemetry Cards Grid -->
+    <div class="telemetry-grid">
+      <!-- Currency & Numbers -->
+      <article class="intl-card">
+        <header class="card-header">
+          <span class="intl-api-tag">Intl.NumberFormat</span>
+          <h2 class="card-title">Fiscal & Quantitative Metrics</h2>
+        </header>
+        <div class="card-body">
+          <div class="output-row">
+            <span class="label">Gross Revenue:</span>
+            <span class="val highlight" id="out-currency-standard">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Compact Notation:</span>
+            <span class="val" id="out-currency-compact">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Unit Throughput:</span>
+            <span class="val" id="out-unit-speed">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Payload Volume:</span>
+            <span class="val" id="out-unit-bytes">--</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Date & Time Format -->
+      <article class="intl-card">
+        <header class="card-header">
+          <span class="intl-api-tag">Intl.DateTimeFormat</span>
+          <h2 class="card-title">Chronological Temporal Projection</h2>
+        </header>
+        <div class="card-body">
+          <div class="output-row">
+            <span class="label">Full Local Timestamp:</span>
+            <span class="val" id="out-date-full">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Calendar Era / Year:</span>
+            <span class="val" id="out-date-calendar">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Timezone (Tokyo):</span>
+            <span class="val" id="out-date-tz">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Date Range Span:</span>
+            <span class="val" id="out-date-range">--</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Relative Time & Plural Rules -->
+      <article class="intl-card">
+        <header class="card-header">
+          <span class="intl-api-tag">Intl.RelativeTimeFormat & PluralRules</span>
+          <h2 class="card-title">Linguistic Temporal Offsets</h2>
+        </header>
+        <div class="card-body">
+          <div class="output-row">
+            <span class="label">Recent Deployment:</span>
+            <span class="val" id="out-rel-past">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Scheduled Release:</span>
+            <span class="val" id="out-rel-future">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Plural Category (1 item):</span>
+            <span class="val" id="out-plural-1">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Plural Category (42 items):</span>
+            <span class="val" id="out-plural-42">--</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- List Format & Display Names -->
+      <article class="intl-card">
+        <header class="card-header">
+          <span class="intl-api-tag">Intl.ListFormat & DisplayNames</span>
+          <h2 class="card-title">Conjunctions & Regional Naming</h2>
+        </header>
+        <div class="card-body">
+          <div class="output-row">
+            <span class="label">Conjunctive Nodes:</span>
+            <span class="val" id="out-list-conjunction">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Disjunctive Failover:</span>
+            <span class="val" id="out-list-disjunction">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Native Region Name:</span>
+            <span class="val" id="out-region-name">--</span>
+          </div>
+          <div class="output-row">
+            <span class="label">Native Language Name:</span>
+            <span class="val" id="out-lang-name">--</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

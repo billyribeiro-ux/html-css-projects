@@ -1,0 +1,356 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 22 - Real-time Core Web Vitals Observer
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: PerformanceObserver, INP / LCP / CLS Thresholds,
+              OKLCH Color Space, Terminal Stream Formatting
+   ========================================================================== */
+
+@layer reset, tokens, base, layout, vitals, stream-log;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  button {
+    font: inherit;
+    color: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.1 0.02 260);
+    --bg-card: oklch(0.15 0.03 260 / 0.85);
+    --border-card: oklch(0.28 0.04 260 / 0.7);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --status-good: oklch(0.75 0.2 145);
+    --status-needs: oklch(0.8 0.18 80);
+    --status-poor: oklch(0.65 0.22 25);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-purple: oklch(0.68 0.22 290);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: start center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 940px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .tech-tag {
+    padding: 0.25rem 0.65rem;
+    background: oklch(from var(--brand-purple) l c h / 0.15);
+    color: var(--brand-purple);
+    border: 1px solid oklch(from var(--brand-purple) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer vitals {
+  .vitals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .vital-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 20px;
+    padding: 1.75rem;
+    box-shadow: 0 12px 32px -4px oklch(0 0 0 / 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    backdrop-filter: blur(16px);
+    transition: all 250ms ease;
+  }
+
+  .vital-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .vital-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+
+  .vital-rating {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+
+    &.rating-good {
+      background: oklch(from var(--status-good) l c h / 0.15);
+      color: var(--status-good);
+      border: 1px solid oklch(from var(--status-good) l c h / 0.3);
+    }
+    &.rating-needs {
+      background: oklch(from var(--status-needs) l c h / 0.15);
+      color: var(--status-needs);
+      border: 1px solid oklch(from var(--status-needs) l c h / 0.3);
+    }
+    &.rating-poor {
+      background: oklch(from var(--status-poor) l c h / 0.15);
+      color: var(--status-poor);
+      border: 1px solid oklch(from var(--status-poor) l c h / 0.3);
+    }
+  }
+
+  .vital-score-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .vital-score {
+    font-size: 2.25rem;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.03em;
+
+    small {
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+  }
+
+  .vital-threshold {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+  }
+
+  .vital-meter {
+    height: 6px;
+    background: oklch(0.2 0.03 260);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 300ms ease, background-color 300ms ease;
+
+    &.fill-good { background: var(--status-good); }
+    &.fill-needs { background: var(--status-needs); }
+    &.fill-poor { background: var(--status-poor); }
+  }
+
+  .vital-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+}
+
+@layer stream-log {
+  .stress-lab {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .lab-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .lab-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .lab-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 180ms ease;
+
+    &:active { transform: translateY(1px); }
+  }
+
+  .btn-fast {
+    background: oklch(from var(--status-good) l c h / 0.15);
+    color: var(--status-good);
+    border: 1px solid oklch(from var(--status-good) l c h / 0.35);
+
+    &:hover { background: oklch(from var(--status-good) l c h / 0.25); }
+  }
+
+  .btn-stress {
+    background: oklch(from var(--status-needs) l c h / 0.15);
+    color: var(--status-needs);
+    border: 1px solid oklch(from var(--status-needs) l c h / 0.35);
+
+    &:hover { background: oklch(from var(--status-needs) l c h / 0.25); }
+  }
+
+  .btn-heavy {
+    background: oklch(from var(--status-poor) l c h / 0.15);
+    color: var(--status-poor);
+    border: 1px solid oklch(from var(--status-poor) l c h / 0.35);
+
+    &:hover { background: oklch(from var(--status-poor) l c h / 0.25); }
+  }
+
+  .btn-reset {
+    background: oklch(0.2 0.03 260);
+    border: 1px solid var(--border-card);
+    color: var(--text-muted);
+
+    &:hover {
+      background: oklch(0.25 0.04 260);
+      color: var(--text-primary);
+    }
+  }
+
+  .event-stream-box {
+    margin-top: 0.5rem;
+    background: oklch(0.08 0.02 260);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stream-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.65rem 1rem;
+    background: oklch(0.12 0.02 260);
+    border-bottom: 1px solid var(--border-card);
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+  }
+
+  .stream-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--status-good);
+    box-shadow: 0 0 8px var(--status-good);
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  .stream-log {
+    padding: 1rem;
+    max-height: 180px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+  }
+
+  .log-line {
+    display: flex;
+    gap: 0.75rem;
+    color: var(--text-secondary);
+
+    .time { color: var(--text-muted); }
+    .type { color: var(--brand-cyan); }
+    .val { color: var(--text-primary); font-weight: 600; }
+  }
+}

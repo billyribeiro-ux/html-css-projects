@@ -1,0 +1,235 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 16 - Pure CSS Scroll Snap Carousel
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: CSS Scroll Snap (scroll-snap-type: x mandatory), scroll-behavior: smooth,
+              overscroll-behavior-x: contain, Zero JavaScript Swiper
+   ========================================================================== */
+
+@layer reset, tokens, base, carousel, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.11 0.02 260);
+    --bg-card: oklch(0.15 0.03 260);
+    --border-card: oklch(0.28 0.04 260);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.75 0.03 260);
+    --text-muted: oklch(0.52 0.02 260);
+
+    --brand-cyan: oklch(0.75 0.19 190);
+    --brand-purple: oklch(0.68 0.22 290);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .page-container {
+    width: min(100%, 880px);
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-cyan) l c h / 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid oklch(from var(--brand-cyan) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 65ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--brand-cyan);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer carousel {
+  .carousel-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* =========================================================================
+     2026 CSS MILESTONE: Scroll Snap Track Architecture
+     ========================================================================= */
+  .carousel-track {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.35 0.05 260) transparent;
+
+    &:focus-visible {
+      outline: 2px solid var(--brand-cyan);
+      outline-offset: 4px;
+      border-radius: 18px;
+    }
+  }
+
+  .carousel-slide {
+    flex: 0 0 min(100%, 480px);
+    scroll-snap-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 12px 32px -4px oklch(0 0 0 / 0.5);
+    display: flex;
+    flex-direction: column;
+    transition: transform 250ms ease, border-color 250ms ease;
+
+    &:hover {
+      border-color: var(--brand-cyan);
+      transform: translateY(-3px);
+    }
+  }
+
+  .slide-visual {
+    height: 200px;
+    position: relative;
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &.visual-1 {
+      background: radial-gradient(circle at top right, oklch(0.4 0.15 190), oklch(0.12 0.04 260));
+    }
+    &.visual-2 {
+      background: radial-gradient(circle at top right, oklch(0.4 0.18 290), oklch(0.12 0.04 260));
+    }
+    &.visual-3 {
+      background: radial-gradient(circle at top right, oklch(0.4 0.15 145), oklch(0.12 0.04 260));
+    }
+    &.visual-4 {
+      background: radial-gradient(circle at top right, oklch(0.4 0.18 60), oklch(0.12 0.04 260));
+    }
+  }
+
+  .slide-index {
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: oklch(0.98 0.01 260 / 0.8);
+    background: oklch(0 0 0 / 0.4);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    backdrop-filter: blur(8px);
+  }
+
+  .slide-badge {
+    font-size: 0.75rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    background: oklch(0 0 0 / 0.5);
+    padding: 0.25rem 0.65rem;
+    border-radius: 9999px;
+    border: 1px solid oklch(1 0 0 / 0.1);
+  }
+
+  .slide-details {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .slide-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+
+  .slide-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  .carousel-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .nav-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-muted);
+    transition: all 180ms ease;
+
+    &:hover {
+      background: oklch(0.24 0.03 260);
+      color: var(--text-primary);
+      border-color: var(--brand-cyan);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--brand-cyan);
+      outline-offset: 3px;
+    }
+  }
+}

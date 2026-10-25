@@ -1,0 +1,27 @@
+{
+  "name": "dpe-l8-2026-masterclass",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Distinguished Principal Engineer 2026 CSS & Vanilla JS Browser Systems Masterclass",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "ci": "npm run test && npm run test:e2e",
+    "data:build": "python3 build_master_data.py"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
+    "@playwright/test": "^1.49.0",
+    "@vitest/coverage-v8": "^2.1.8",
+    "happy-dom": "^15.11.7",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8"
+  }
+}

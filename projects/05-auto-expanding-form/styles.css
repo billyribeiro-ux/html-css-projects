@@ -1,0 +1,319 @@
+/* ==========================================================================
+   DPE L8++ STANDARDS: Level 05 - Auto-Expanding Smart Validation Form
+   Architect: Distinguished Principal Engineer (L8++)
+   Standards: field-sizing: content, :user-valid / :user-invalid,
+              :has() Parent Form Logic, OKLCH, WCAG 2.2 Form States
+   ========================================================================== */
+
+@layer reset, tokens, base, components;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  input, textarea, button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+@layer tokens {
+  :root {
+    --bg-page: oklch(0.12 0.02 260);
+    --bg-card: oklch(0.16 0.02 260);
+    --border-card: oklch(0.26 0.03 260);
+
+    --bg-input: oklch(0.13 0.02 260);
+    --border-input: oklch(0.3 0.03 260);
+    --border-focus: oklch(0.65 0.22 260);
+
+    --color-valid: oklch(0.72 0.18 145);
+    --color-invalid: oklch(0.65 0.22 25);
+    --color-idle: oklch(0.55 0.03 260);
+
+    --text-primary: oklch(0.98 0.01 260);
+    --text-secondary: oklch(0.7 0.03 260);
+    --text-muted: oklch(0.5 0.02 260);
+
+    --brand-primary: oklch(0.65 0.22 260);
+  }
+}
+
+@layer base {
+  body {
+    min-height: 100dvh;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+  }
+
+  .page-container {
+    width: min(100%, 720px);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .page-header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .badge {
+    padding: 0.25rem 0.75rem;
+    background: oklch(from var(--brand-primary) l c h / 0.15);
+    color: var(--brand-primary);
+    border: 1px solid oklch(from var(--brand-primary) l c h / 0.3);
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-title {
+    font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  .page-desc {
+    color: var(--text-secondary);
+    max-width: 62ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    text-wrap: pretty;
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+      background: oklch(0 0 0 / 0.3);
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+    }
+  }
+}
+
+@layer components {
+  .form-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 12px 36px -4px oklch(0 0 0 / 0.4);
+  }
+
+  .smart-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  /* Status Bar driven purely by :has() */
+  .form-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1rem;
+    background: oklch(0.2 0.02 260);
+    border-radius: 10px;
+    font-size: 0.825rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--text-secondary);
+    transition: all 250ms ease;
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: oklch(0.7 0.18 80);
+      box-shadow: 0 0 8px oklch(0.7 0.18 80 / 0.5);
+    }
+  }
+
+  /* Form :has() Relational Logic */
+  .smart-form:has(:user-invalid) .form-status-bar {
+    background: oklch(from var(--color-invalid) l c h / 0.12);
+    color: var(--color-invalid);
+
+    .status-indicator {
+      background: var(--color-invalid);
+      box-shadow: 0 0 8px var(--color-invalid);
+    }
+    .status-text::after {
+      content: " — Please resolve highlighted telemetry errors.";
+    }
+  }
+
+  .smart-form:not(:has(:invalid)) .form-status-bar {
+    background: oklch(from var(--color-valid) l c h / 0.12);
+    color: var(--color-valid);
+
+    .status-indicator {
+      background: var(--color-valid);
+      box-shadow: 0 0 8px var(--color-valid);
+    }
+    .status-text {
+      content: "All parameters verified. Ready for incident dispatch.";
+    }
+  }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+
+    @media (min-width: 600px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .field-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  /* =========================================================================
+     2026 CSS MILESTONE: field-sizing: content
+     ========================================================================= */
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    background: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 10px;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px oklch(from var(--border-focus) l c h / 0.2);
+    }
+  }
+
+  /* Pure CSS Auto-Expansion for Textarea */
+  textarea {
+    field-sizing: content;
+    min-height: 80px;
+    max-height: 320px;
+    resize: none; /* Native sizing handles this smoothly */
+  }
+
+  /* Modern 2026 :user-valid and :user-invalid (Non-eager validation) */
+  input:user-valid,
+  textarea:user-valid {
+    border-color: var(--color-valid);
+
+    & + .validation-icon::after {
+      content: "✓";
+      color: var(--color-valid);
+    }
+  }
+
+  input:user-invalid,
+  textarea:user-invalid {
+    border-color: var(--color-invalid);
+
+    & + .validation-icon::after {
+      content: "✕";
+      color: var(--color-invalid);
+    }
+  }
+
+  .validation-icon {
+    position: absolute;
+    right: 1rem;
+    top: 0.85rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .field-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      color: oklch(0.75 0.18 190);
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  .btn-secondary {
+    background: oklch(0.22 0.02 260);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-card);
+
+    &:hover {
+      background: oklch(0.26 0.02 260);
+      color: var(--text-primary);
+    }
+  }
+
+  .btn-primary {
+    background: var(--brand-primary);
+    color: oklch(0.98 0.01 260);
+
+    &:hover {
+      background: oklch(from var(--brand-primary) calc(l + 0.06) c h);
+      box-shadow: 0 4px 16px -2px oklch(from var(--brand-primary) l c h / 0.4);
+    }
+  }
+
+  /* Disable Submit Action when form is invalid using :has() */
+  .smart-form:has(:invalid) .submit-action {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: grayscale(0.6);
+  }
+}
