@@ -184,11 +184,11 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Architecture with Semantic Form Landmarks",
-                "content": "In `index.html`, construct `<form class=\"resilient-form\" novalidate>`. Add form fields: Name, Email (`type=\"email\" required`), Architecture Domain dropdown, and Project Spec textarea with `<textarea id=\"spec\" class=\"auto-expand-input\" required field-sizing=\"content\" minlength=\"20\"></textarea>`. Add visual validation badges and a submit button with an interactive state display."
+                "content": "In `index.html`, construct `<form class=\"smart-form\" id=\"incident-form\" novalidate>`. Add form fields: Name, Email (`type=\"email\" required`), and Project Spec textarea with `<textarea id=\"incident-brief\" class=\"form-field textarea\" required field-sizing=\"content\" minlength=\"20\"></textarea>`. Add visual validation badges and a submit button with an interactive state display."
             },
             {
                 "title": "Step 2: Apply CSS field-sizing: content",
-                "content": "In `styles.css` within `@layer components`, apply `field-sizing: content` on `.auto-expand-input`. Set constraints: `min-height: 80px; max-height: 320px; resize: vertical;`. As the user types multi-line specifications, the textarea automatically expands and shrinks vertically in real time with zero JavaScript `input` listeners or layout thrashing."
+                "content": "In `styles.css` within `@layer components`, apply `field-sizing: content` on `#incident-brief` and `textarea`. Set constraints: `min-height: 80px; max-height: 320px; resize: vertical;`. As the user types multi-line specifications, the textarea automatically expands and shrinks vertically in real time with zero JavaScript `input` listeners or layout thrashing."
             },
             {
                 "title": "Step 3: Configure Non-Eager :user-valid and :user-invalid",
@@ -196,7 +196,7 @@ project_meta = [
             },
             {
                 "title": "Step 4: Form State Machine via CSS :has()",
-                "content": "Construct relational form states: `.resilient-form:has(:user-invalid) .btn-submit { opacity: 0.5; filter: grayscale(0.6); }`. Reveal field hint tooltips conditionally: `.field-group:has(:user-invalid) .error-message { display: flex; opacity: 1; transform: translateY(0); }`. This builds an enterprise form validation state machine entirely in native CSS."
+                "content": "Construct relational form states: `#incident-form:has(:user-invalid) .submit-action { opacity: 0.5; filter: grayscale(0.6); pointer-events: none; }`. Reveal field hint tooltips conditionally: `.form-field:has(:user-invalid) .field-hint { display: flex; opacity: 1; transform: translateY(0); }`. This builds an enterprise form validation state machine entirely in native CSS."
             },
             {
                 "title": "Step 5: Accessible Error Announcements & INP Optimization",
@@ -223,11 +223,11 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Product Pricing Matrix & Schema.org JSON-LD",
-                "content": "In `index.html`, construct `<section class=\"pricing-matrix-section\" itemscope itemtype=\"https://schema.org/Product\">`. Embed Schema.org JSON-LD describing product tiers with `AggregateOffer`, `priceCurrency: 'USD'`, and `highPrice`/`lowPrice`. Build `<div class=\"pricing-grid\">` containing three tier cards: Developer, Enterprise Cluster, and Global Sovereign Cloud with headlines, pricing badges, feature lists, and CTAs."
+                "content": "In `index.html`, construct `<main class=\"page-container\" itemscope itemtype=\"https://schema.org/Product\">`. Embed Schema.org JSON-LD describing product tiers with `AggregateOffer`, `priceCurrency: \"USD\"`, and `highPrice`/`lowPrice`. Build `<div class=\"pricing-matrix\">` containing three tier cards: Developer Node, Autonomous Mesh, and Hyperscale Fleet with headlines, pricing badges, feature lists, and CTAs."
             },
             {
                 "title": "Step 2: Establish Parent Grid Template & Subgrid Rows",
-                "content": "In `styles.css` within `@layer layout`, define `.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); grid-template-rows: auto auto auto 1fr auto; gap: 1.5rem; align-items: stretch; }`. Each direct card child declares `grid-row: span 5; display: grid; grid-template-rows: subgrid;`. Subgrid binds each internal card section to the parent grid tracks."
+                "content": "In `styles.css` within `@layer layout`, define `.pricing-matrix { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); grid-template-rows: auto auto auto 1fr auto; gap: 1.5rem; align-items: stretch; }`. Each direct card child declares `grid-row: span 5; display: grid; grid-template-rows: subgrid;`. Subgrid binds each internal card section to the parent grid tracks."
             },
             {
                 "title": "Step 3: Flawless Alignment of Internal Card Compartments",
@@ -235,11 +235,11 @@ project_meta = [
             },
             {
                 "title": "Step 4: Highlight Featured Tier via OKLCH Relative Colors",
-                "content": "Style `.tier-featured` with `--card-border: var(--brand-cyan); transform: scale(1.03); z-index: 10;`. Apply high-chroma radial background: `background: radial-gradient(circle at 50% 0%, oklch(from var(--brand-cyan) l c h / 0.12), transparent 70%), var(--bg-card);`. Add a floating ribbon badge `<span class=\"featured-badge\">MOST POPULAR</span>` with subtle OKLCH pulse animation."
+                "content": "Style `.pricing-card--featured` with `--card-border: var(--brand-cyan); transform: scale(1.03); z-index: 10;`. Apply high-chroma radial background: `background: radial-gradient(circle at 50% 0%, oklch(from var(--brand-cyan) l c h / 0.12), transparent 70%), var(--bg-card);`. Add a floating ribbon badge `<span class=\"featured-pill\">Recommended</span>` with subtle OKLCH pulse animation."
             },
             {
                 "title": "Step 5: Responsive Track Folding & WCAG AAA Verification",
-                "content": "Add breakpoint adaptation: `@media (max-width: 820px) { .pricing-grid { grid-template-rows: auto; } .pricing-card { grid-row: auto; display: flex; flex-direction: column; } }`. On mobile viewports, cards fold gracefully into vertical stacks. Verify all pricing text and CTA contrast ratios exceed 7:1 against card backgrounds."
+                "content": "Add breakpoint adaptation: `@media (max-width: 820px) { .pricing-matrix { grid-template-rows: auto; } .pricing-card { grid-row: auto; display: flex; flex-direction: column; } }`. On mobile viewports, cards fold gracefully into vertical stacks. Verify all pricing text and CTA contrast ratios exceed 7:1 against card backgrounds."
             }
         ]
     },
@@ -263,23 +263,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Structure with Hidden Radio Filters & Card Matrix",
-                "content": "In `index.html`, construct `<div class=\"filter-workspace\">`. At the top, build `<div class=\"filter-bar\" role=\"radiogroup\" aria-label=\"Filter Nodes by Architecture\">` containing radio inputs (`#filter-all`, `#filter-quantum`, `#filter-mesh`, `#filter-crypto`) and styled `<label>` chips. Below, build `.cards-grid` containing multiple `<article class=\"node-card\" data-category=\"...\">` components with tags and metrics."
+                "content": "In `index.html`, construct `<div class=\"filter-system\">`. At the top, build `<fieldset class=\"filter-bar\" aria-label=\"Filter research categories\">` containing radio inputs (`#filter-all`, `#filter-ai`, `#filter-quantum`, `#filter-mesh`) and styled `<label class=\"filter-chip\">` chips. Below, build `.cards-grid` containing multiple `<article class=\"data-card\">` nodes tagged with `data-category=\"ai\"`, `quantum`, or `mesh`."
             },
             {
-                "title": "Step 2: Zero-JS Relational Filtering via CSS :has()",
-                "content": "In `styles.css` within `@layer components`, implement the relational filter logic: `.filter-workspace:has(#filter-quantum:checked) .node-card:not([data-category=\"quantum\"]) { display: none; opacity: 0; pointer-events: none; }`. Repeat for mesh and crypto categories. The parent workspace queries the checked state of the radio input and filters child cards in native CSS."
+                "title": "Step 2: Hide Radio Inputs & Style Interactive Filter Chips",
+                "content": "Hide native radio circles visually while preserving full keyboard focusability: `input[type=\"radio\"] { position: absolute; opacity: 0; pointer-events: none; }`. Style the sibling `.chip-label` using glassmorphism: `border: 1px solid var(--border-chip); border-radius: 9999px; padding: 0.4rem 1rem; transition: all 180ms ease;`. Use `:focus-visible + .chip-label` for WCAG AAA focus rings."
             },
             {
-                "title": "Step 3: Discrete Transition Animations with @starting-style",
-                "content": "Apply smooth entry and exit transitions: `.node-card { transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms ease, display 250ms allow-discrete; }`. Declare `@starting-style { .node-card { opacity: 0; transform: scale(0.96); } }`. When cards are filtered back into view, they fade and scale in with hardware-accelerated compositor smoothness."
+                "title": "Step 3: Construct Pure CSS Relational Filter Engine via :has()",
+                "content": "Implement the zero-JS filter state machine: `.filter-system:has(#filter-ai:checked) .data-card:not([data-category~=\"ai\"]) { display: none; }`. Repeat for each department tag: `.filter-system:has(#filter-quantum:checked) .data-card:not([data-category~=\"quantum\"]) { display: none; }`. Selecting a radio button instantly filters matching cards on the compositor thread."
             },
             {
-                "title": "Step 4: Style Interactive Radio Filter Chips",
-                "content": "Style filter labels: `display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 9999px; background: oklch(0.16 0.03 260); border: 1px solid var(--border-card); cursor: pointer; transition: all 180ms ease;`. Use `input:checked + label { background: var(--brand-cyan); color: oklch(0.1 0.02 260); font-weight: 700; box-shadow: 0 0 16px var(--brand-cyan); }`."
+                "title": "Step 4: Active Chip Illumination with OKLCH Relative Colors",
+                "content": "Illuminate the selected filter chip dynamically: `input[type=\"radio\"]:checked + .chip-label { background: oklch(from var(--brand-cyan) l c h / 0.15); border-color: var(--brand-cyan); color: var(--brand-cyan); box-shadow: 0 0 15px oklch(from var(--brand-cyan) l c h / 0.25); font-weight: 700; }`. The active state pops visually without JavaScript class toggling."
             },
             {
-                "title": "Step 5: Accessibility & Keyboard ARIA Navigation",
-                "content": "Support keyboard navigation: arrow keys navigate between radio filter options natively within the radiogroup. Add `:focus-visible` styling to filter labels. Because all filtering executes on the browser style engine without JavaScript DOM mutation loops, INP is 0ms and Googlebot indexes all filtered cards in the static payload."
+                "title": "Step 5: Zero-JS Keyboard Navigation & Screen Reader Verification",
+                "content": "Because filter triggers are native `<input type=\"radio\">` elements within a `<fieldset>`, users can navigate between categories using standard Left/Right arrow keys. Screen readers announce checked states automatically via ARIA radio semantics. Zero JavaScript is required, guaranteeing an interaction latency (INP) of <2ms."
             }
         ]
     },
@@ -302,16 +302,16 @@ project_meta = [
         "seoArchitecture": "1. **LCP Acceleration via Asset Elimination**: Replacing bulky third-party canvas or chart libraries (which routinely delay Largest Contentful Paint by 1,200ms-2,000ms) with native CSS conic gradients ensures LCP occurs in <0.4s.\n2. **Zero Main-Thread Script Contention**: CSS Houdini properties execute inside the style and layout pipeline, preventing CPU thrashing on mobile devices during telemetry monitoring.",
         "steps": [
             {
-                "title": "Step 1: HTML Architecture with SVG Tick Overlay",
-                "content": "In `index.html`, construct `<div class=\"hud-gauge-container\">`. Build `<div class=\"circular-gauge\" role=\"progressbar\" aria-valuenow=\"78\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Core Cluster Load\">`. Inside, build `.gauge-inner` with numeric readout (`#gauge-value`), status badge, and an SVG layer `<svg class=\"gauge-ticks\" viewBox=\"0 0 200 200\">` for trigonometric orbital tick marks."
+                "title": "Step 1: HTML Architecture with Concentric Gauge Rings",
+                "content": "In `index.html`, construct `<div class=\"hud-gauge-container\">`. Build `<div class=\"gauge-ring\" role=\"progressbar\" aria-valuenow=\"78\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"Core Cluster Load\">`. Inside, build `.gauge-center` with numeric readout (`<span class=\"gauge-number\">78%</span>`), status badge, and `<div class=\"dial-ticks\">` for trigonometric orbital tick marks. Add interactive button `<button type=\"button\" id=\"btn-pulse\" class=\"btn btn-calibrate\">`."
             },
             {
                 "title": "Step 2: Register CSS Houdini @property Token",
-                "content": "In `styles.css` within `@layer tokens`, register a custom animatable property: `@property --gauge-progress { syntax: '<percentage>'; inherits: true; initial-value: 0%; }`. Registering the property with a typed syntax enables the browser interpolation engine to animate conic gradients smoothly via CSS keyframe transitions, bypassing JavaScript interval loops."
+                "content": "In `styles.css` within `@layer tokens`, register a custom animatable property: `@property --gauge-progress { syntax: \"<percentage>\"; inherits: true; initial-value: 0%; }`. Registering the property with a typed syntax enables the browser interpolation engine to animate conic gradients smoothly via CSS keyframe transitions, bypassing JavaScript interval loops."
             },
             {
                 "title": "Step 3: Construct Dual Conic Gradient Sweep",
-                "content": "Style `.circular-gauge`: `width: 240px; height: 240px; border-radius: 50%; background: conic-gradient(from 180deg, var(--brand-cyan) 0%, var(--brand-purple) var(--gauge-progress), oklch(0.2 0.03 260 / 0.5) var(--gauge-progress) 100%); mask: radial-gradient(transparent 65%, black 66%); -webkit-mask: radial-gradient(transparent 65%, black 66%);`. Animate with `animation: sweep-gauge 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;`."
+                "content": "Style `.gauge-ring`: `width: 240px; height: 240px; border-radius: 50%; background: conic-gradient(from 180deg, var(--brand-cyan) 0%, var(--brand-purple) var(--gauge-progress), oklch(0.2 0.03 260 / 0.5) var(--gauge-progress) 100%); mask: radial-gradient(transparent 65%, black 66%); -webkit-mask: radial-gradient(transparent 65%, black 66%);`. Animate with `animation: sweep-gauge 2.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;`."
             },
             {
                 "title": "Step 4: Trigonometric Orbital Tick Positioning in Pure CSS",
@@ -319,7 +319,7 @@ project_meta = [
             },
             {
                 "title": "Step 5: Telemetry Readout & Reduced Motion Adaptation",
-                "content": "Style the central readout `.gauge-value`: `font-family: var(--font-mono); font-size: 2.75rem; font-weight: 800; color: var(--text-primary); text-shadow: 0 0 20px oklch(from var(--brand-cyan) l c h / 0.4);`. Add accessibility guardrail: `@media (prefers-reduced-motion: reduce) { .circular-gauge { animation: none; --gauge-progress: 78%; } }`."
+                "content": "Style the central readout `.gauge-number`: `font-family: var(--font-mono); font-size: 2.75rem; font-weight: 800; color: var(--text-primary); text-shadow: 0 0 20px oklch(from var(--brand-cyan) l c h / 0.4);`. Add accessibility guardrail: `@media (prefers-reduced-motion: reduce) { .gauge-ring { animation: none; --gauge-progress: 78%; } }`."
             }
         ]
     },
@@ -343,19 +343,19 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Architecture with Native Popover API",
-                "content": "In `index.html`, build an interactive notification launcher: `<button type=\"button\" class=\"btn btn-notify\" popovertarget=\"notifications-popover\" popovertargetaction=\"toggle\">`. Next to it, declare the popover surface: `<aside id=\"notifications-popover\" class=\"notification-center\" popover=\"auto\" aria-label=\"System Notifications\">`. Inside, build the notification feed with timestamps, priority pills, and clear actions."
+                "content": "In `index.html`, build an interactive notification launcher: `<button type=\"button\" class=\"btn btn-notify\" popovertarget=\"notification-center\" popovertargetaction=\"toggle\">`. Next to it, declare the popover surface: `<div id=\"notification-center\" class=\"notification-center\" popover=\"auto\" aria-label=\"System Notifications\">`. Inside, build the notification feed with timestamps, priority pills, and clear actions."
             },
             {
                 "title": "Step 2: Top Layer Positioning & Backdrop Styling",
-                "content": "In `styles.css` within `@layer components`, style `#notifications-popover`. Because `popover=\"auto\"` promotes the element to the browser's top layer, it renders above all z-indexes without stacking context clipping. Target the backdrop pseudo-element: `::backdrop { background: oklch(0 0 0 / 0.4); backdrop-filter: blur(8px); }`. Clicking outside automatically triggers native light-dismiss."
+                "content": "In `styles.css` within `@layer components`, style `#notification-center`. Because `popover=\"auto\"` promotes the element to the browser top layer, it renders above all z-indexes without stacking context clipping. Target the backdrop pseudo-element: `::backdrop { background: oklch(0 0 0 / 0.4); backdrop-filter: blur(8px); }`. Clicking outside automatically triggers native light-dismiss."
             },
             {
                 "title": "Step 3: Entry & Exit Transitions via @starting-style",
-                "content": "Implement smooth discrete transitions: `#notifications-popover { transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms ease, display 250ms allow-discrete, overlay 250ms allow-discrete; opacity: 0; transform: translateY(-10px) scale(0.97); }`. On `:popover-open`: `opacity: 1; transform: translateY(0) scale(1);`. Declare `@starting-style { &:popover-open { opacity: 0; transform: translateY(-10px) scale(0.97); } }`."
+                "content": "Implement smooth discrete transitions: `#notification-center { transition: opacity 250ms cubic-bezier(0.16, 1, 0.3, 1), transform 250ms ease, display 250ms allow-discrete, overlay 250ms allow-discrete; opacity: 0; transform: translateY(-10px) scale(0.97); }`. On `:popover-open`: `opacity: 1; transform: translateY(0) scale(1);`. Declare `@starting-style { &:popover-open { opacity: 0; transform: translateY(-10px) scale(0.97); } }`."
             },
             {
                 "title": "Step 4: Style Notification Stream Cards",
-                "content": "Style `.notification-card` with `display: flex; gap: 0.85rem; padding: 1rem; border-radius: 12px; background: oklch(0.16 0.03 260); border: 1px solid var(--border-card); margin-bottom: 0.65rem;`. Add priority indicators: `.priority-critical` with glowing red border and pulse dot, and `.priority-nominal` with emerald accent. Include dismiss button on each item."
+                "content": "Style `.feed-item` with `display: flex; gap: 0.85rem; padding: 1rem; border-radius: 12px; background: oklch(0.16 0.03 260); border: 1px solid var(--border-card); margin-bottom: 0.65rem;`. Add priority indicators: `.feed-item--critical` with glowing red border and pulse dot, and `.feed-item--success` with emerald accent. Include dismiss button `.btn-ack` on each item."
             },
             {
                 "title": "Step 5: Keyboard Accessibility & Light-Dismiss Verification",
@@ -423,23 +423,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Long-Form Article with Sticky Telemetry Header",
-                "content": "In `index.html`, construct `<div class=\"reading-layout\">`. At the top, build `<header class=\"sticky-reading-header\">` containing publication metadata, dynamic reading time, and `<div class=\"progress-track\"><div class=\"progress-fill\" id=\"progress-fill\"></div></div>`. Below, construct an in-depth technical article `<main class=\"article-body\">` with multiple sections and headings."
+                "content": "In `index.html`, construct `<div class=\"article-layout\">`. At the top, build `<div class=\"scroll-tracker\" aria-hidden=\"true\"></div>` and `<header class=\"sticky-nav\" role=\"banner\">` containing publication metadata, dynamic reading time, and logo. Below, construct an in-depth technical article `<main class=\"article-body\">` with multiple sections and headings."
             },
             {
                 "title": "Step 2: Connect animation-timeline: scroll(root block)",
-                "content": "In `styles.css` within `@layer components`, link the progress bar animation directly to document scroll: `.progress-fill { width: 100%; transform-origin: left; animation: fill-progress linear; animation-timeline: scroll(root block); }`. Define `@keyframes fill-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`. The animation runs on the compositor thread at 120fps with zero JavaScript scroll listeners."
+                "content": "In `styles.css` within `@layer scroll-animations`, link the progress bar animation directly to document scroll: `.scroll-tracker { position: fixed; top: 0; left: 0; width: 100%; height: 4px; z-index: 100; transform-origin: 0 50%; animation: grow-progress linear; animation-timeline: scroll(root block); }`. Define `@keyframes grow-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`. The animation runs on the compositor thread at 120fps with zero JavaScript scroll listeners."
             },
             {
                 "title": "Step 3: Dynamic Header Compacting via Scroll Timeline",
-                "content": "Animate the sticky header itself based on scroll offset: `.sticky-reading-header { position: sticky; top: 0; z-index: 50; animation: compact-header linear forwards; animation-timeline: scroll(root block); animation-range: 0px 200px; }`. Define `@keyframes compact-header { from { padding: 1.25rem 2rem; background: transparent; } to { padding: 0.6rem 2rem; background: var(--bg-card-blur); border-bottom: 1px solid var(--border-card); } }`."
+                "content": "Animate the sticky header itself based on scroll offset: `.sticky-nav { position: sticky; top: 0; z-index: 50; animation: compact-nav linear forwards; animation-timeline: scroll(root block); animation-range: 0px 160px; }`. Define `@keyframes compact-nav { to { padding-block: 0.5rem; background: var(--bg-nav-compact); border-bottom-color: var(--border-glass); } }`."
             },
             {
                 "title": "Step 4: Style High-Contrast OKLCH Reading Meter",
-                "content": "Style `.progress-track` with `height: 4px; background: oklch(0.2 0.03 260); width: 100%; position: absolute; bottom: 0; left: 0;`. Style `.progress-fill` with `height: 100%; background: linear-gradient(90deg, var(--brand-cyan), var(--brand-purple)); box-shadow: 0 0 10px var(--brand-cyan);`. The gradient glow expands dynamically as the user scrolls."
+                "content": "Style `.scroll-tracker` with `background: linear-gradient(90deg, var(--brand-cyan), var(--brand-purple)); box-shadow: 0 0 12px var(--brand-cyan);`. The gradient glow expands dynamically as the user scrolls, while the sticky navigation simultaneously compacts padding smoothly without causing layout shifts."
             },
             {
                 "title": "Step 5: Core Web Vitals (CLS = 0) & Reduced Motion Audit",
-                "content": "Because the scroll-driven animation operates strictly on `transform: scaleX()` without altering container dimensions, Cumulative Layout Shift is 0.00. Add reduced motion override: `@media (prefers-reduced-motion: reduce) { .progress-fill, .sticky-reading-header { animation: none; transform: scaleX(0); } }`."
+                "content": "Because the scroll-driven animation operates strictly on `transform: scaleX()` without altering container dimensions, Cumulative Layout Shift is 0.00. Add reduced motion override: `@media (prefers-reduced-motion: reduce) { .scroll-tracker, .sticky-nav { animation: none; transform: scaleX(0); } }`."
             }
         ]
     },
@@ -543,23 +543,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Nested Card Deck Architecture",
-                "content": "In `index.html`, construct `<div class=\"card-deck\">` containing outer cards `<div class=\"feature-card\">`. Inside, nest an interactive slotted child element `<div class=\"card-slot\"><div class=\"external-plugin-box\">Slotted External Widget</div></div>`. The goal is to style the outer feature card without allowing styles to bleed into the nested slotted component."
+                "content": "In `index.html`, construct `<div class=\"deck-wrapper\">` containing outer cards `<article class=\"scoped-deck theme-cyber\">`. Inside, nest an interactive slotted child element `<div class=\"unscoped-slot\"><div class=\"nested-child-card\"><span class=\"slot-tag\">Nested Donut Slot</span><h3 class=\"title\">Nested Component</h3></div></div>`. The goal is to style the outer deck without allowing styles to bleed into the nested slotted component."
             },
             {
-                "title": "Step 2: Implement CSS @scope (.feature-card) to (.card-slot)",
-                "content": "In `styles.css` within `@layer components`, define a scoped boundary with donut encapsulation: `@scope (.feature-card) to (.card-slot) { :scope { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 18px; padding: 1.5rem; } h3 { color: var(--brand-cyan); font-size: 1.25rem; } p { color: var(--text-secondary); } }`. Styles apply exclusively between the root and the slot boundary."
+                "title": "Step 2: Implement CSS @scope (.scoped-deck) to (.unscoped-slot)",
+                "content": "In `styles.css` within `@layer scoped-components`, define a scoped boundary with donut encapsulation: `@scope (.scoped-deck) to (.unscoped-slot) { :scope { background: var(--bg-card); border: 1px solid var(--border-card); border-radius: 18px; padding: 1.5rem; } .title { color: var(--brand-cyan); font-size: 1.25rem; } .desc { color: var(--text-secondary); } }`. Styles apply exclusively between the root and the slot boundary."
             },
             {
                 "title": "Step 3: Verify Zero Style Bleed into Slotted Subtree",
-                "content": "Inspect the nested `.external-plugin-box` inside `.card-slot`: notice that `h3` and `p` tags inside the slot remain completely unpolluted by the outer card's styles. Donut scoping provides clean style encapsulation matching Shadow DOM without requiring custom elements or JavaScript runtime wrappers."
+                "content": "Inspect the nested `.nested-child-card` inside `.unscoped-slot`: notice that `.title` and `.desc` tags inside the slot remain completely unpolluted by the outer deck card styles. Donut scoping provides clean style encapsulation matching Shadow DOM without requiring custom elements or JavaScript runtime wrappers."
             },
             {
                 "title": "Step 4: Relative Scoping via :scope Selector",
-                "content": "Use the `:scope` pseudo-class to style direct children and context: `@scope (.feature-card) { :scope:hover { border-color: var(--brand-cyan); box-shadow: 0 12px 30px oklch(0 0 0 / 0.5); } :scope > header { display: flex; justify-content: space-between; align-items: center; } }`. This enforces clean, component-scoped styling without selector specificity escalation."
+                "content": "Use the `:scope` pseudo-class to style direct children and context: `@scope (.scoped-deck) { :scope:hover { border-color: var(--brand-cyan); box-shadow: 0 12px 30px oklch(0 0 0 / 0.5); } :scope > header { display: flex; justify-content: space-between; align-items: center; } }`. This enforces clean, component-scoped styling without selector specificity escalation."
             },
             {
                 "title": "Step 5: Architectural Comparison with BEM & CSS Modules",
-                "content": "Document the architectural advantages: native `@scope` eliminates artificial class-naming conventions (like `.feature-card__header--active`) and complex build-step hash transforms (CSS Modules), executing natively within the browser stylesheet engine with zero runtime overhead."
+                "content": "Document the architectural advantages: native `@scope` eliminates artificial class-naming conventions (like `.scoped-deck .title`) and complex build-step hash transforms (CSS Modules), executing natively within the browser stylesheet engine with zero runtime overhead."
             }
         ]
     },
@@ -663,23 +663,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Modal Dialog Markup with <form method=\"dialog\">",
-                "content": "In `index.html`, build `<button type=\"button\" class=\"btn btn-primary\" id=\"btn-open-modal\">Open Security Enclave</button>`. Below, declare the native modal dialog: `<dialog id=\"security-dialog\" class=\"enterprise-dialog\" aria-labelledby=\"modal-title\" aria-describedby=\"modal-desc\">`. Inside, build the modal header, body with two-factor token inputs, and `<form method=\"dialog\" class=\"dialog-actions\">` with Cancel and Confirm buttons."
+                "content": "In `index.html`, build `<button type=\"button\" class=\"btn btn-launch\" id=\"btn-open-dialog\">Open Security Enclave</button>`. Below, declare the native modal dialog: `<dialog id=\"deploy-dialog\" class=\"system-modal\" aria-labelledby=\"modal-title\" aria-describedby=\"modal-desc\">`. Inside, build the modal header, body with verification details, and `<form method=\"dialog\" class=\"modal-footer\">` with Cancel and Confirm buttons."
             },
             {
                 "title": "Step 2: Top Layer Elevation & Backdrop Styling",
-                "content": "In `styles.css` within `@layer components`, style `.enterprise-dialog`. Calling `dialog.showModal()` elevates the dialog into the top layer, rendering above all page elements without z-index conflicts. Style the modal backdrop: `&::backdrop { background: oklch(0 0 0 / 0.6); backdrop-filter: blur(12px); }`. The browser enforces an automatic focus trap inside the modal."
+                "content": "In `styles.css` within `@layer modal-styles`, style the modal dialog: `.system-modal { border: 1px solid var(--border-modal); border-radius: 20px; padding: 0; background: transparent; }`. Calling `dialog.showModal()` elevates `#deploy-dialog` into the top layer, rendering above all page elements without z-index conflicts. Style the modal backdrop: `&::backdrop { background: oklch(0 0 0 / 0.6); backdrop-filter: blur(12px); }`."
             },
             {
                 "title": "Step 3: Smooth Zoom & Fade via @starting-style",
-                "content": "Implement smooth discrete transitions: `.enterprise-dialog { transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms ease, display 280ms allow-discrete, overlay 280ms allow-discrete; opacity: 0; transform: scale(0.94); }`. On `&[open] { opacity: 1; transform: scale(1); }`. Declare `@starting-style { &[open] { opacity: 0; transform: scale(0.94); } }` for smooth entrance animation."
+                "content": "Implement smooth discrete transitions: `.system-modal { transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms ease, display 280ms allow-discrete, overlay 280ms allow-discrete; opacity: 0; transform: scale(0.94); }`. On `&[open] { opacity: 1; transform: scale(1); }`. Declare `@starting-style { &[open] { opacity: 0; transform: scale(0.94); } }` for smooth entrance animation."
             },
             {
-                "title": "Step 4: Wire Modal Open and Native Close Actions",
-                "content": "In JavaScript, wire the open button: `btnOpenModal.addEventListener('click', () => securityDialog.showModal());`. Buttons inside `<form method=\"dialog\">` automatically close the dialog on submit without custom JavaScript click handlers, returning the form return value via `dialog.returnValue`."
+                "title": "Step 4: Form method=\"dialog\" Native Action Binding",
+                "content": "Wire buttons inside `<form method=\"dialog\">`: clicking `<button value=\"cancel\">` or `<button value=\"confirm\">` natively closes the dialog without requiring `e.preventDefault()` or JavaScript dismiss handlers. The return value is accessible via `dialog.returnValue`."
             },
             {
-                "title": "Step 5: Keyboard Accessibility & Escape Key Verification",
-                "content": "Verify native dialog accessibility: pressing `Escape` closes the modal automatically and restores focus to the trigger button. Focus is trapped inside the dialog while open, satisfying WCAG 2.2 Success Criterion 2.4.3 (Focus Order). Add reduced motion overrides for vestibular safety."
+                "title": "Step 5: Focus Trap & WCAG 2.2 AAA Verification",
+                "content": "Verify that `<dialog>` natively creates an impenetrable keyboard focus trap when displayed with `showModal()`. Focus cycles exclusively between modal inputs and buttons via `Tab` and `Shift+Tab`. Pressing `Escape` light-dismisses the modal and restores focus to `#btn-open-dialog`."
             }
         ]
     },
@@ -702,24 +702,24 @@ project_meta = [
         "seoArchitecture": "1. **Battery & CPU Throttling Protection**: Googlebot on mobile throttles heavy JS animation loops. Executing trigonometric motion in native CSS properties completely spares the CPU, maintaining smooth interaction scores.\n2. **Accessible Tooltip Association**: Dock buttons contain explicit `aria-label` text, ensuring accessibility tools and search crawlers identify each action.",
         "steps": [
             {
-                "title": "Step 1: HTML Architecture with Orbit Stage & macOS-Style Dock",
-                "content": "In `index.html`, construct `<div class=\"orbit-dock-workspace\">`: at the top, build a planetary orbital stage `<div class=\"orbital-stage\">` containing sun core and orbiting satellite nodes. At the bottom, build a macOS-style interactive dock `<nav class=\"orbit-dock\" aria-label=\"Applications Dock\">` containing multiple dock items with SVG icons and labels."
+                "title": "Step 1: HTML Orbit Container & Relational Dock Markup",
+                "content": "In `index.html`, construct `<div class=\"orbit-arena\">`. Center an interactive hub `<div class=\"system-core\">` surrounded by concentric orbit paths. Below, build an enterprise application dock: `<nav class=\"magnify-dock\" role=\"navigation\" aria-label=\"Quick Access Dock\">` containing 6 interactive icons `<a class=\"dock-item\" role=\"button\" tabindex=\"0\">`."
             },
             {
-                "title": "Step 2: Register Animatable Houdini @property --orbit-angle",
-                "content": "In `styles.css` within `@layer tokens`, register: `@property --orbit-angle { syntax: '<angle>'; inherits: true; initial-value: 0deg; }`. In `@layer components`, style `.orbiting-node` using CSS trigonometric functions: `left: calc(50% + cos(var(--orbit-angle)) * 140px); top: calc(50% + sin(var(--orbit-angle)) * 140px); transform: translate(-50%, -50%);`. Animate with `@keyframes orbit { to { --orbit-angle: 360deg; } }`."
+                "title": "Step 2: Trigonometric Planetary Orbit Keyframes",
+                "content": "In `styles.css` within `@layer tokens`, register `@property --orbit-angle { syntax: \"<angle>\"; inherits: false; initial-value: 0deg; }`. Define keyframes cycling through 360 degrees. Position orbital bodies using CSS math: `transform: translate(calc(cos(var(--orbit-angle)) * var(--radius)), calc(sin(var(--orbit-angle)) * var(--radius)));`. Orbit bodies trace true mathematical circles without SVG path morphing."
             },
             {
-                "title": "Step 3: Bidirectional Dock Magnification via CSS :has()",
-                "content": "Implement neighbor magnification in pure CSS without JavaScript pointer tracking: `.dock-item { width: 48px; height: 48px; transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1); }`. On direct hover: `.dock-item:hover { transform: scale(1.4) translateY(-10px); }`. Magnify neighboring siblings: `.dock-item:has(+ .dock-item:hover), .dock-item:hover + .dock-item { transform: scale(1.2) translateY(-5px); }`."
+                "title": "Step 3: Implement macOS-Style Dock Magnification via :has()",
+                "content": "Construct physical magnification using the CSS relational selector: `.dock-item { transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1), margin 200ms ease; transform-origin: 50% 100%; }`. When hovered: `.dock-item:hover { transform: scale(1.6) translateY(-14px); }`. Magnify adjacent neighbors: `.dock-item:hover + .dock-item, .dock-item:has(+ .dock-item:hover) { transform: scale(1.25) translateY(-6px); }`."
             },
             {
-                "title": "Step 4: Style Glassmorphic Dock Container & Reflection",
-                "content": "Style `.orbit-dock`: `display: flex; gap: 0.65rem; padding: 0.5rem 0.85rem; border-radius: 20px; background: oklch(0.14 0.03 260 / 0.85); backdrop-filter: blur(20px); border: 1px solid var(--border-card); box-shadow: 0 16px 36px oklch(0 0 0 / 0.5);`. Add subtle reflection underneath each dock icon using `-webkit-box-reflect: below 2px linear-gradient(transparent, rgba(0,0,0,0.3));`."
+                "title": "Step 4: Micro-Interaction Haptics & Glassmorphism",
+                "content": "Style `.magnify-dock`: `display: flex; gap: 0.65rem; padding: 0.6rem 0.85rem; background: oklch(0.12 0.03 260 / 0.7); backdrop-filter: blur(16px); border: 1px solid oklch(0.3 0.04 260 / 0.5); border-radius: 20px; box-shadow: 0 20px 40px oklch(0 0 0 / 0.6);`. Add subtle active click depression: `.dock-item:active { transform: scale(1.4) translateY(-10px); }`."
             },
             {
-                "title": "Step 5: Keyboard Focus States & Reduced Motion Guardrails",
-                "content": "Style `.dock-item:focus-visible` with high-contrast dual-offset focus rings. Ensure keyboard navigation with Tab magnifies the active item via `:focus-visible`. Add reduced motion guardrail: `@media (prefers-reduced-motion: reduce) { .orbiting-node { animation: none; } .dock-item { transform: none !important; } }`."
+                "title": "Step 5: Bidirectional Keyboard Navigation & AAA Contrast",
+                "content": "Ensure dock items support full keyboard interaction: `:focus-visible { outline: 2px solid var(--brand-cyan); outline-offset: 4px; transform: scale(1.4) translateY(-10px); }`. Add reduced motion guardrail disabling orbital rotation while preserving hover scale physics for vestibular comfort."
             }
         ]
     },
@@ -823,24 +823,24 @@ project_meta = [
         "seoArchitecture": "1. **Interaction to Next Paint (INP < 16ms)**: View Transitions run state capture and callback execution in microtasks without blocking user input queueing.\n2. **Zero Layout Shift (CLS = 0)**: Hardware snapshotting prevents intermediate flash or layout jumping during asynchronous DOM mutations.\n3. **Crawlability**: Works seamlessly over standard semantic HTML anchors (`<a href>`) and History API state pushes, ensuring Googlebot can crawl every state.\n4. **Accessibility**: Fully respects `@media (prefers-reduced-motion: reduce)` by degrading to instantaneous cuts for users with vestibular motion triggers.",
         "steps": [
             {
-                "title": "Step 1: Semantic Card Grid & Detail View Markup",
-                "content": "In `index.html`, construct the primary `.grid-view` container containing multiple `<article class=\"data-card\" data-id=\"...\">` components. Each card contains a thumbnail image, badge, headline, and summary. Below the grid, define a hidden `#detail-view` container featuring semantic breadcrumbs, full-width hero image, author metadata, and a `<button class=\"btn-back\">` return action. Ensure semantic landmarks (`<main>`, `<article>`, `<nav>`) are preserved for full screen-reader compliance."
+                "title": "Step 1: HTML Architecture with Explorer Grid & Detail Modal",
+                "content": "In `index.html`, construct `<div class=\"view-controls\">` with layout toggle buttons (`#btn-grid`, `#btn-list`). Below, build `<div class=\"explorer-grid\" id=\"explorer-container\">` to hold data cards. At the bottom, declare the detail view surface `<div class=\"detail-modal\" id=\"detail-modal\" hidden>` with close button `#btn-close-detail` and hero telemetry header."
             },
             {
-                "title": "Step 2: Assign view-transition-name Identifiers & Containment",
-                "content": "In `styles.css`, establish persistent shared-element identities using CSS `view-transition-name`. Assign `view-transition-name: hero-preview;` to the active thumbnail image and `view-transition-name: hero-title;` to the matching card headline. Apply `contain: layout` to both elements to establish an independent rendering subtree, allowing the browser rendering engine to track and interpolate bounding box coordinates seamlessly across DOM tree mutations."
+                "title": "Step 2: Assign CSS view-transition-name Tokens",
+                "content": "In `styles.css`, assign unique shared-element transition names: `.data-card { view-transition-name: var(--card-id); }`. When expanding into the detail view: `#detail-modal { view-transition-name: active-detail; }`. This tells the browser transition engine which DOM nodes to capture, interpolate, and morph seamlessly between layout states."
             },
             {
-                "title": "Step 3: Wire document.startViewTransition in JavaScript",
-                "content": "In `app.js`, attach click event listeners to cards. Guard execution with feature detection: `if (!document.startViewTransition) { updateView(cardId); return; }`. Call `document.startViewTransition(() => { updateView(cardId); })`. Inside the callback, toggle visibility classes, populate detail content dynamically from dataset attributes, and manage keyboard focus by moving focus to the return button."
+                "title": "Step 3: Wrap DOM Mutations in document.startViewTransition()",
+                "content": "In `app.js`, wrap layout toggles and modal expansions in native transitions: `if (document.startViewTransition) { document.startViewTransition(() => updateDOM(newState)); } else { updateDOM(newState); }`. The browser captures a before-screenshot pseudo-tree (`::view-transition-old`) and after-screenshot (`::view-transition-new`), animating between them automatically."
             },
             {
-                "title": "Step 4: Customize CSS Transition Timing & Compositor Curves",
-                "content": "Configure pseudo-elements in `styles.css`: target `::view-transition-old(hero-preview)` and `::view-transition-new(hero-preview)` with custom `animation-duration: 360ms` and `animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1)`. Set `mix-blend-mode: normal` and `height: 100%` on both pseudo-elements to prevent cross-fade opacity flickering during the hardware-accelerated morph."
+                "title": "Step 4: Custom CSS Easing via ::view-transition Pseudo-Elements",
+                "content": "Customize the morph animation physics: `::view-transition-group(*) { animation-duration: 320ms; animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }`. Add discrete cross-fades for text elements: `::view-transition-old(card-desc) { animation: fade-out 120ms ease; } ::view-transition-new(card-desc) { animation: fade-in 200ms 120ms ease; }`."
             },
             {
-                "title": "Step 5: Implement Discrete Transitions & Reduced Motion Guardrails",
-                "content": "Add `transition-behavior: allow-discrete` to `.detail-view` so that `display: none` to `display: flex` transitions smoothly. At the end of `styles.css`, implement a strict accessibility guardrail: `@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation-duration: 0.01ms !important; } }` to ensure instantaneous cuts for users with vestibular sensitivities."
+                "title": "Step 5: Graceful Fallbacks & Sub-16ms INP Guarantee",
+                "content": "Provide automatic progressive enhancement for browsers lacking the API. Because the browser handles screenshot capture and hardware acceleration on the GPU, main-thread blocking is 0ms, keeping Interaction to Next Paint (INP) well under the 16ms enterprise threshold."
             }
         ]
     },
@@ -863,24 +863,24 @@ project_meta = [
         "seoArchitecture": "1. **Google Ranking Factor Alignment**: Directly monitors the three official Google Core Web Vitals ranking signals (INP, LCP, CLS) in real time.\n2. **Field Data Correlation**: Emulates Google CrUX (Chrome User Experience Report) metric aggregations at the 75th percentile.\n3. **Beacon API Reliability**: `navigator.sendBeacon` offloads metrics during page visibility transitions without delaying page unload.\n4. **WCAG AAA Telemetry Alerts**: Real-time status badges use both color and semantic icons to convey performance health to all operators.",
         "steps": [
             {
-                "title": "Step 1: Build Real-Time HUD Shell & Metric Gauges",
-                "content": "In `index.html`, construct `<section class=\"telemetry-hud\" aria-label=\"Core Web Vitals Telemetry\">`. Create three metric cards: Interaction to Next Paint (`#metric-inp`), Largest Contentful Paint (`#metric-lcp`), and Cumulative Layout Shift (`#metric-cls`). Include an interactive stress-test console with buttons to simulate main-thread blocking loops (20ms, 60ms, 120ms), and an auto-scrolling live telemetry stream log."
+                "title": "Step 1: HTML Real-Time Telemetry Dashboard & Stress Lab",
+                "content": "In `index.html`, build `<div class=\"telemetry-dashboard\">`. Construct live metric cards displaying current scores and status badges for INP (`#badge-inp`), LCP (`#badge-lcp`), and CLS (`#badge-cls`). Below, build interactive stress test buttons (`#btn-fast-click`, `#btn-heavy-click`, `#btn-stress-click`) and live `#stream-log`."
             },
             {
-                "title": "Step 2: Construct PerformanceObserver Event Watchers",
-                "content": "In `app.js`, initialize a native `PerformanceObserver` instance with `{ type: 'event', durationThreshold: 16, buffered: true }` to observe high-latency user interactions. Initialize separate observers with `{ type: 'largest-contentful-paint', buffered: true }` and `{ type: 'layout-shift', buffered: true }`. Buffered mode ensures entries that occurred prior to observer initialization are captured."
+                "title": "Step 2: Initialize PerformanceObserver for Core Web Vitals",
+                "content": "In `app.js`, instantiate standard PerformanceObservers: `const po = new PerformanceObserver((entryList) => { for (const entry of entryList.getEntries()) { handleMetric(entry); } });`. Observe essential performance entry types: `po.observe({ type: \"event\", buffered: true, durationThreshold: 16 }); po.observe({ type: \"largest-contentful-paint\", buffered: true }); po.observe({ type: \"layout-shift\", buffered: true });`."
             },
             {
-                "title": "Step 3: Isolate and Calculate INP Latency Phases",
-                "content": "Inside the event observer callback, extract precise sub-millisecond durations: calculate Input Delay as `entry.processingStart - entry.startTime`, Processing Time as `entry.processingEnd - entry.processingStart`, and Presentation Delay as `entry.startTime + entry.duration - entry.processingEnd`. Update a rolling 98th-percentile buffer to match Google's official INP aggregation specification."
+                "title": "Step 3: Measure Interaction to Next Paint (INP) Accurately",
+                "content": "Filter `event` entries to calculate true INP: find interactions with longest `duration = processingEnd - startTime`. Extract the interaction target element and breakdown latency into input delay, processing duration, and presentation delay. Format latency and update `#badge-inp` in real time."
             },
             {
-                "title": "Step 4: Build Main-Thread Synthetic Load Generator",
-                "content": "Add interactive buttons in `app.js` that execute intentional synchronous micro-blocking workloads: `const end = performance.now() + duration; while(performance.now() < end) {}`. This allows developers to verify and calibrate observer responsiveness, witnessing real-time transitions from Good (<16ms) to Needs Improvement (16-200ms) and Poor (>200ms)."
+                "title": "Step 4: Track Cumulative Layout Shift (CLS) Exclusions",
+                "content": "Listen to `layout-shift` entries: verify `if (!entry.hadRecentInput)` to exclude intentional user-driven layout movements. Accumulate the `value` into a session window score. If total CLS exceeds 0.1, transition status badge from green (Good) to amber (Needs Improvement) or red (Poor)."
             },
             {
-                "title": "Step 5: Visual Gauge Formatting & Beacon Reporting",
-                "content": "Format gauge cards dynamically with OKLCH tokens: `--brand-emerald` for healthy scores, `--brand-amber` for moderate latency, and `--brand-red` for severe latency spikes. Wire `window.addEventListener('visibilitychange')` to package metric summaries and dispatch via `navigator.sendBeacon()` without delaying document unmount."
+                "title": "Step 5: Simulate Thread Contention & Beacon Reporting",
+                "content": "Wire the stress test buttons: `#btn-heavy-click` executes intentional synchronous micro-tasks (`while (performance.now() - start < 180)`) to trigger synthetic INP spikes. Observe how the PerformanceObserver catches the long interaction immediately and updates `#stream-log` without page reload."
             }
         ]
     },
@@ -903,24 +903,24 @@ project_meta = [
         "seoArchitecture": "1. **Uninterrupted User Responsiveness (INP < 8ms)**: Main thread user input queue remains 100% idle and responsive during compute bursts.\n2. **Page Experience Stability**: Zero CPU choking ensures page scrolls, hovers, and focus events execute within the first 16ms refresh cycle.\n3. **Progressive Enhancement**: Automatically verifies worker support with graceful fallback for restricted embedded environments.\n4. **Memory Hygiene**: Worker terminates gracefully via `worker.terminate()` when cancelled or completed, preventing memory leaks.",
         "steps": [
             {
-                "title": "Step 1: HTML Architecture with 60fps Animation Loop",
-                "content": "In `index.html`, construct `<main class=\"page-container\">` featuring a continuous rotating orbital canvas indicator (`#orbit-canvas`), a telemetry HUD (Hashes Computed, Current FPS, Main-Thread Jitter), and execution controls (`#btn-start-worker`, `#btn-stop-worker`). Add a high-throughput monospace console (`#matrix-console`) for real-time hash streaming."
+                "title": "Step 1: HTML Architecture with 60fps Frame Monitor",
+                "content": "In `index.html`, construct `<div class=\"engine-workspace\">`. Build the main thread frame monitor featuring `.gyro-spinner` and live frame rate display (`#fps-label`). Below, build the worker calculation console with compute depth selector (`#compute-depth`), trigger buttons (`#btn-run-worker`, `#btn-run-main`), and `#results-output`."
             },
             {
-                "title": "Step 2: Author Inline Web Worker Script",
-                "content": "Define worker code string containing an intensive cryptographic calculation loop: use `crypto.subtle.digest('SHA-256', buffer)` to compute SHA-256 hashes iteratively. The worker processes batches of 500 items, posting progress metrics (`{ computed, total, latestHash }`) back to the main thread via `self.postMessage()` without touching DOM APIs."
+                "title": "Step 2: Author High-Throughput SHA-256 Worker Script",
+                "content": "Author the dedicated Web Worker script: inside the worker scope, listen to `self.onmessage = async (e) => { const { depth } = e.data; ... }`. Implement intensive hashing: loop 10,000 to 50,000 cryptographic hash cycles using `crypto.subtle.digest(\"SHA-256\", buffer)`. Post progress and final hash matrices back to the main thread via `self.postMessage()`."
             },
             {
-                "title": "Step 3: Mount Dedicated Worker via Blob URL",
-                "content": "In `app.js`, compile the worker script string into an in-memory URL: `const blob = new Blob([WORKER_CODE], { type: 'application/javascript' }); const workerUrl = URL.createObjectURL(blob); const worker = new Worker(workerUrl);`. This inline Blob URL compilation pattern guarantees 100% standalone reliability across both `http://` and local `file://` protocols."
+                "title": "Step 3: Compile Web Worker via Inline Blob URL",
+                "content": "In `app.js`, embed the worker script into an in-memory URL: `const blob = new Blob([WORKER_CODE], { type: \"application/javascript\" }); const workerUrl = URL.createObjectURL(blob); const worker = new Worker(workerUrl);`. This inline Blob URL compilation pattern guarantees 100% standalone reliability across both `http://` and local `file://` protocols."
             },
             {
                 "title": "Step 4: Build Real-Time FPS & Frame Jitter Telemetry",
-                "content": "In `app.js`, set up a locked `requestAnimationFrame` loop tracking delta timestamps (`now - lastFrameTime`). Calculate live frames per second (FPS) and jitter variance (`Math.abs(delta - 16.67)`). While 50,000 cryptographic hashes compute in the background worker, the orbital animation remains locked at a fluid 60fps with zero frame drops."
+                "content": "In `app.js`, set up a locked `requestAnimationFrame` loop tracking delta timestamps (`now - lastFrameTime`). Calculate live frames per second (FPS) and update `#fps-label`. While 50,000 cryptographic hashes compute in the background worker, the `.gyro-spinner` animation remains locked at a fluid 60fps with zero frame drops."
             },
             {
                 "title": "Step 5: Batch Workload Dispatch & Memory Cleanup",
-                "content": "Attach click listeners to trigger workload batches. Use `requestIdleCallback` or microtask batching when appending incoming hash strings to `#matrix-console` to prevent DOM layout thrashing. Wire `#btn-stop-worker` to call `worker.terminate()` and revoke the Blob URL via `URL.revokeObjectURL(workerUrl)` to maintain strict memory hygiene."
+                "content": "Attach click listeners to trigger workload batches: `#btn-run-worker` dispatches jobs to the background worker. Use microtask batching when updating `#results-output` to prevent DOM layout thrashing. Comparing with `#btn-run-main` visibly proves how off-main-thread workers prevent severe UI freezing."
             }
         ]
     },
@@ -984,23 +984,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: Author Declarative HTML Consumer Markup",
-                "content": "In `index.html`, declare custom autonomous tags: `<dpe-telemetry-card status=\"healthy\" node-id=\"cluster-omega-01\">`. Inside each tag, provide slotted light DOM content: `<span slot=\"title\">Cluster Omega Core</span>` and `<p slot=\"summary\">Primary Redis cache cluster operating at 100% capacity.</p>`. Include controls to change attributes dynamically via JavaScript."
+                "content": "In `index.html`, declare custom autonomous tags: `<dpe-telemetry-card value=\"84\" label=\"GPU Mesh Utilization\" status=\"optimal\" id=\"card-gpu\">`. In the controls panel, include `<input type=\"range\" id=\"gpu-slider\" min=\"0\" max=\"100\" value=\"84\" class=\"custom-range\">` and `<div class=\"feed-log\" id=\"component-event-log\">` to inspect component events."
             },
             {
                 "title": "Step 2: Create Custom Element Class Extending HTMLElement",
-                "content": "In `app.js`, define `class DpeTelemetryCard extends HTMLElement`. In the constructor, call `super()` and establish an open shadow root: `this.attachShadow({ mode: 'open' })`. Attach shadow root listeners and define default internal state properties (`_status`, `_nodeId`, `_metric`)."
+                "content": "In `app.js`, define `class DpeTelemetryCard extends HTMLElement`. In the constructor, call `super()` and establish an open shadow root: `this.attachShadow({ mode: \"open\" })`. Attach shadow root listeners and define default internal state properties (`_status`, `_label`, `_value`)."
             },
             {
                 "title": "Step 3: Define Scoped Shadow DOM Template & Styles",
-                "content": "Inside the shadow root, construct isolated scoped `<style>` rules targeting `:host`, `:host([status='healthy'])`, and `.card-frame`. Use `<slot name=\"title\">` and `<slot name=\"summary\">` to project light DOM elements into the shadow layout. Scoped CSS guarantees zero style leakage into or out of the component."
+                "content": "Inside the shadow root, construct isolated scoped `<style>` rules targeting `:host`, `.card-surface`, `.card-label`, `.card-value`, and `.bar-fill`. Using a shadow root guarantees strict encapsulation: styles defined inside `.card-surface` can never leak into or be affected by global outer CSS rules."
             },
             {
                 "title": "Step 4: Implement Attribute Observation Lifecycle",
-                "content": "Declare `static get observedAttributes() { return ['status', 'node-id', 'metric']; }`. In `attributeChangedCallback(name, oldVal, newVal)`, check `if (oldVal !== newVal)` and trigger selective DOM updates on internal shadow nodes without tearing down the entire component tree."
+                "content": "Declare `static get observedAttributes() { return [\"status\", \"label\", \"value\"]; }`. In `attributeChangedCallback(name, oldVal, newVal)`, check `if (oldVal !== newVal)` and trigger selective DOM updates on internal shadow nodes like `.bar-fill` without tearing down the entire component tree."
             },
             {
                 "title": "Step 5: Dispatch Composed Custom Events",
-                "content": "Add interactive action buttons inside the shadow root (e.g. 'Cycle Status', 'Purge Cache'). On click, dispatch `this.dispatchEvent(new CustomEvent('node-action', { bubbles: true, composed: true, detail: { nodeId: this.getAttribute('node-id') } }))`. Setting `composed: true` allows the event to pierce the Shadow DOM boundary cleanly to document listeners."
+                "content": "Add interactive slider input in the light DOM: on input, update `card.setAttribute(\"value\", newVal)`. Inside the custom element, dispatch `this.dispatchEvent(new CustomEvent(\"telemetry-update\", { bubbles: true, composed: true, detail: { value: this.value } }))`. Setting `composed: true` allows the event to pierce the Shadow DOM boundary cleanly to `#component-event-log`."
             }
         ]
     },
@@ -1024,23 +1024,23 @@ project_meta = [
         "steps": [
             {
                 "title": "Step 1: HTML Dashboard & Multi-Tab Presence Roster",
-                "content": "In `index.html`, construct a cross-tab synchronization console: display Current Tab ID badge, Active Leader indicator pill (`#leader-badge`), a live roster table of all discovered peer tabs (`#peers-roster`), and an interactive counter toggle with Broadcast state buttons."
+                "content": "In `index.html`, construct a cross-tab synchronization console: display Current Tab ID badge (`#tab-id-chip`), Mutex lock status pill (`#lock-holder`), connected peers counter (`#peer-count`), action buttons (`#btn-acquire-lock`, `#btn-ping-peers`), and `#bus-stream` wire sniffer log."
             },
             {
                 "title": "Step 2: Initialize BroadcastChannel & Unique Tab UUID",
-                "content": "In `app.js`, generate a unique persistent identifier: `const tabId = 'tab-' + Math.random().toString(36).substr(2, 6) + '-' + Date.now().toString(36);`. Connect to the cross-tab channel: `const channel = new BroadcastChannel('dpe_mesh_sync');`. Channel messages broadcast across all browser tabs and windows on the same origin."
+                "content": "In `app.js`, generate a unique persistent identifier: `const tabId = \"tab-\" + Math.random().toString(36).substr(2, 6) + \"-\" + Date.now().toString(36);`. Connect to the cross-tab channel: `const channel = new BroadcastChannel(\"dpe_mesh_sync\");`. Channel messages broadcast across all browser tabs and windows on the same origin."
             },
             {
                 "title": "Step 3: Implement Heartbeat Ping Protocol",
-                "content": "Set up a heartbeat interval sending periodic packets: `channel.postMessage({ type: 'HEARTBEAT', tabId, uptime: performance.now(), timestamp: Date.now() });`. Maintain a `peersMap = new Map()`. Listen to incoming messages: update peer timestamps and prune tabs that miss heartbeats for more than 4000ms."
+                "content": "Set up a heartbeat interval sending periodic packets: `channel.postMessage({ type: \"HEARTBEAT\", tabId, uptime: performance.now(), timestamp: Date.now() });`. Maintain a `peersMap = new Map()`. Listen to incoming messages: update peer timestamps and update `#peer-count` in real time."
             },
             {
-                "title": "Step 4: Build Distributed Leader Election Algorithm",
-                "content": "Implement bully leader election: sort all known peers by creation timestamp. The oldest active tab is elected Coordinator/Leader. If the leader tab closes or misses heartbeats, remaining tabs automatically elect the next senior tab in <500ms, updating `#leader-badge` with zero human intervention."
+                "title": "Step 4: Build Distributed Mutex Lock Coordination",
+                "content": "Implement distributed mutual exclusion: clicking `#btn-acquire-lock` broadcasts `{ type: \"MUTEX_REQUEST\", tabId }`. If the mutex is unheld, the tab claims ownership, updating `#lock-holder` across all connected tabs. Releasing or closing the tab automatically broadcasts `{ type: \"MUTEX_RELEASE\" }`."
             },
             {
                 "title": "Step 5: Broadcast State Sync Events & Clean Unload",
-                "content": "Attach click listeners to state buttons: dispatch `{ type: 'STATE_UPDATE', payload }` across the channel. When sibling tabs receive the event, update their local DOM counters instantaneously. On `window.addEventListener('beforeunload')`, broadcast `{ type: 'TAB_LEAVE', tabId }` to remove the tab from peer rosters immediately."
+                "content": "Attach click listeners to state buttons: dispatch `{ type: \"STATE_UPDATE\", payload }` across the channel. When sibling tabs receive the event, update their local DOM counters and log to `#bus-stream`. On `window.addEventListener(\"beforeunload\")`, broadcast `{ type: \"TAB_LEAVE\", tabId }` to remove the tab from peer rosters immediately."
             }
         ]
     },
