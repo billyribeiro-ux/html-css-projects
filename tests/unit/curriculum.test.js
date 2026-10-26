@@ -13,14 +13,14 @@ describe('DPE L8++ Curriculum Contract & Architectural Integrity', () => {
     const jsonStr = content.split('const PROJECTS_DATA = ')[1].replace(/;\s*$/, '');
     const data = JSON.parse(jsonStr);
     expect(Array.isArray(data)).toBe(true);
-    expect(data).toHaveLength(40);
+    expect(data).toHaveLength(60);
   });
 
   const content = fs.readFileSync(dataFile, 'utf-8');
   const jsonStr = content.split('const PROJECTS_DATA = ')[1].replace(/;\s*$/, '');
   const projects = JSON.parse(jsonStr);
 
-  it('every project folder exists on disk with index.html and styles.css', () => {
+  it('every project folder exists on disk with index.html and styles.css (plus Prisma/Next.js/React artifacts for Series 3)', () => {
     projects.forEach((p, idx) => {
       const projectDir = path.join(rootDir, 'projects', p.folder);
       expect(fs.existsSync(projectDir), `Missing folder: ${p.folder}`).toBe(true);
@@ -28,6 +28,10 @@ describe('DPE L8++ Curriculum Contract & Architectural Integrity', () => {
       expect(fs.existsSync(path.join(projectDir, 'styles.css')), `Missing styles.css in ${p.folder}`).toBe(true);
       if (idx >= 20) {
         expect(fs.existsSync(path.join(projectDir, 'app.js')), `Missing app.js in ${p.folder}`).toBe(true);
+      }
+      if (idx >= 40) {
+        expect(fs.existsSync(path.join(projectDir, 'prisma', 'schema.prisma')), `Missing schema.prisma in ${p.folder}`).toBe(true);
+        expect(fs.existsSync(path.join(projectDir, 'src', 'actions.ts')), `Missing src/actions.ts in ${p.folder}`).toBe(true);
       }
     });
   });

@@ -1,0 +1,33 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model TenantSubscription {
+  id         String            @id @default(cuid())
+  tenantSlug String            @unique
+  planTier   String            // "STARTER" | "GROWTH" | "ENTERPRISE"
+  seats      Int               @default(25)
+  mrrCents   Int               @default(249000)
+  nrrPercent Float             @default(134.8)
+  version    Int               @default(1)
+  updatedAt  DateTime          @updatedAt
+  invoices   InvoiceLineItem[]
+
+  @@index([planTier])
+}
+
+model InvoiceLineItem {
+  id             String             @id @default(cuid())
+  subscriptionId String
+  description    String
+  amountCents    Int
+  createdAt      DateTime           @default(now())
+  subscription   TenantSubscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([subscriptionId, createdAt])
+}

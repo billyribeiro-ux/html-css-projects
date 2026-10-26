@@ -1,0 +1,28 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model SprintBoard {
+  id        String       @id @default(cuid())
+  slug      String       @unique
+  title     String
+  tasks     KanbanTask[]
+}
+
+model KanbanTask {
+  id          String      @id @default(cuid())
+  boardId     String
+  title       String
+  status      String      // "BACKLOG" | "IN_PROGRESS" | "DONE"
+  orderRank   Float       @default(1000.0)
+  storyPoints Int         @default(3)
+  updatedAt   DateTime    @updatedAt
+  board       SprintBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+
+  @@index([boardId, status, orderRank])
+}

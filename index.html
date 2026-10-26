@@ -331,9 +331,9 @@
 
       .curriculum-filter-tabs {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        gap: 0.35rem;
-        padding: 0.75rem 0.85rem 0.6rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.3rem;
+        padding: 0.75rem 0.7rem 0.6rem;
         border-bottom: 1px solid var(--color-border);
         background: oklch(0 0 0 / 0.15);
       }
@@ -854,7 +854,7 @@
         <div>
           <h1 class="brand-title">DPE L8++ Engineering Masterclass</h1>
         </div>
-        <span class="brand-badge">40 Levels • Full Oct 2026 Standards</span>
+        <span class="brand-badge">60 Levels • Full Oct 2026 Standards</span>
       </div>
 
       <div class="header-center">
@@ -863,7 +863,7 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
             <span>Prev [</span>
           </button>
-          <span class="nav-step-counter" id="header-counter">Project 01 of 40</span>
+          <span class="nav-step-counter" id="header-counter">Project 01 of 60</span>
           <button type="button" class="nav-step-btn" id="btn-next-project" aria-label="Next project (Shortcut: ] )">
             <span>Next ]</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -874,7 +874,7 @@
       <div class="header-actions">
         <div class="search-box">
           <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="project-search" placeholder="Search 40 projects (Press /)" autocomplete="off" aria-label="Search curriculum projects and concepts">
+          <input type="text" id="project-search" placeholder="Search 60 projects (Press /)" autocomplete="off" aria-label="Search curriculum projects and concepts">
         </div>
         <button type="button" class="btn-shortcuts" id="btn-open-shortcuts" aria-label="View keyboard shortcuts (Shortcut: ?)">
           <kbd>?</kbd>
@@ -888,11 +888,12 @@
       <!-- 1. Left Sidebar Navigation -->
       <aside class="sidebar" role="navigation" aria-label="Projects Curriculum">
         <div class="curriculum-filter-tabs" role="tablist" aria-label="Curriculum Series Filter">
-          <button type="button" class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All (40)</button>
+          <button type="button" class="filter-pill active" data-filter="all" role="tab" aria-selected="true">All (60)</button>
           <button type="button" class="filter-pill" data-filter="series1" role="tab" aria-selected="false">CSS (01-20)</button>
-          <button type="button" class="filter-pill" data-filter="series2" role="tab" aria-selected="false">JS Systems (21-40)</button>
+          <button type="button" class="filter-pill" data-filter="series2" role="tab" aria-selected="false">JS (21-40)</button>
+          <button type="button" class="filter-pill" data-filter="series3" role="tab" aria-selected="false">Next.js (41-60)</button>
         </div>
-        <div class="sidebar-header">Curriculum Progression (40 Levels)</div>
+        <div class="sidebar-header">Curriculum Progression (60 Levels)</div>
         <ul class="project-nav-list" id="nav-list">
           <!-- Dynamically populated via JS -->
         </ul>
@@ -1137,7 +1138,8 @@
       return PROJECTS_DATA.filter((p, index) => {
         // Series filter
         if (currentSeriesFilter === 'series1' && index >= 20) return false;
-        if (currentSeriesFilter === 'series2' && index < 20) return false;
+        if (currentSeriesFilter === 'series2' && (index < 20 || index >= 40)) return false;
+        if (currentSeriesFilter === 'series3' && index < 40) return false;
 
         // Query filter
         if (!q) return true;
@@ -1161,7 +1163,13 @@
       }
       filtered.forEach((project) => {
         const originalIndex = PROJECTS_DATA.findIndex(p => p.id === project.id);
-        const isSeries2 = originalIndex >= 20;
+        const isSeries2 = originalIndex >= 20 && originalIndex < 40;
+        const isSeries3 = originalIndex >= 40;
+        const badgeStyle = isSeries3
+          ? 'color: var(--color-green); border-color: oklch(from var(--color-green) l c h / 0.4);'
+          : isSeries2
+            ? 'color: var(--color-cyan); border-color: oklch(from var(--color-cyan) l c h / 0.4);'
+            : '';
         const li = document.createElement('li');
         li.className = `project-nav-item ${originalIndex === currentProjectIndex ? 'active' : ''}`;
         li.setAttribute('role', 'button');
@@ -1169,7 +1177,7 @@
         li.innerHTML = `
           <div class="nav-item-meta">
             <span class="nav-item-level">${project.level.split('•')[0].trim()}</span>
-            <span class="nav-item-badge" style="${isSeries2 ? 'color: var(--color-cyan); border-color: oklch(from var(--color-cyan) l c h / 0.4);' : ''}">${project.category}</span>
+            <span class="nav-item-badge" style="${badgeStyle}">${project.category}</span>
           </div>
           <span class="nav-item-title">${project.title}</span>
         `;
@@ -1221,7 +1229,7 @@
 
       // Update Header Stepper & Controls
       if (headerCounter) {
-        headerCounter.textContent = `Project ${String(index + 1).padStart(2, '0')} of 40`;
+        headerCounter.textContent = `Project ${String(index + 1).padStart(2, '0')} of ${PROJECTS_DATA.length}`;
       }
       if (btnPrevProject) {
         btnPrevProject.disabled = index === 0;
@@ -1232,7 +1240,10 @@
 
       // Update JS Tab Badge
       if (jsTabBadge) {
-        if (p.js && p.js.trim().length > 0) {
+        if (index >= 40) {
+          jsTabBadge.textContent = 'TSX / Prisma / 3D';
+          jsTabBadge.className = 'tab-sub-badge';
+        } else if (p.js && p.js.trim().length > 0) {
           jsTabBadge.textContent = 'Active JS';
           jsTabBadge.className = 'tab-sub-badge';
         } else {
@@ -1247,7 +1258,11 @@
 
       const headingDeepdive = document.getElementById('heading-deepdive');
       if (headingDeepdive) {
-        headingDeepdive.textContent = index >= 20 ? 'Advanced JavaScript & Systems Mechanics Deep Dive' : '2026 CSS Standard Mechanics Deep Dive';
+        headingDeepdive.textContent = index >= 40
+          ? 'Next.js 15, React 19, Prisma v6 & 3D WebGL Mechanics Deep Dive'
+          : index >= 20
+            ? 'Advanced JavaScript & Systems Mechanics Deep Dive'
+            : '2026 CSS Standard Mechanics Deep Dive';
       }
 
       // Feature Tags

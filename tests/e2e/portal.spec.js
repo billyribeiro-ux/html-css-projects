@@ -7,15 +7,16 @@ test.describe('Master Teaching Portal Studio & Monaco IDE', () => {
     await page.waitForSelector('.project-nav-item');
   });
 
-  test('loads all 40 progressive curriculum projects in the sidebar', async ({ page }) => {
+  test('loads all 60 progressive curriculum projects in the sidebar', async ({ page }) => {
     const navItems = page.locator('.project-nav-item');
-    await expect(navItems).toHaveCount(40);
+    await expect(navItems).toHaveCount(60);
   });
 
   test('filters projects correctly using series segmented filter pills', async ({ page }) => {
     const filterAll = page.locator('button[data-filter="all"]');
     const filterSeries1 = page.locator('button[data-filter="series1"]');
     const filterSeries2 = page.locator('button[data-filter="series2"]');
+    const filterSeries3 = page.locator('button[data-filter="series3"]');
     const navItems = page.locator('.project-nav-item');
 
     // Filter Series 1: Declarative CSS Architecture (01-20)
@@ -28,9 +29,14 @@ test.describe('Master Teaching Portal Studio & Monaco IDE', () => {
     await expect(navItems).toHaveCount(20);
     await expect(page.locator('.project-nav-item').first()).toContainText('Level 21');
 
+    // Filter Series 3: Next.js, React 19, Prisma v6 & 3D WebGL (41-60)
+    await filterSeries3.click();
+    await expect(navItems).toHaveCount(20);
+    await expect(page.locator('.project-nav-item').first()).toContainText('Level 41');
+
     // Reset to All
     await filterAll.click();
-    await expect(navItems).toHaveCount(40);
+    await expect(navItems).toHaveCount(60);
   });
 
   test('filters projects in real time using the search bar', async ({ page }) => {
@@ -48,21 +54,21 @@ test.describe('Master Teaching Portal Studio & Monaco IDE', () => {
     const btnNext = page.locator('#btn-next-project');
     const btnPrev = page.locator('#btn-prev-project');
 
-    await expect(headerCounter).toHaveText('Project 01 of 40');
+    await expect(headerCounter).toHaveText('Project 01 of 60');
     await expect(btnPrev).toBeDisabled();
 
     // Click next button
     await btnNext.click();
-    await expect(headerCounter).toHaveText('Project 02 of 40');
+    await expect(headerCounter).toHaveText('Project 02 of 60');
     await expect(btnPrev).toBeEnabled();
 
     // Press '[' keyboard shortcut to go back
     await page.keyboard.press('[');
-    await expect(headerCounter).toHaveText('Project 01 of 40');
+    await expect(headerCounter).toHaveText('Project 01 of 60');
 
     // Press ']' keyboard shortcut to step forward
     await page.keyboard.press(']');
-    await expect(headerCounter).toHaveText('Project 02 of 40');
+    await expect(headerCounter).toHaveText('Project 02 of 60');
   });
 
   test('switches editor tabs and renders Live Preview iframe', async ({ page }) => {
