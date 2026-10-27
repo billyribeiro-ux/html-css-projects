@@ -1,25 +1,104 @@
 #!/usr/bin/env python3
 """
-Integrates Series 3 (Levels 41–60: Next.js, React 19, TypeScript 5.8, Node 24 LTS, Prisma v6, Three.js & GSAP)
-into `/Users/billyribeiro/Desktop/html-css` alongside Series 1 (01–20 HTML/CSS) and Series 2 (21–40 HTML/CSS/JS).
-Preserves Projects 01–40 100% untouched and appends Projects 41–60 with full L8+ source files,
-Three.js + GSAP Live Preview, Schema.org JSON-LD, and 100% untruncated 5-step blueprints.
+Principal Engineer Level 8++ (Oct 26, 2026) — Unified 60-Project Zero-Inline-CSS Integrator
+1. Cleans the 6 inline `style="..."` attributes in Projects 01–40 (`08`, `13`, `18`, `22`, `34`, `38`)
+   by moving their rules into external `styles.css` (`:nth-child`, ID/attribute selectors, and `hidden`).
+2. Integrates Projects 41–60 (Next.js 15, React 19, TypeScript 5.8, Prisma v6, Three.js, GSAP)
+   with 100% external CSS (`styles.css` + `course.css`) and ZERO `<style>` or `style=` attributes.
+3. Extracts `/Users/billyribeiro/Desktop/html-css/index.html` `<style>` and inline `style=` into external `portal.css`.
 """
 
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
 
 sys.path.insert(0, "/Users/billyribeiro/Desktop/react-enterprise-projects/scripts")
-from build_projects import PROJECTS, DB_TS, STYLES_CSS  # noqa: E402
+from build_projects import PROJECTS, DB_TS  # noqa: E402
 
 HTML_CSS_ROOT = Path("/Users/billyribeiro/Desktop/html-css")
 REACT_ROOT = Path("/Users/billyribeiro/Desktop/react-enterprise-projects")
 
 
+def fix_base40_inline_styles(base_40: list[dict]) -> None:
+    """Eliminates all remaining `style="..."` attributes from Projects 01-40 on disk and in PROJECTS_DATA."""
+    fixes = {
+        "08-circular-hud-gauge": {
+            "html_sub": (r'\s*style="--i:\s*\d+"', ""),
+            "css_append": "\n/* Oct 2026 Externalized Tick Index Tokens */\n"
+            + "\n".join(f".tick:nth-child({i+1}) {{ --i: {i}; }}" for i in range(12))
+            + "\n",
+        },
+        "13-adaptive-dashboard-widgets": {
+            "html_sub": (r'\s*style="width:\s*84%"', ""),
+            "css_append": "\n/* Externalized Bar Fill Width */\n.bar-fill { width: 84%; }\n",
+        },
+        "18-interactive-orbiting-dock": {
+            "html_sub": (r'\s*style="--sat-offset:\s*\d+deg;"', ""),
+            "css_append": (
+                "\n/* Externalized Satellite Orbit Offsets */\n"
+                ".sat-1 { --sat-offset: 0deg; }\n"
+                ".sat-2 { --sat-offset: 90deg; }\n"
+                ".sat-3 { --sat-offset: 180deg; }\n"
+                ".sat-4 { --sat-offset: 270deg; }\n"
+            ),
+        },
+        "22-cwv-telemetry-observer": {
+            "html_sub": (r'\s*style="width:\s*\d+%;"', ""),
+            "css_append": (
+                "\n/* Externalized Initial Meter Widths */\n"
+                "#bar-inp { width: 6%; }\n"
+                "#bar-lcp { width: 17%; }\n"
+                "#bar-cls { width: 0%; }\n"
+            ),
+        },
+        "34-infinite-canvas-pan-zoom": {
+            "html_sub": (r'\s*style="left:\s*-?\d+px;\s*top:\s*-?\d+px;"', ""),
+            "css_append": (
+                "\n/* Externalized Spatial Node Coordinates */\n"
+                '.spatial-node[data-title="Edge Ingress"] { left: -200px; top: -120px; }\n'
+                '.spatial-node[data-title="Load Balancer"] { left: 150px; top: -100px; }\n'
+                '.spatial-node[data-title="Compute Core"] { left: 0px; top: 120px; }\n'
+                '.spatial-node[data-title="Storage Engine"] { left: 320px; top: 180px; }\n'
+            ),
+        },
+        "38-file-system-workspace": {
+            "html_sub": (r'style="display:\s*none;"', "hidden"),
+            "css_append": "\n#fallback-file-input { display: none; }\n",
+        },
+    }
+
+    for p in base_40:
+        folder = p["folder"]
+        if folder not in fixes:
+            continue
+        spec = fixes[folder]
+        pattern, repl = spec["html_sub"]
+        css_extra = spec["css_append"]
+
+        pdir = HTML_CSS_ROOT / "projects" / folder
+        idx_path = pdir / "index.html"
+        css_path = pdir / "styles.css"
+
+        new_html = re.sub(pattern, repl, idx_path.read_text())
+        idx_path.write_text(new_html)
+
+        old_css = css_path.read_text()
+        if css_extra.strip() not in old_css:
+            new_css = old_css.rstrip() + "\n" + css_extra
+            css_path.write_text(new_css)
+        else:
+            new_css = old_css
+
+        p["html"] = new_html
+        p["css"] = new_css
+        for step in p["steps"]:
+            step["content"] = re.sub(pattern, repl, step["content"])
+
+
 def build_series3_live_html(level_num: int, p: dict) -> str:
-    """Builds the standalone & iframe-compatible HTML5 + Schema.org JSON-LD + Three.js/GSAP UI for Levels 41-60."""
+    """Builds the standalone & iframe-compatible HTML5 + Schema.org JSON-LD + Three.js/GSAP UI with ZERO inline CSS."""
     ld_json = json.dumps(
         {
             "@context": "https://schema.org",
@@ -39,7 +118,7 @@ def build_series3_live_html(level_num: int, p: dict) -> str:
           <span class="s3-kpi-label">{k['label']}</span>
           <strong class="s3-kpi-value">{k['value']}</strong>
           <span class="s3-kpi-trend">{k['trend']}</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:{k['pct']}%"></div></div>
+          <progress class="s3-kpi-progress" value="{k['pct']}" max="100"></progress>
         </div>"""
 
     return f"""<!DOCTYPE html>
@@ -51,9 +130,10 @@ def build_series3_live_html(level_num: int, p: dict) -> str:
   <script type="application/ld+json">
 {ld_json}
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
   <main class="s3-studio-shell" id="s3-app-root" data-visual-mode="{p['VisualMode']}">
@@ -98,7 +178,6 @@ def build_series3_live_html(level_num: int, p: dict) -> str:
       </div>
     </section>
   </main>
-  <script src="app.js"></script>
 </body>
 </html>
 """
@@ -109,13 +188,13 @@ def build_series3_css() -> str:
 
 @layer tokens {
   :root {
-    --s3-bg: #060913;
-    --s3-surface: rgba(15, 23, 42, 0.82);
-    --s3-border: rgba(56, 189, 248, 0.22);
-    --s3-cyan: #38bdf8;
-    --s3-emerald: #4ade80;
-    --s3-text: #f8fafc;
-    --s3-muted: #94a3b8;
+    --s3-bg: oklch(0.13 0.02 255);
+    --s3-surface: oklch(0.18 0.03 255 / 0.85);
+    --s3-border: oklch(0.76 0.14 230 / 0.22);
+    --s3-cyan: oklch(0.76 0.14 230);
+    --s3-emerald: oklch(0.79 0.17 155);
+    --s3-text: oklch(0.98 0.01 255);
+    --s3-muted: oklch(0.68 0.03 255);
   }
 }
 
@@ -125,7 +204,7 @@ def build_series3_css() -> str:
     margin: 0;
     padding: 1.5rem;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: radial-gradient(circle at top right, #1e1b4b 0%, var(--s3-bg) 60%);
+    background: radial-gradient(circle at top right, oklch(0.24 0.07 275) 0%, var(--s3-bg) 60%);
     color: var(--s3-text);
     min-height: 100vh;
   }
@@ -167,7 +246,7 @@ def build_series3_css() -> str:
   }
   .s3-btn-primary {
     background: linear-gradient(135deg, var(--s3-cyan), var(--s3-emerald));
-    color: #060913;
+    color: var(--s3-bg);
     font-weight: 800;
     border: none;
     padding: 0.7rem 1.2rem;
@@ -182,7 +261,7 @@ def build_series3_css() -> str:
   }
   .s3-kpi-card {
     background: var(--s3-surface);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid oklch(1 0 0 / 0.08);
     border-radius: 14px;
     padding: 1rem 1.2rem;
     display: flex;
@@ -192,8 +271,7 @@ def build_series3_css() -> str:
   .s3-kpi-label { font-size: 0.72rem; color: var(--s3-muted); text-transform: uppercase; }
   .s3-kpi-value { font-size: 1.45rem; font-weight: 900; color: var(--s3-cyan); }
   .s3-kpi-trend { font-size: 0.75rem; color: var(--s3-emerald); font-weight: 700; }
-  .s3-kpi-bar { height: 5px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; margin-top: 0.35rem; overflow: hidden; }
-  .s3-kpi-fill { height: 100%; background: linear-gradient(90deg, var(--s3-cyan), var(--s3-emerald)); }
+  .s3-kpi-progress { width: 100%; height: 6px; margin-block-start: 0.35rem; accent-color: var(--s3-cyan); }
   .s3-stage-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -216,18 +294,18 @@ def build_series3_css() -> str:
     letter-spacing: 0.08em;
   }
   .s3-telemetry-readout {
-    font-family: monospace;
+    font-family: ui-monospace, monospace;
     font-size: 0.78rem;
     color: var(--s3-emerald);
-    background: rgba(6, 9, 19, 0.75);
+    background: oklch(0.11 0.02 255 / 0.8);
     padding: 0.55rem 0.8rem;
     border-radius: 8px;
   }
   .s3-stack-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .s3-pill {
-    font-family: monospace;
+    font-family: ui-monospace, monospace;
     font-size: 0.74rem;
-    background: rgba(56, 189, 248, 0.12);
+    background: oklch(0.76 0.14 230 / 0.12);
     color: var(--s3-cyan);
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
@@ -235,14 +313,14 @@ def build_series3_css() -> str:
   }
   .s3-arch-copy {
     margin: 0;
-    color: #e2e8f0;
+    color: var(--s3-text);
     font-size: 0.88rem;
     line-height: 1.6;
   }
   .s3-vector-chart {
     width: 100%;
     height: 72px;
-    background: rgba(6, 9, 19, 0.75);
+    background: oklch(0.11 0.02 255 / 0.8);
     border-radius: 10px;
     padding: 4px;
   }
@@ -339,15 +417,68 @@ def build_series3_app_js(level_num: int, p: dict) -> str:
 """
 
 
+def externalize_master_portal_css() -> None:
+    """Extracts `<style>...</style>` and inline `style=` from `/Users/billyribeiro/Desktop/html-css/index.html` into `portal.css`."""
+    idx_path = HTML_CSS_ROOT / "index.html"
+    txt = idx_path.read_text()
+
+    m = re.search(r"<style>([\s\S]*?)</style>", txt)
+    if m:
+        extracted_css = m.group(1).strip() + "\n"
+        extra_classes = """
+/* Externalized Utility & State Classes (Zero Inline Style Attributes) */
+.standalone-title { font-weight: 700; font-size: 0.9rem; }
+.standalone-sub { font-size: 0.8rem; color: var(--color-text-dim); }
+.tab-sub-badge--tests { background: oklch(0.7 0.2 145 / 0.15); color: var(--color-green); }
+.nav-empty-state { padding: 1.5rem 1rem; color: var(--color-text-dim); font-size: 0.85rem; text-align: center; }
+.nav-item-badge--series2 { color: var(--color-cyan); border-color: oklch(from var(--color-cyan) l c h / 0.4); }
+.nav-item-badge--series3 { color: var(--color-green); border-color: oklch(from var(--color-green) l c h / 0.4); }
+"""
+        (HTML_CSS_ROOT / "portal.css").write_text(extracted_css + extra_classes)
+        txt = txt.replace(m.group(0), '<link rel="stylesheet" href="portal.css">')
+
+    # Replace inline style attributes in index.html markup and JS template literals
+    txt = txt.replace(
+        '<div style="font-weight: 700; font-size: 0.9rem;">Standalone Production Build</div>',
+        '<div class="standalone-title">Standalone Production Build</div>',
+    )
+    txt = txt.replace(
+        '<div style="font-size: 0.8rem; color: var(--color-text-dim);">Run this project directly in an isolated browser tab</div>',
+        '<div class="standalone-sub">Run this project directly in an isolated browser tab</div>',
+    )
+    txt = txt.replace(
+        '<span class="tab-sub-badge" style="background: oklch(0.7 0.2 145 / 0.15); color: var(--color-green);">Vitest & PW</span>',
+        '<span class="tab-sub-badge tab-sub-badge--tests">Vitest & PW</span>',
+    )
+    txt = txt.replace(
+        '\'<li style="padding: 1.5rem 1rem; color: var(--color-text-dim); font-size: 0.85rem; text-align: center;">No projects match filter criteria</li>\'',
+        '\'<li class="nav-empty-state">No projects match filter criteria</li>\'',
+    )
+    txt = re.sub(
+        r"const badgeStyle = isSeries3[\s\S]*?<span class=\"nav-item-badge\" style=\"\$\{badgeStyle\}\">",
+        'const badgeClass = isSeries3 ? "nav-item-badge--series3" : isSeries2 ? "nav-item-badge--series2" : "";\n'
+        '        const li = document.createElement(\'li\');\n'
+        '        li.className = `project-nav-item ${originalIndex === currentProjectIndex ? \'active\' : \'\'}`;\n'
+        '        li.setAttribute(\'role\', \'button\');\n'
+        '        li.setAttribute(\'tabindex\', \'0\');\n'
+        '        li.innerHTML = `\n'
+        '          <div class="nav-item-meta">\n'
+        '            <span class="nav-item-level">${project.level.split(\'•\')[0].trim()}</span>\n'
+        '            <span class="nav-item-badge ${badgeClass}">',
+        txt,
+    )
+
+    idx_path.write_text(txt)
+
+
 def main() -> None:
     data_file = HTML_CSS_ROOT / "projects-data.js"
     raw_content = data_file.read_text()
     json_str = raw_content.split("const PROJECTS_DATA = ")[1].rstrip(";\n ")
     existing_projects = json.loads(json_str)
 
-    # Keep the first 40 projects (01-20 HTML/CSS and 21-40 HTML/CSS/JS) 100% intact
     base_40 = existing_projects[:40]
-    assert len(base_40) == 40, f"Expected 40 base projects, got {len(base_40)}"
+    fix_base40_inline_styles(base_40)
 
     series3_entries = []
     for idx, p in enumerate(PROJECTS):
@@ -366,7 +497,6 @@ def main() -> None:
         css_code = build_series3_css()
         js_code = build_series3_app_js(level_num, p)
 
-        # Save standalone course html as course.html and write unified index.html, styles.css, app.js
         shutil.copyfile(dest_proj_dir / "index.html", dest_proj_dir / "course.html")
         (dest_proj_dir / "index.html").write_text(html_code)
         (dest_proj_dir / "styles.css").write_text(css_code)
@@ -396,14 +526,14 @@ def main() -> None:
             {
                 "title": f"Step 3: React 19 Concurrent Component, Three.js WebGL & GSAP Motion (projects/{folder_name}/src/{p['component_name']}.tsx)",
                 "content": (
-                    f"{p['steps'][3]['rationale']} Implement `{p['component_name']}.tsx` with React 19 transitions, headless-safe WebGL lifecycle, and GSAP telemetry:\n"
+                    f"{p['steps'][3]['rationale']} Implement `{p['component_name']}.tsx` with React 19 transitions, external `@layer` OKLCH `styles.css`, and GSAP telemetry:\n"
                     f"```tsx\n{p['component_ts'].strip()}\n```"
                 ),
             },
             {
-                "title": f"Step 4: Interactive 3D Simulation Stage & OKLCH Cascade Stylesheet (projects/{folder_name}/index.html & styles.css)",
+                "title": f"Step 4: External OKLCH Cascade Stylesheet & 3D Stage Markup (projects/{folder_name}/index.html & styles.css)",
                 "content": (
-                    f"Assemble the interactive studio preview (`index.html`, `styles.css`, and `app.js`) with Schema.org JSON-LD and Three.js/GSAP telemetry:\n"
+                    f"Assemble the interactive studio preview (`index.html`, external `styles.css`, and `app.js`) with Schema.org JSON-LD and zero inline styles:\n"
                     f"```html\n{html_code.strip()}\n```\n"
                     f"```css\n{css_code.strip()}\n```"
                 ),
@@ -444,9 +574,10 @@ def main() -> None:
         )
 
     all_60 = base_40 + series3_entries
-    assert len(all_60) == 60, f"Expected 60 total projects, got {len(all_60)}"
+    assert len(all_60) == 60
     data_file.write_text("const PROJECTS_DATA = " + json.dumps(all_60, indent=2) + ";\n")
-    print("Successfully generated all 60 projects (01-20 HTML/CSS, 21-40 HTML/CSS/JS, 41-60 Next.js/React/Prisma/3D) in html-css!")
+    externalize_master_portal_css()
+    print("Successfully externalized 100% of CSS across all 60 projects and master portal in html-css!")
 
 
 if __name__ == "__main__":

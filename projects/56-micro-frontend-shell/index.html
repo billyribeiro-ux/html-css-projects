@@ -17,9 +17,10 @@
   "proficiencyLevel": "Principal Engineer (Level 8+)"
 }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
   <main class="s3-studio-shell" id="s3-app-root" data-visual-mode="mfe_topology">
@@ -42,19 +43,19 @@
           <span class="s3-kpi-label">Host Blast-Radius Leak</span>
           <strong class="s3-kpi-value">0.00%</strong>
           <span class="s3-kpi-trend">Isolated ErrorBoundary</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">SRI Hash Verification</span>
           <strong class="s3-kpi-value">SHA-384</strong>
           <span class="s3-kpi-trend">Zero Supply-Chain Tamper</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">Remote Canary Rollback</span>
           <strong class="s3-kpi-value">1.8ms</strong>
           <span class="s3-kpi-trend">Atomic Manifest Pointer</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:99%"></div></div>
+          <progress class="s3-kpi-progress" value="99" max="100"></progress>
         </div>
     </section>
 
@@ -82,6 +83,5 @@
       </div>
     </section>
   </main>
-  <script src="app.js"></script>
 </body>
 </html>

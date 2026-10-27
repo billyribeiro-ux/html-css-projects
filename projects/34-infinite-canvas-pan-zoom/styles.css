@@ -285,3 +285,9 @@
     transform: translate(-50%, -50%);
   }
 }
+
+/* Externalized Spatial Node Coordinates */
+.spatial-node[data-title="Edge Ingress"] { left: -200px; top: -120px; }
+.spatial-node[data-title="Load Balancer"] { left: 150px; top: -100px; }
+.spatial-node[data-title="Compute Core"] { left: 0px; top: 120px; }
+.spatial-node[data-title="Storage Engine"] { left: 320px; top: 180px; }

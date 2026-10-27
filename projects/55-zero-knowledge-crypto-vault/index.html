@@ -17,9 +17,10 @@
   "proficiencyLevel": "Principal Engineer (Level 8+)"
 }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
   <main class="s3-studio-shell" id="s3-app-root" data-visual-mode="three_vault">
@@ -42,19 +43,19 @@
           <span class="s3-kpi-label">Server Plaintext Exposure</span>
           <strong class="s3-kpi-value">0 Bytes</strong>
           <span class="s3-kpi-trend">Zero-Knowledge Enclave</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">KDF Iteration Hardening</span>
           <strong class="s3-kpi-value">310,000</strong>
           <span class="s3-kpi-trend">OWASP PBKDF2-SHA256</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">AES-GCM Auth Tag</span>
           <strong class="s3-kpi-value">128-Bit</strong>
           <span class="s3-kpi-trend">Tamper-Proof Ciphertext</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
     </section>
 
@@ -82,6 +83,5 @@
       </div>
     </section>
   </main>
-  <script src="app.js"></script>
 </body>
 </html>

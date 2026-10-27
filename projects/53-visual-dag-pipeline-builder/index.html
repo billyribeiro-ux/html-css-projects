@@ -17,9 +17,10 @@
   "proficiencyLevel": "Principal Engineer (Level 8+)"
 }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="app.js" defer></script>
 </head>
 <body>
   <main class="s3-studio-shell" id="s3-app-root" data-visual-mode="dag_pipeline">
@@ -42,19 +43,19 @@
           <span class="s3-kpi-label">Cycle Detection Complexity</span>
           <strong class="s3-kpi-value">O(V + E)</strong>
           <span class="s3-kpi-trend">Kahn In-Degree Queue</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">DLQ Poison Pill Isolation</span>
           <strong class="s3-kpi-value">100%</strong>
           <span class="s3-kpi-trend">Zero Pipeline Stall</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:100%"></div></div>
+          <progress class="s3-kpi-progress" value="100" max="100"></progress>
         </div>
         <div class="s3-kpi-card">
           <span class="s3-kpi-label">SVG Cubic Bezier Render</span>
           <strong class="s3-kpi-value">120 FPS</strong>
           <span class="s3-kpi-trend">Vector Path Stream</span>
-          <div class="s3-kpi-bar"><div class="s3-kpi-fill" style="width:98%"></div></div>
+          <progress class="s3-kpi-progress" value="98" max="100"></progress>
         </div>
     </section>
 
@@ -82,6 +83,5 @@
       </div>
     </section>
   </main>
-  <script src="app.js"></script>
 </body>
 </html>

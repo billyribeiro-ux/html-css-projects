@@ -239,3 +239,9 @@
     transition: all 180ms ease;
   }
 }
+
+/* Externalized Satellite Orbit Offsets */
+.sat-1 { --sat-offset: 0deg; }
+.sat-2 { --sat-offset: 90deg; }
+.sat-3 { --sat-offset: 180deg; }
+.sat-4 { --sat-offset: 270deg; }

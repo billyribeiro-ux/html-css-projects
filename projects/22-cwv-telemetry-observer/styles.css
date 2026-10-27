@@ -354,3 +354,8 @@
     .val { color: var(--text-primary); font-weight: 600; }
   }
 }
+
+/* Externalized Initial Meter Widths */
+#bar-inp { width: 6%; }
+#bar-lcp { width: 17%; }
+#bar-cls { width: 0%; }

@@ -2,13 +2,13 @@
 
 @layer tokens {
   :root {
-    --s3-bg: #060913;
-    --s3-surface: rgba(15, 23, 42, 0.82);
-    --s3-border: rgba(56, 189, 248, 0.22);
-    --s3-cyan: #38bdf8;
-    --s3-emerald: #4ade80;
-    --s3-text: #f8fafc;
-    --s3-muted: #94a3b8;
+    --s3-bg: oklch(0.13 0.02 255);
+    --s3-surface: oklch(0.18 0.03 255 / 0.85);
+    --s3-border: oklch(0.76 0.14 230 / 0.22);
+    --s3-cyan: oklch(0.76 0.14 230);
+    --s3-emerald: oklch(0.79 0.17 155);
+    --s3-text: oklch(0.98 0.01 255);
+    --s3-muted: oklch(0.68 0.03 255);
   }
 }
 
@@ -18,7 +18,7 @@
     margin: 0;
     padding: 1.5rem;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: radial-gradient(circle at top right, #1e1b4b 0%, var(--s3-bg) 60%);
+    background: radial-gradient(circle at top right, oklch(0.24 0.07 275) 0%, var(--s3-bg) 60%);
     color: var(--s3-text);
     min-height: 100vh;
   }
@@ -60,7 +60,7 @@
   }
   .s3-btn-primary {
     background: linear-gradient(135deg, var(--s3-cyan), var(--s3-emerald));
-    color: #060913;
+    color: var(--s3-bg);
     font-weight: 800;
     border: none;
     padding: 0.7rem 1.2rem;
@@ -75,7 +75,7 @@
   }
   .s3-kpi-card {
     background: var(--s3-surface);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid oklch(1 0 0 / 0.08);
     border-radius: 14px;
     padding: 1rem 1.2rem;
     display: flex;
@@ -85,8 +85,7 @@
   .s3-kpi-label { font-size: 0.72rem; color: var(--s3-muted); text-transform: uppercase; }
   .s3-kpi-value { font-size: 1.45rem; font-weight: 900; color: var(--s3-cyan); }
   .s3-kpi-trend { font-size: 0.75rem; color: var(--s3-emerald); font-weight: 700; }
-  .s3-kpi-bar { height: 5px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; margin-top: 0.35rem; overflow: hidden; }
-  .s3-kpi-fill { height: 100%; background: linear-gradient(90deg, var(--s3-cyan), var(--s3-emerald)); }
+  .s3-kpi-progress { width: 100%; height: 6px; margin-block-start: 0.35rem; accent-color: var(--s3-cyan); }
   .s3-stage-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -109,18 +108,18 @@
     letter-spacing: 0.08em;
   }
   .s3-telemetry-readout {
-    font-family: monospace;
+    font-family: ui-monospace, monospace;
     font-size: 0.78rem;
     color: var(--s3-emerald);
-    background: rgba(6, 9, 19, 0.75);
+    background: oklch(0.11 0.02 255 / 0.8);
     padding: 0.55rem 0.8rem;
     border-radius: 8px;
   }
   .s3-stack-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
   .s3-pill {
-    font-family: monospace;
+    font-family: ui-monospace, monospace;
     font-size: 0.74rem;
-    background: rgba(56, 189, 248, 0.12);
+    background: oklch(0.76 0.14 230 / 0.12);
     color: var(--s3-cyan);
     padding: 0.25rem 0.6rem;
     border-radius: 6px;
@@ -128,14 +127,14 @@
   }
   .s3-arch-copy {
     margin: 0;
-    color: #e2e8f0;
+    color: var(--s3-text);
     font-size: 0.88rem;
     line-height: 1.6;
   }
   .s3-vector-chart {
     width: 100%;
     height: 72px;
-    background: rgba(6, 9, 19, 0.75);
+    background: oklch(0.11 0.02 255 / 0.8);
     border-radius: 10px;
     padding: 4px;
   }

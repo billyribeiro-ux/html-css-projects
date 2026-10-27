@@ -222,3 +222,5 @@
     color: var(--text-secondary);
   }
 }
+
+#fallback-file-input { display: none; }

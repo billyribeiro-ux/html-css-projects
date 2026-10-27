@@ -307,3 +307,17 @@
     }
   }
 }
+
+/* Oct 2026 Externalized Tick Index Tokens */
+.tick:nth-child(1) { --i: 0; }
+.tick:nth-child(2) { --i: 1; }
+.tick:nth-child(3) { --i: 2; }
+.tick:nth-child(4) { --i: 3; }
+.tick:nth-child(5) { --i: 4; }
+.tick:nth-child(6) { --i: 5; }
+.tick:nth-child(7) { --i: 6; }
+.tick:nth-child(8) { --i: 7; }
+.tick:nth-child(9) { --i: 8; }
+.tick:nth-child(10) { --i: 9; }
+.tick:nth-child(11) { --i: 10; }
+.tick:nth-child(12) { --i: 11; }

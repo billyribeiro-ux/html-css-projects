@@ -347,3 +347,6 @@
     }
   }
 }
+
+/* Externalized Bar Fill Width */
+.bar-fill { width: 84%; }
