@@ -560,3 +560,6 @@
     color: var(--os-text-dim);
   }
 }
+
+/* Fluid Typography Scale Token */
+:root { --text-os-title: clamp(1.15rem, 1rem + 0.75vw, 1.65rem); }

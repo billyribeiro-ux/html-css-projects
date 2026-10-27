@@ -77,8 +77,8 @@
         </div>
         <p class="s3-arch-copy">Protects downstream webhook consumers from cascading failures using a deterministic 3-state Circuit Breaker (`CLOSED`, `OPEN`, `HALF_OPEN`) combined with decorrelated full-jitter exponential backoff `sleep = random(0, min(capMs, baseMs * 2 ** attempt))` and Prisma v6 delivery telemetry.</p>
         <svg viewBox="0 0 360 72" class="s3-vector-chart" role="img" aria-label="Sub-16ms Frame Budget Sparkline">
-          <polyline id="s3-sparkline" fill="none" stroke="#38bdf8" stroke-width="2.5" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
-          <text x="12" y="20" fill="#94a3b8" font-size="10" font-family="monospace">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
+          <polyline id="s3-sparkline" class="s3-sparkline-path" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
+          <text x="12" y="20" class="s3-vector-label">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
         </svg>
       </div>
     </section>

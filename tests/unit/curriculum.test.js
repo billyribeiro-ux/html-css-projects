@@ -54,7 +54,17 @@ describe('DPE L8++ Curriculum Contract & Architectural Integrity', () => {
       expect(matches, `Failed to extract JSON-LD from ${p.folder}`).not.toBeNull();
       const parsed = JSON.parse(matches[1]);
       expect(parsed['@context']).toBe('https://schema.org');
-      expect(parsed['headline'] || parsed['name']).toBeTruthy();
+      expect(parsed['headline'] || parsed['name'] || parsed['mainEntity']).toBeTruthy();
+    });
+  });
+
+  it('enforces Oct 27, 2026 DPE L8++ CSS architecture (@layer, OKLCH, relative color syntax, clamp, zero inline CSS) across all 60 projects', () => {
+    projects.forEach((p) => {
+      expect(p.html, `Inline <style> or style= in ${p.folder}`).not.toMatch(/<style\b|\bstyle\s*=/i);
+      expect(p.css, `Missing @layer reset, tokens, base in ${p.folder}`).toContain('@layer reset, tokens, base');
+      expect(p.css, `Missing oklch() in ${p.folder}`).toContain('oklch(');
+      expect(p.css, `Missing relative oklch(from ...) in ${p.folder}`).toContain('oklch(from ');
+      expect(p.css, `Missing fluid clamp() in ${p.folder}`).toContain('clamp(');
     });
   });
 

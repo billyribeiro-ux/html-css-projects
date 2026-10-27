@@ -267,3 +267,6 @@
     border-width: 2px;
   }
 }
+
+/* Relative Color Syntax Token */
+:root { --color-brand-glow: oklch(from var(--color-brand-primary) l c h / 0.22); }

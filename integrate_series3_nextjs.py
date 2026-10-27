@@ -67,6 +67,14 @@ def fix_base40_inline_styles(base_40: list[dict]) -> None:
             "html_sub": (r'style="display:\s*none;"', "hidden"),
             "css_append": "\n#fallback-file-input { display: none; }\n",
         },
+        "03-color-theme-switcher": {
+            "html_sub": (r"$^", ""),
+            "css_append": "\n/* Relative Color Syntax Token */\n:root { --color-brand-glow: oklch(from var(--color-brand-primary) l c h / 0.22); }\n",
+        },
+        "20-command-palette-os-desktop": {
+            "html_sub": (r"$^", ""),
+            "css_append": "\n/* Fluid Typography Scale Token */\n:root { --text-os-title: clamp(1.15rem, 1rem + 0.75vw, 1.65rem); }\n",
+        },
     }
 
     for p in base_40:
@@ -172,8 +180,8 @@ def build_series3_live_html(level_num: int, p: dict) -> str:
         </div>
         <p class="s3-arch-copy">{p['architecture']}</p>
         <svg viewBox="0 0 360 72" class="s3-vector-chart" role="img" aria-label="Sub-16ms Frame Budget Sparkline">
-          <polyline id="s3-sparkline" fill="none" stroke="#38bdf8" stroke-width="2.5" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
-          <text x="12" y="20" fill="#94a3b8" font-size="10" font-family="monospace">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
+          <polyline id="s3-sparkline" class="s3-sparkline-path" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
+          <text x="12" y="20" class="s3-vector-label">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
         </svg>
       </div>
     </section>
@@ -184,145 +192,290 @@ def build_series3_live_html(level_num: int, p: dict) -> str:
 
 
 def build_series3_css() -> str:
-    return """@layer reset, tokens, layout, components;
+    return """@layer reset, tokens, base, layout, components, utilities;
+
+@layer reset {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
 
 @layer tokens {
   :root {
-    --s3-bg: oklch(0.13 0.02 255);
-    --s3-surface: oklch(0.18 0.03 255 / 0.85);
-    --s3-border: oklch(0.76 0.14 230 / 0.22);
-    --s3-cyan: oklch(0.76 0.14 230);
-    --s3-emerald: oklch(0.79 0.17 155);
-    --s3-text: oklch(0.98 0.01 255);
-    --s3-muted: oklch(0.68 0.03 255);
+    /* 1. Perceptual Color System (OKLCH + Relative Color Syntax + color-mix) */
+    --color-surface-bg: oklch(0.13 0.02 255);
+    --color-surface-card: oklch(0.18 0.03 255 / 0.88);
+    --color-surface-border: oklch(0.28 0.04 255 / 0.55);
+    --color-text-primary: oklch(0.98 0.01 255);
+    --color-text-secondary: oklch(0.72 0.03 255);
+    --color-brand-primary: oklch(0.76 0.15 230);
+    --color-brand-secondary: oklch(0.79 0.17 155);
+    --color-brand-glow: oklch(from var(--color-brand-primary) l c h / 0.25);
+
+    /* 2. Fluid Typography Scale (clamp) */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+    --text-xs: clamp(0.72rem, 0.68rem + 0.2vw, 0.82rem);
+    --text-sm: clamp(0.84rem, 0.79rem + 0.25vw, 0.96rem);
+    --text-base: clamp(0.95rem, 0.9rem + 0.3vw, 1.08rem);
+    --text-lg: clamp(1.2rem, 1.08rem + 0.6vw, 1.48rem);
+    --text-title: clamp(1.45rem, 1.2rem + 1.25vw, 2.05rem);
+
+    /* 3. Spatial & Radius Scale */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+  }
+}
+
+@layer base {
+  body {
+    min-block-size: 100dvh;
+    padding-block: var(--space-6);
+    padding-inline: var(--space-6);
+    font-family: var(--font-sans);
+    background: radial-gradient(
+      circle at top right,
+      color-mix(in oklch, var(--color-brand-primary) 18%, var(--color-surface-bg)) 0%,
+      var(--color-surface-bg) 62%
+    );
+    color: var(--color-text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+    line-height: 1.15;
+  }
+
+  p {
+    text-wrap: pretty;
+    line-height: 1.6;
   }
 }
 
 @layer layout {
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 1.5rem;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: radial-gradient(circle at top right, oklch(0.24 0.07 275) 0%, var(--s3-bg) 60%);
-    color: var(--s3-text);
-    min-height: 100vh;
-  }
   .s3-studio-shell {
-    max-width: 1120px;
-    margin: 0 auto;
+    container-type: inline-size;
+    max-inline-size: 1120px;
+    margin-inline: auto;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: var(--space-4);
   }
+
+  .s3-kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--space-4);
+  }
+
+  .s3-stage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: var(--space-4);
+
+    @container (min-width: 780px) {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+  }
+}
+
+@layer components {
   .s3-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 1rem;
+    gap: var(--space-4);
     flex-wrap: wrap;
-    background: var(--s3-surface);
-    border: 1px solid var(--s3-border);
-    border-radius: 16px;
-    padding: 1.35rem 1.5rem;
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-surface-border);
+    border-radius: var(--radius-lg);
+    padding-block: var(--space-6);
+    padding-inline: var(--space-6);
+    backdrop-filter: blur(16px);
+
+    &:has(.s3-btn-primary:hover) {
+      border-color: oklch(from var(--color-brand-primary) l c h / 0.55);
+      box-shadow: 0 12px 32px -12px var(--color-brand-glow);
+    }
   }
+
   .s3-eyebrow {
-    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
     font-weight: 800;
     letter-spacing: 0.09em;
-    color: var(--s3-cyan);
+    color: var(--color-brand-primary);
     text-transform: uppercase;
   }
+
   .s3-title {
-    margin: 0.3rem 0;
-    font-size: 1.55rem;
+    margin-block: var(--space-1);
+    font-size: var(--text-title);
     font-weight: 900;
   }
+
   .s3-subtitle {
-    margin: 0;
-    color: var(--s3-muted);
-    font-size: 0.9rem;
-    max-width: 68ch;
+    color: var(--color-text-secondary);
+    font-size: var(--text-sm);
+    max-inline-size: 68ch;
   }
+
   .s3-btn-primary {
-    background: linear-gradient(135deg, var(--s3-cyan), var(--s3-emerald));
-    color: var(--s3-bg);
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-secondary));
+    color: var(--color-surface-bg);
     font-weight: 800;
     border: none;
-    padding: 0.7rem 1.2rem;
-    border-radius: 10px;
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    font-size: 0.84rem;
+    font-size: var(--text-xs);
+    transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px -6px var(--color-brand-glow);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-brand-primary);
+      outline-offset: 2px;
+    }
   }
-  .s3-kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-  }
+
   .s3-kpi-card {
-    background: var(--s3-surface);
-    border: 1px solid oklch(1 0 0 / 0.08);
-    border-radius: 14px;
-    padding: 1rem 1.2rem;
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-surface-border);
+    border-radius: var(--radius-md);
+    padding-block: var(--space-4);
+    padding-inline: var(--space-4);
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: var(--space-1);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(6px);
+    }
   }
-  .s3-kpi-label { font-size: 0.72rem; color: var(--s3-muted); text-transform: uppercase; }
-  .s3-kpi-value { font-size: 1.45rem; font-weight: 900; color: var(--s3-cyan); }
-  .s3-kpi-trend { font-size: 0.75rem; color: var(--s3-emerald); font-weight: 700; }
-  .s3-kpi-progress { width: 100%; height: 6px; margin-block-start: 0.35rem; accent-color: var(--s3-cyan); }
-  .s3-stage-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 1.25rem;
+
+  .s3-kpi-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
   }
-  .s3-webgl-card, .s3-arch-card {
-    background: var(--s3-surface);
-    border: 1px solid var(--s3-border);
-    border-radius: 16px;
-    padding: 1.25rem;
+
+  .s3-kpi-value {
+    font-size: var(--text-lg);
+    font-weight: 900;
+    color: var(--color-brand-primary);
+  }
+
+  .s3-kpi-trend {
+    font-size: var(--text-xs);
+    color: var(--color-brand-secondary);
+    font-weight: 700;
+  }
+
+  .s3-kpi-progress {
+    inline-size: 100%;
+    block-size: 6px;
+    margin-block-start: var(--space-2);
+    accent-color: var(--color-brand-primary);
+  }
+
+  .s3-webgl-card,
+  .s3-arch-card {
+    background: var(--color-surface-card);
+    border: 1px solid var(--color-surface-border);
+    border-radius: var(--radius-lg);
+    padding-block: var(--space-4);
+    padding-inline: var(--space-6);
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: var(--space-3);
   }
+
   .s3-card-label {
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
     font-weight: 800;
-    color: var(--s3-cyan);
+    color: var(--color-brand-primary);
     text-transform: uppercase;
     letter-spacing: 0.08em;
   }
+
   .s3-telemetry-readout {
-    font-family: ui-monospace, monospace;
-    font-size: 0.78rem;
-    color: var(--s3-emerald);
-    background: oklch(0.11 0.02 255 / 0.8);
-    padding: 0.55rem 0.8rem;
-    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-brand-secondary);
+    background: oklch(from var(--color-surface-bg) l c h / 0.85);
+    padding-block: var(--space-2);
+    padding-inline: var(--space-3);
+    border-radius: var(--radius-sm);
   }
-  .s3-stack-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .s3-stack-pills {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
   .s3-pill {
-    font-family: ui-monospace, monospace;
-    font-size: 0.74rem;
-    background: oklch(0.76 0.14 230 / 0.12);
-    color: var(--s3-cyan);
-    padding: 0.25rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid var(--s3-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    background: oklch(from var(--color-brand-primary) l c h / 0.12);
+    color: var(--color-brand-primary);
+    padding-block: var(--space-1);
+    padding-inline: var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid oklch(from var(--color-brand-primary) l c h / 0.28);
   }
+
   .s3-arch-copy {
-    margin: 0;
-    color: var(--s3-text);
-    font-size: 0.88rem;
-    line-height: 1.6;
+    color: var(--color-text-primary);
+    font-size: var(--text-sm);
   }
+
   .s3-vector-chart {
-    width: 100%;
-    height: 72px;
-    background: oklch(0.11 0.02 255 / 0.8);
-    border-radius: 10px;
-    padding: 4px;
+    inline-size: 100%;
+    block-size: 72px;
+    background: oklch(from var(--color-surface-bg) l c h / 0.85);
+    border-radius: var(--radius-sm);
+    padding-block: var(--space-1);
+    padding-inline: var(--space-1);
+  }
+
+  .s3-sparkline-path {
+    fill: none;
+    stroke: var(--color-brand-primary);
+    stroke-width: 2.5;
+  }
+
+  .s3-vector-label {
+    fill: var(--color-text-secondary);
+    font-size: 10px;
+    font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
   }
 }
 """

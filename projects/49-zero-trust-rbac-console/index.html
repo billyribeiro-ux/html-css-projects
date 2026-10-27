@@ -77,8 +77,8 @@
         </div>
         <p class="s3-arch-copy">Encodes fine-grained IAM capabilities as powers-of-two bitflags (`READ_TELEMETRY = 1 << 0`, `MUTATE_SCHEMA = 1 << 1`, `ROTATE_KEYS = 1 << 2`, `EXPORT_PII = 1 << 3`). Verifies authorization in O(1) CPU cycles via `(roleMask & requiredFlag) === requiredFlag` while persisting normalized `IamRole`, `IamPermissionGrant`, and `SecurityAuditEntry` tables in Prisma v6.</p>
         <svg viewBox="0 0 360 72" class="s3-vector-chart" role="img" aria-label="Sub-16ms Frame Budget Sparkline">
-          <polyline id="s3-sparkline" fill="none" stroke="#38bdf8" stroke-width="2.5" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
-          <text x="12" y="20" fill="#94a3b8" font-size="10" font-family="monospace">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
+          <polyline id="s3-sparkline" class="s3-sparkline-path" points="10,54 60,40 110,44 160,22 210,28 260,16 310,20 350,10" />
+          <text x="12" y="20" class="s3-vector-label">INP &lt; 4.2ms • ZERO ANY • PRISMA V6 ATOMIC TRANSACTION</text>
         </svg>
       </div>
     </section>
